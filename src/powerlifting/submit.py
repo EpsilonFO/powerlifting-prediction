@@ -1,15 +1,15 @@
-"""Phase 6 : génération et contrôle des fichiers de soumission (`id,TotalKg`)."""
+"""Génération et contrôle des fichiers de soumission (`id,TotalKg`)."""
 
 import numpy as np
 import pandas as pd
 
-from config import ID, SUB_DIR, TARGET
+from powerlifting.config import ID, SUB_DIR, TARGET
 
 MIN_KG, MAX_KG = 20.0, 1400.0
 
 
 def check_submission(sub: pd.DataFrame, sample: pd.DataFrame) -> None:
-    """Contrôles du plan : même nombre de lignes et mêmes ids que sample_submission, aucun NaN,
+    """Contrôles : même nombre de lignes et mêmes ids que sample_submission, aucun NaN,
     prédictions plausibles. Lève AssertionError au premier défaut."""
     assert list(sub.columns) == list(sample.columns), f"colonnes {list(sub.columns)} != {list(sample.columns)}"
     assert len(sub) == len(sample), f"{len(sub)} lignes au lieu de {len(sample)}"

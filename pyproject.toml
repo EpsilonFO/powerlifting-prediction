@@ -1,7 +1,7 @@
 [project]
 name = "regression"
 version = "0.1.0"
-description = "Add your description here"
+description = "Data challenge M2 : régression de TotalKg (powerlifting), stacking de 37 modèles"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -25,6 +25,16 @@ dev = [
     "pytest>=9.1.1",
 ]
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/powerlifting"]
+
+[tool.ruff]
+line-length = 120
+
 [tool.pytest.ini_options]
-pythonpath = ["."]
+pythonpath = ["src", "."]
 testpaths = ["tests"]

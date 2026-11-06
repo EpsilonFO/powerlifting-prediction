@@ -1,9 +1,9 @@
-"""Briques PyTorch du MLP tabulaire (M7), partagées par `models.py` et la recherche d'architecture DRAGON
-(`dragon/search.py`). Ce module ne dépend que de numpy et torch pour tourner aussi dans l'environnement
+"""Briques PyTorch du MLP tabulaire (M7), partagées par `models/neural.py` et la recherche d'architecture DRAGON
+(`external/dragon/search.py`). Ce module ne dépend que de numpy et torch pour tourner aussi dans l'environnement
 séparé de DRAGON (qui impose numpy < 2).
 
 Entrée des réseaux : une seule matrice float `[codes des catégories | numériques standardisées | indicatrices
-de manquants]`, construite par `models.nn_arrays`.
+de manquants]`, construite par `models.neural.nn_arrays`.
 """
 
 import copy

@@ -1,4 +1,4 @@
-"""Phase 5 : moyenne pondérée (poids optimisés sur les OOF) puis stacking Ridge.
+"""Ensemble (journal, étapes 10 et 19) : moyenne pondérée (poids optimisés sur les OOF) puis stacking Ridge.
 
 Les estimations de RMSE de l'ensemble sont *honnêtes* : les poids (ou le méta-modèle) sont appris sur
 4 plis d'OOF et évalués sur le 5e (validation imbriquée), pour ne pas biaiser la mesure.
@@ -12,9 +12,10 @@ import pandas as pd
 from scipy.optimize import minimize
 from sklearn.linear_model import Ridge
 
-from config import N_FOLDS, OOF_DIR, PRED_DIR, TARGET
-from cv import _result, log_experiment, rmse
-from submit import write_submission
+from powerlifting.config import N_FOLDS, OOF_DIR, PRED_DIR, TARGET
+from powerlifting.cv import rmse
+from powerlifting.experiment_log import log_experiment, make_result
+from powerlifting.submit import write_submission
 
 
 def load_predictions(names: list[str]) -> tuple[np.ndarray, np.ndarray]:
@@ -89,7 +90,7 @@ def save_ensemble(name: str, honest: np.ndarray, pred: np.ndarray, y, folds, n_m
     np.save(OOF_DIR / f"{name}.npy", honest)
     np.save(PRED_DIR / f"{name}.npy", pred)
     scores = [rmse(y[folds == k], honest[folds == k]) for k in range(N_FOLDS)]
-    log_experiment(_result(name, "ensemble", "-", "keep", 1, n_models, scores, 0.0))
+    log_experiment(make_result(name, "ensemble", "-", "keep", 1, n_models, scores, 0.0))
 
 
 def run_ensemble(names: list[str], train, test, sample, F_tr, F_te, folds, contrib: bool = False) -> dict:

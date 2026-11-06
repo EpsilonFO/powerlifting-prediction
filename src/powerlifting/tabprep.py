@@ -2,7 +2,7 @@
 `groupby.py` et `arithmetic/` réimplémentés en numpy / pandas). Journal, étape 26 : seuls les GroupBy relatifs sur
 les catégorielles larges et l'arithmétique (OAFE) sur les 3 numériques brutes aident, ajoutés aux features v2.
 
-Statistiques apprises sur le train du pli uniquement (pas de cible). Utilisé par `models.lgbm_fn` (`tabprep=true`).
+Statistiques apprises sur le train du pli uniquement (pas de cible). Utilisé par `models.boosting.lgbm_fn` (`tabprep=true`).
 """
 
 from itertools import combinations, product
@@ -10,7 +10,7 @@ from itertools import combinations, product
 import numpy as np
 import pandas as pd
 
-from features import RAW_CATS
+from powerlifting.features import RAW_CATS
 
 RAW_NUMS = ["Age", "BodyweightKg", "MeetYear"]
 GB_CATS = RAW_CATS + ["Sex_Equip", "Equip_Tested"]

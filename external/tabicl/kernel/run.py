@@ -1,7 +1,11 @@
 """TabICLv2 (Qu et al.), cible C, 10 sous-plis emboîtés, un sous-pli après l'autre sur un GPU T4 Kaggle (script lancé par
-`kaggle kernels push -p tabicl/kernel`, entrées : dataset produit par `tabicl/export.py`, voir README).
+`kaggle kernels push -p external/tabicl/kernel`, entrées : dataset produit par `external/tabicl/export.py`, voir README).
 Sorties : /kaggle/working/tabicl10_C_sub{j}.npz (pred_va, pred_te en kg, va)."""
-import glob, json, os, subprocess, sys, time
+import glob
+import os
+import subprocess
+import sys
+import time
 
 root = os.path.dirname(glob.glob("/kaggle/input/**/base.npz", recursive=True)[0])
 if len(sys.argv) == 1:  # processus parent : installe puis lance le worker
@@ -12,8 +16,10 @@ if len(sys.argv) == 1:  # processus parent : installe puis lance le worker
     print("code de sortie :", p.returncode, flush=True)
     sys.exit(0)
 
-import numpy as np, torch
+import numpy as np
+import torch
 from tabicl import TabICLRegressor
+
 os.makedirs("/kaggle/tmp/offload", exist_ok=True)
 d = np.load(f"{root}/base.npz", allow_pickle=True); te = np.load(f"{root}/te10.npy", mmap_mode="r")
 m = np.load(f"{root}/meta.npz", allow_pickle=True); split = np.load(f"{root}/split10.npy")

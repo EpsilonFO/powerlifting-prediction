@@ -1,6 +1,8 @@
+"""Chemins et constantes du projet."""
+
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[2]  # src/powerlifting/config.py -> racine du dépôt
 DATA_DIR = ROOT / "data"
 OUT_DIR = ROOT / "outputs"
 OOF_DIR = OUT_DIR / "oof"
@@ -8,7 +10,7 @@ PRED_DIR = OUT_DIR / "preds"
 SUB_DIR = OUT_DIR / "submissions"
 PARAM_DIR = OUT_DIR / "params"
 FIG_DIR = OUT_DIR / "figures"
-NN_DATA_DIR = OUT_DIR / "nn_data"  # matrices exportées pour la recherche DRAGON (non versionnées)
+NN_DATA_DIR = OUT_DIR / "nn_data"  # matrices exportées pour DRAGON (external/dragon, non versionnées)
 FOLDS_FILE = DATA_DIR / "folds.csv"
 EXPERIMENTS_FILE = OUT_DIR / "experiments.csv"
 

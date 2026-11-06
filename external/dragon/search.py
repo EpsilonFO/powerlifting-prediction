@@ -1,19 +1,19 @@
 """Recherche d'architecture du MLP avec DRAGON (algorithme Mutant-UCB).
 
-Tourne dans l'environnement séparé dragon/ (DRAGON impose numpy < 2) ; les données arrivent déjà prétraitées :
+Tourne dans l'environnement séparé external/dragon/ (DRAGON impose numpy < 2) ; les données arrivent déjà prétraitées :
 
     uv run main.py export-nn --target C                                # matrices des 5 plis (projet principal)
-    uv run --project dragon python dragon/search.py search --iters 400 # recherche sur le pli 0
-    uv run --project dragon python dragon/search.py final --seeds 5    # ré-entraîne les meilleures, 5 plis
+    uv run --project external/dragon python external/dragon/search.py search --iters 400  # recherche sur le pli 0
+    uv run --project external/dragon python external/dragon/search.py final --seeds 5     # ré-entraîne les meilleures, 5 plis
     uv run main.py register dragon_C --seeds 5                         # journal + soumission (projet principal)
 
-Espace de recherche : l'entrée (embeddings + PLR, `tabnn.TabularInput`) et la sortie (Linear -> 1) sont fixes ;
+Espace de recherche : l'entrée (embeddings + PLR, `powerlifting.nets.mlp.TabularInput`) et la sortie (Linear -> 1) sont fixes ;
 DRAGON cherche le graphe acyclique entre les deux (nœuds : couche dense, normalisation, dropout ou identité ;
 entrées combinées par somme, produit ou concaténation ; activation de chaque nœud) ainsi que le learning rate.
 
 Mutant-UCB : chaque évaluation est un entraînement partiel de EPOCHS_PER_EVAL époques qui reprend les poids de la
 configuration (stockés dans ses nœuds) ; une mutation hérite des poids de son parent. Les architectures et leurs
-scores sont journalisés dans dragon/runs/archs.jsonl, et `final` ré-entraîne les meilleures depuis zéro.
+scores sont journalisés dans external/dragon/runs/archs.jsonl, et `final` ré-entraîne les meilleures depuis zéro.
 """
 
 import argparse
@@ -28,10 +28,8 @@ import numpy as np
 import torch
 from torch import nn
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
-from tabnn import TabularInput, fit, predict, weighted_rmse  # noqa: E402
-
+ROOT = Path(__file__).resolve().parents[2]  # external/dragon/search.py -> racine du dépôt
+sys.path.insert(0, str(ROOT / "src"))  # seul powerlifting.nets.mlp est importé (numpy + torch, sans pandas)
 from dragon.search_algorithm.mutant_ucb import Mutant_UCB  # noqa: E402
 from dragon.search_operators.base_neighborhoods import ArrayInterval, ConstantInterval, FloatInterval  # noqa: E402
 from dragon.search_space.base_variables import ArrayVar, Constant, FloatVar  # noqa: E402
@@ -39,8 +37,10 @@ from dragon.search_space.bricks import MLP  # noqa: E402
 from dragon.search_space.bricks_variables import dag_var, dropout, identity_var, mlp_var, norm_1d, operations_var  # noqa: E402
 from dragon.search_space.dag_encoding import AdjMatrix, Brick, Node  # noqa: E402
 
+from powerlifting.nets.mlp import TabularInput, fit, predict, weighted_rmse  # noqa: E402
+
 DATA_DIR = ROOT / "outputs" / "nn_data"
-RUN_DIR = ROOT / "dragon" / "runs"
+RUN_DIR = ROOT / "external" / "dragon" / "runs"
 ARCH_DIR = RUN_DIR / "archs"
 ARCH_LOG = RUN_DIR / "archs.jsonl"
 PLR = {"sigma": 0.1}  # réglage retenu pour le MLP (outputs/params/mlp.json)

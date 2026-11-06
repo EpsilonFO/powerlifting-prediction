@@ -1,7 +1,7 @@
-"""TabM (Gorishniy, Kotelnikov, Babenko, ICLR 2025), journal étape 26. Appelé par `models.tabm_fn`, mêmes entrées
-que `mlp_fn`. Module séparé de `tabnn.py`, qui doit rester sans dépendance pour DRAGON.
+"""TabM (Gorishniy, Kotelnikov, Babenko, ICLR 2025), journal étape 26. Appelé par `models.neural.tabm_fn`, mêmes entrées
+que `mlp_fn`. Module séparé de `nets/mlp.py`, qui doit rester sans dépendance pour DRAGON.
 
-Entrées : `models._with_te` (target encoding appris dans le pli, optionnel) puis `models.nn_arrays`
+Entrées : `models.common.with_te` (target encoding appris dans le pli, optionnel) puis `models.neural.nn_arrays`
 (codes des catégories | numériques écrêtées et standardisées | indicatrices de manquants).
 
 Réseau : [plongement des continues (PLE version B, ou périodique) | numériques restantes brutes |
@@ -17,11 +17,10 @@ import resource
 import time
 
 import numpy as np
-import torch
-from torch import nn
-
 import rtdl_num_embeddings as rne
 import tabm
+import torch
+from torch import nn
 
 
 class OneHot(nn.Module):
@@ -98,7 +97,8 @@ def _wrmse(p, y, w):
 def fit_tabm(Xtr, ytr, wtr, Xva, yva, wva, Xte, p):
     """Paramètres (p) : te, min_count, device, lr, weight_decay, batch_size, max_epochs, patience, seed,
     + ceux de TabMNet (k, n_blocks, d_block, dropout, emb, n_bins, d_emb, sigma, n_freq, cat, arch)."""
-    from models import _with_te, nn_arrays
+    from powerlifting.models.common import with_te
+    from powerlifting.models.neural import nn_arrays
 
     p = dict(p)
     torch.set_num_threads(p.pop("threads", 2))
@@ -108,7 +108,7 @@ def fit_tabm(Xtr, ytr, wtr, Xva, yva, wva, Xte, p):
     seed, min_count, log = p.pop("seed", 42), p.pop("min_count", 5), p.pop("log", print)
     hist = p.pop("history", None)
     if p.pop("te", True):
-        Xtr, Xva, Xte = _with_te(Xtr, ytr, Xva, Xte)
+        Xtr, Xva, Xte = with_te(Xtr, ytr, Xva, Xte)
     Atr, Ava, Ate, cards, cont_idx = nn_arrays(Xtr, Xva, Xte, min_count)
     Atr, Ava, Ate = torch.from_numpy(Atr), torch.from_numpy(Ava), torch.from_numpy(Ate)
     n_cat = len(cards)

@@ -1,4 +1,4 @@
-"""Phase 4 : tuning Optuna des GBM et des forêts sur les plis fixes (learning rate élevé ou forêt réduite pour aller
+"""Tuning Optuna des GBM et des forêts sur les plis fixes (learning rate élevé ou forêt réduite pour aller
 vite ; la version finale se réentraîne avec le learning rate / nombre d'arbres du modèle).
 
 Les plis 3 et 4 ne servent jamais au tuning (par défaut `n_folds=3`) : comparer les scores sur ces deux plis
@@ -14,8 +14,8 @@ import time
 
 import optuna
 
-from config import PARAM_DIR
-from cv import prepare, run_cv
+from powerlifting.config import PARAM_DIR
+from powerlifting.cv import prepare, run_cv
 
 
 def _lgbm_space(t: optuna.Trial) -> dict:

@@ -1,18 +1,19 @@
-"""Section « Vérification » du plan : plis, absence de fuite, cohérence OOF/journal, soumissions, repères."""
+"""Tests du pipeline : plis, absence de fuite, cohérence OOF/journal, soumissions, repères."""
 
 import numpy as np
 import pandas as pd
 import pytest
 
-import submit
-from config import ID, N_FOLDS, OOF_DIR, TARGET
-from cv import make_folds, read_log, rmse, run_cv
-from features import ResidualTargetEncoder, TargetTransform, build_features
+from powerlifting import submit
+from powerlifting.config import ID, N_FOLDS, OOF_DIR, TARGET
+from powerlifting.cv import make_folds, rmse, run_cv
+from powerlifting.experiment_log import read_log
+from powerlifting.features import ResidualTargetEncoder, TargetTransform, build_features
 
 
 @pytest.fixture(scope="module")
 def data():
-    from data import load_data
+    from powerlifting.data import load_data
 
     train, test, sample = load_data()
     F_tr, F_te = build_features(train, test)
@@ -34,7 +35,7 @@ def test_folds_partition_the_train_set(data):
 
 
 def test_subfolds_are_nested_in_the_reference_folds(data):
-    from cv import make_subfolds
+    from powerlifting.cv import make_subfolds
 
     train = data[0]
     folds = make_folds(train)
@@ -82,8 +83,8 @@ def test_target_encoding_never_uses_the_row_own_target(data):
 def test_nn_arrays_are_fitted_on_the_training_fold(data):
     """Matrices des réseaux (partagées avec DRAGON) : pas de NaN, codes < cardinalité, et une fédération absente du
     train est codée 0 (« rare / inconnue ») : le vocabulaire ne voit pas la validation."""
-    from features import CAT_COLS
-    from models import nn_arrays
+    from powerlifting.features import CAT_COLS
+    from powerlifting.models.neural import nn_arrays
 
     _, _, _, F_tr, F_te = data
     Xtr, Xva = F_tr.iloc[:20000].reset_index(drop=True), F_tr.iloc[20000:40000].reset_index(drop=True)
@@ -139,7 +140,7 @@ def test_oof_files_match_the_experiment_log(data):
 
 
 def test_reference_scores(data):
-    """Repères du plan : constante ≈ 171, HGB brut ≈ 79."""
+    """Repères : constante ≈ 171, HGB brut ≈ 79."""
     train, test, _, F_tr, F_te = data
     folds = make_folds(train)
     const = run_cv("test_const", "const", train, test, F_tr, F_te, folds, save=False, verbose=False)
@@ -193,7 +194,7 @@ def test_write_submission_reorders_and_clips(data, tmp_path, monkeypatch):
 def test_duplicates_are_replaced_by_the_reference_mean_only(data):
     """Une ligne identique à des lignes de référence reçoit leur moyenne ; les autres gardent leur prédiction, et la
     cible de la ligne elle-même n'intervient jamais (seules les lignes de référence sont utilisées)."""
-    from postprocess import replace_duplicates, row_keys
+    from powerlifting.postprocess import replace_duplicates, row_keys
 
     train = data[0]
     ref = train.iloc[[0, 0, 1]]  # deux lignes de référence identiques à la requête 0
@@ -210,7 +211,7 @@ def test_duplicates_are_replaced_by_the_reference_mean_only(data):
 def test_tabprep_statistics_come_from_the_training_fold_only(data):
     """Variables relatives TabPrep : 345 colonnes alignées sur les index, et modifier des lignes de validation ne
     change ni les colonnes du train ni celles des autres lignes de validation (statistiques figées sur le train)."""
-    from tabprep import tabprep_features
+    from powerlifting.tabprep import tabprep_features
 
     _, _, _, F_tr, F_te = data
     Xtr, Xva = F_tr.iloc[:20000].reset_index(drop=True), F_tr.iloc[20000:30000].reset_index(drop=True)
@@ -226,8 +227,8 @@ def test_tabprep_statistics_come_from_the_training_fold_only(data):
 
 
 def test_submitted_ensemble_members_have_predictions():
-    from config import PRED_DIR
-    from recipes import ENSEMBLE
+    from powerlifting.config import PRED_DIR
+    from powerlifting.recipes import ENSEMBLE
 
     assert len(ENSEMBLE) == len(set(ENSEMBLE)) == 37
     for n in ENSEMBLE:
@@ -239,8 +240,8 @@ def test_recipes_point_to_known_models():
     import shlex
 
     from main import build_parser
-    from models import MODELS
-    from recipes import RECIPES
+    from powerlifting.models import MODELS
+    from powerlifting.recipes import RECIPES
 
     parser = build_parser()
     for name, args in RECIPES.items():

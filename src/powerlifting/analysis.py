@@ -1,4 +1,4 @@
-"""Phase 7 : importance des features (gain, permutation, SHAP), dépendances partielles, résidus par segment."""
+"""Analyse (journal, étape 11) : importance des features (gain, permutation, SHAP), dépendances partielles, résidus par segment."""
 
 import matplotlib
 
@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
-from config import FIG_DIR, OOF_DIR, OUT_DIR, SEED, TARGET  # noqa: E402
-from cv import prepare, rmse  # noqa: E402
-from features import ResidualTargetEncoder, build_features  # noqa: E402
-from models import MODELS  # noqa: E402
+from powerlifting.config import FIG_DIR, OOF_DIR, OUT_DIR, SEED, TARGET  # noqa: E402
+from powerlifting.cv import prepare, rmse  # noqa: E402
+from powerlifting.features import ResidualTargetEncoder, build_features  # noqa: E402
+from powerlifting.models import MODELS  # noqa: E402
 
 
 def residual_tables(train: pd.DataFrame, oof: np.ndarray) -> None:
@@ -29,7 +29,8 @@ def residual_tables(train: pd.DataFrame, oof: np.ndarray) -> None:
 
 def _fit_lgbm_fold0(train, F_tr, folds, y):
     import lightgbm as lgb
-    from cv import load_params
+
+    from powerlifting.cv import load_params
 
     tr, va = np.where(folds != 0)[0], np.where(folds == 0)[0]
     Xtr, Xva = F_tr.iloc[tr].reset_index(drop=True), F_tr.iloc[va].reset_index(drop=True)

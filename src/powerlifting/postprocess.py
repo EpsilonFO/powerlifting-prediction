@@ -11,9 +11,10 @@ RMSE OOF obtenue est donc honnête et directement comparable aux autres expérie
 import numpy as np
 import pandas as pd
 
-from config import N_FOLDS, OOF_DIR, PRED_DIR, TARGET
-from cv import _result, log_experiment, read_log, rmse
-from features import RAW_FEATURES
+from powerlifting.config import N_FOLDS, OOF_DIR, PRED_DIR, TARGET
+from powerlifting.cv import rmse
+from powerlifting.experiment_log import log_experiment, make_result, read_log
+from powerlifting.features import RAW_FEATURES
 
 
 def row_keys(df: pd.DataFrame) -> np.ndarray:
@@ -50,7 +51,7 @@ def dedup_experiment(name: str, train: pd.DataFrame, test: pd.DataFrame, folds: 
     np.save(PRED_DIR / f"{new}.npy", pred)
     src = read_log().set_index("name").loc[name]
     scores = [rmse(y[folds == k], new_oof[folds == k]) for k in range(N_FOLDS)]
-    result = _result(new, src["model"], src["target"], src["outliers"], src["seeds"], src["n_features"], scores, 0.0)
+    result = make_result(new, src["model"], src["target"], src["outliers"], src["seeds"], src["n_features"], scores, 0.0)
     log_experiment(result)
     print(f"  [{new}] lignes remplacées : {n_oof} en CV, {hit_te.sum()} / {len(test)} en test")
     print(f"  [{new}] CV RMSE = {result['cv_rmse']:.3f} (avant : {src['cv_rmse']:.3f})  plis {result['fold_rmse']}")

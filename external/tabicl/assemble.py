@@ -1,7 +1,7 @@
 """Assemble les 10 sorties du kernel Kaggle (tabicl10_C_sub{j}.npz) en prédictions OOF et test du projet :
 outputs/oof/tabicl_C_k10.npy et outputs/preds/tabicl_C_k10.npy (en kg). Ensuite :
 
-    uv run python tabicl/assemble.py tabicl/out
+    uv run python external/tabicl/assemble.py external/tabicl/out
     uv run main.py register tabicl_C_k10 --model tabicl --target C
 """
 
@@ -10,8 +10,8 @@ from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from config import OOF_DIR, PRED_DIR  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
+from powerlifting.config import OOF_DIR, PRED_DIR  # noqa: E402
 
 NAME = "tabicl_C_k10"
 

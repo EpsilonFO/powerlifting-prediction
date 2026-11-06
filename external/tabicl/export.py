@@ -1,11 +1,11 @@
-"""Exporte les entrées de TabICLv2 (journal, étape 26) vers tabicl/data/, à envoyer sur un dataset Kaggle privé.
+"""Exporte les entrées de TabICLv2 (journal, étape 26) vers external/tabicl/data/, à envoyer sur un dataset Kaggle privé.
 
-    uv run python tabicl/export.py
+    uv run python external/tabicl/export.py
 
 - base.npz : features v2 sans les catégorielles à forte cardinalité (portées par le target encoding et les
   fréquences), catégorielles restantes en codes entiers (-1 = manquant) ; lignes = train puis test.
 - te10.npy : (10, n_train + n_test, 7) target encoding résiduel appris dans chacun des 10 sous-plis emboîtés
-  (`cv.make_subfolds`, comme `main.py train --folds 10`), sur la cible C comme `models._with_te` : lignes
+  (`powerlifting.cv.make_subfolds`, comme `main.py train --folds 10`), sur la cible C comme `models.common.with_te` : lignes
   d'entraînement encodées par K-fold interne, validation et test par le sous-pli d'entraînement entier.
 - split10.npy : sous-pli de chaque ligne de train ; meta.npz : y (kg), yC (points DOTS), dots_den, plis.
 """
@@ -16,9 +16,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from cv import make_subfolds, prepare  # noqa: E402
-from features import CAT_COLS, TE_COLS, ResidualTargetEncoder  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
+from powerlifting.cv import make_subfolds, prepare  # noqa: E402
+from powerlifting.features import CAT_COLS, TE_COLS, ResidualTargetEncoder  # noqa: E402
 
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parent / "data"
 HIGH_CARD = ["WeightClassKg", "Country", "State", "Federation", "MeetCountry", "MeetState"]

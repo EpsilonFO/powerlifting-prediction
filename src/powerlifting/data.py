@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 # Les fichiers Kaggle sont rangés dans data/ (et non dans ~/.cache) ; à définir avant tout appel à kagglehub.
-from config import COMPETITION, DATA_DIR
+from powerlifting.config import COMPETITION, DATA_DIR
 
 os.environ.setdefault("KAGGLEHUB_CACHE", str(DATA_DIR))
 
@@ -31,10 +31,3 @@ def load_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     sample = pd.read_csv(path / "sample_submission.csv")
     return train, test, sample
 
-
-if __name__ == "__main__":
-    train, test, sample = load_data()
-    print(train.shape, test.shape)
-    print(train.head())
-    print(train.dtypes)
-    print(train.isna().sum())

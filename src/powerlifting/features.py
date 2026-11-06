@@ -1,10 +1,11 @@
-"""Phases 1-3 du plan : nettoyage, feature engineering, transformations de cible, target encoding."""
+"""Prétraitement et features (journal, étapes 4, 5, 8 et 18) : nettoyage, features de domaine, transformations de
+cible, target encoding sans fuite."""
 
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import KFold
 
-from config import SEED, TARGET
+from powerlifting.config import SEED, TARGET
 
 RAW_NUMS = ["Age", "BodyweightKg", "MeetYear"]
 RAW_CATS = [
@@ -65,7 +66,7 @@ V2_ONLY = ["birth_year", "meet_size", "div_size", "wc_size"]
 def use_v1_features() -> None:
     """Revient aux features du 28/09 (v1) pour réentraîner les anciens modèles à l'identique : `Fed_Equip`
     redevient catégorielle et le target encoding de la compétition disparaît. Modifie en place CAT_COLS et
-    TE_COMPOSITES, partagés avec models.py ; à appeler avant `build_features`."""
+    TE_COMPOSITES, partagés avec les modèles ; à appeler avant `build_features`."""
     if "Fed_Equip" not in CAT_COLS:
         CAT_COLS.append("Fed_Equip")
     TE_COMPOSITES.clear()
@@ -79,7 +80,7 @@ def build_features(train: pd.DataFrame, test: pd.DataFrame) -> tuple[pd.DataFram
     df = pd.concat([train.drop(columns=[TARGET]), test], ignore_index=True)
     out = pd.DataFrame(index=df.index)
 
-    # -- Phase 1 : "Unknown" -> NaN + indicatrices
+    # -- Prétraitement : "Unknown" -> NaN + indicatrices
     for c in UNKNOWN_FLAG_COLS:
         out[f"is_unknown_{c}"] = (df[c] == "Unknown").astype("int8")
     wc = df["WeightClassKg"]
@@ -94,7 +95,7 @@ def build_features(train: pd.DataFrame, test: pd.DataFrame) -> tuple[pd.DataFram
     for name, (a, b) in {**INTERACTIONS, **FREQ_INTERACTIONS}.items():
         cats[name] = cats[a] + "_" + cats[b]
 
-    # -- Phase 2 : features de domaine
+    # -- Features de domaine
     age, bw_raw, year = df["Age"], df["BodyweightKg"], df["MeetYear"]
     female = (df["Sex"] == "F").to_numpy()
     raw_eq = df["Equipment"].isin(["Raw", "Wraps"]).to_numpy()
@@ -143,12 +144,12 @@ def build_features(train: pd.DataFrame, test: pd.DataFrame) -> tuple[pd.DataFram
 
 
 def outlier_mask(train: pd.DataFrame) -> np.ndarray:
-    """Lignes du train physiquement improbables (Phase 1, option b) : True = aberrant."""
+    """Lignes du train physiquement improbables (option --outliers drop, journal étape 8) : True = aberrant."""
     ratio = train[TARGET] / train["BodyweightKg"]
     return ((train["BodyweightKg"] < 30) | (ratio < 1.0) | (ratio > 11.5)).to_numpy()
 
 
-# ---------------------------------------------------------------- Phase 3 : cible
+# ---------------------------------------------------------------- cible
 
 class TargetTransform:
     """A : TotalKg brut ; B : log(TotalKg) ; C : points DOTS (TotalKg * 500 / dénominateur DOTS).

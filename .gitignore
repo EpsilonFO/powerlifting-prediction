@@ -22,11 +22,10 @@ outputs/submissions/
 
 # Recherche DRAGON : matrices exportées (régénérées par `main.py export-nn`) et dossiers de recherche
 outputs/nn_data/
-dragon/runs/
+external/dragon/runs/
 
-# TabICL : entrées exportées (régénérées par tabicl/export.py, poids de 109 Mo) et sorties du kernel
-tabicl/data/
-tabicl/out/
+# TabICL : entrées exportées (régénérées par external/tabicl/export.py, poids de 109 Mo) et sorties du kernel
+external/tabicl/out/
 
 # Rapport LaTeX : fichiers de compilation
 rapport/*.aux
@@ -51,3 +50,6 @@ archive/experiments/**/*.npz
 # Documents de travail non versionnés pour l'instant
 rapport/
 plans/
+
+# Journal créé par la bibliothèque DRAGON dans le dossier courant, à chaque import
+logs/

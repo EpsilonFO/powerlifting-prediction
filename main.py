@@ -3,8 +3,8 @@
     train     entraîne un modèle en CV 5 ou 10 plis (OOF + test + fichier de soumission)
     tune      recherche d'hyperparamètres Optuna (lgbm / xgb / cat)
     ensemble  moyenne pondérée + stacking des 37 modèles de recipes.py (déjà entraînés)
-    export-nn exporte les matrices des réseaux pour la recherche DRAGON (dragon/search.py)
-    register  journalise une expérience entraînée ailleurs (DRAGON) et écrit sa soumission
+    export-nn exporte les matrices des réseaux pour la recherche DRAGON (external/dragon/search.py)
+    register  journalise une expérience entraînée ailleurs (DRAGON, TabICL) et écrit sa soumission
     dedup     post-traitement des doublons exacts du train (-> expérience <nom>_dedup)
     analyze   importance des features, résidus par segment, dépendances partielles
     score     saisit le score public Kaggle d'une expérience dans le journal
@@ -31,12 +31,12 @@ def _param(s: str) -> tuple[str, object]:
 def cmd_train(a):
     import numpy as np
 
-    from config import PRED_DIR
-    from cv import load_params, make_subfolds, prepare, run_cv
-    from submit import write_submission
+    from powerlifting.config import PRED_DIR
+    from powerlifting.cv import load_params, make_subfolds, prepare, run_cv
+    from powerlifting.submit import write_submission
 
     if a.features == "v1":
-        from features import use_v1_features
+        from powerlifting.features import use_v1_features
         use_v1_features()
     train, test, sample, F_tr, F_te, folds = prepare()
     split = make_subfolds(train, folds, a.folds // 5) if a.folds != 5 else None
@@ -57,8 +57,8 @@ def _compare_with_saved(name, oof, train):
     """Compare une OOF recalculée à celle de outputs/oof/<name>.npy, sur les lignes recalculées."""
     import numpy as np
 
-    from config import OOF_DIR, TARGET
-    from cv import rmse
+    from powerlifting.config import OOF_DIR, TARGET
+    from powerlifting.cv import rmse
 
     ref = np.load(OOF_DIR / f"{name}.npy")
     rows = ~np.isnan(oof)
@@ -76,8 +76,8 @@ def cmd_reproduce(a):
     import subprocess
     import sys
 
-    from config import ROOT
-    from recipes import RECIPES
+    from powerlifting.config import ROOT
+    from powerlifting.recipes import RECIPES
 
     names = a.names or list(RECIPES)
     unknown = sorted(set(names) - set(RECIPES))
@@ -98,16 +98,15 @@ def cmd_reproduce(a):
 
 
 def cmd_tune(a):
-    from tune import tune
+    from powerlifting.tune import tune
 
     tune(a.model, a.trials, a.folds, a.target, a.outliers)
 
 
 def cmd_ensemble(a):
-    from cv import prepare
-    from ensemble import run_ensemble
-
-    from recipes import ENSEMBLE
+    from powerlifting.cv import prepare
+    from powerlifting.ensemble import run_ensemble
+    from powerlifting.recipes import ENSEMBLE
 
     names = a.models or ENSEMBLE
     print(f"Ensemble de {len(names)} modèles")
@@ -116,7 +115,8 @@ def cmd_ensemble(a):
 
 
 def cmd_export_nn(a):
-    from cv import export_nn_data, prepare
+    from powerlifting.cv import prepare
+    from powerlifting.external import export_nn_data
 
     train, _, _, F_tr, F_te, folds = prepare()
     export_nn_data(train, F_tr, F_te, folds, a.target)
@@ -125,9 +125,10 @@ def cmd_export_nn(a):
 def cmd_register(a):
     import numpy as np
 
-    from config import PRED_DIR
-    from cv import prepare, register_external
-    from submit import write_submission
+    from powerlifting.config import PRED_DIR
+    from powerlifting.cv import prepare
+    from powerlifting.external import register_external
+    from powerlifting.submit import write_submission
 
     train, test, sample, F_tr, _, folds = prepare()
     register_external(a.name, a.model, train, folds, target=a.target, seeds=a.seeds, minutes=a.minutes,
@@ -138,10 +139,10 @@ def cmd_register(a):
 def cmd_dedup(a):
     import numpy as np
 
-    from config import PRED_DIR
-    from cv import prepare
-    from postprocess import dedup_experiment
-    from submit import write_submission
+    from powerlifting.config import PRED_DIR
+    from powerlifting.cv import prepare
+    from powerlifting.postprocess import dedup_experiment
+    from powerlifting.submit import write_submission
 
     train, test, sample, _, _, folds = prepare()
     for name in a.names:
@@ -150,19 +151,19 @@ def cmd_dedup(a):
 
 
 def cmd_analyze(a):
-    from analysis import run_analysis
+    from powerlifting.analysis import run_analysis
 
     run_analysis(a.oof)
 
 
 def cmd_score(a):
-    from cv import record_public_score
+    from powerlifting.experiment_log import record_public_score
 
     record_public_score(a.name, a.score)
 
 
 def cmd_report(a):
-    from cv import read_log
+    from powerlifting.experiment_log import read_log
 
     log = read_log()
     cols = ["name", "model", "target", "outliers", "cv_rmse", "cv_std", "public_score", "minutes"]
