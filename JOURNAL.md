@@ -33,6 +33,7 @@ contraire) et viennent de `outputs/experiments.csv`.
 | 03/11 | Veille 2024-2026 ; TabICLv2, TabM, RealMLP, HL-Gauss, TabPrep évalués hors projet | (76,23 estimé avec 4 nouveaux modèles) |
 | 03/11 | 4 nouveaux modèles intégrés à 10 plis (LightGBM + TabPrep, TabM, RealMLP, TabICLv2) ; ensemble à 37 modèles | **76,075 (public : 76,247, 1er)** |
 | 03/11 | Méta-modèle non linéaire ou contextuel | pas mieux que la Ridge |
+| 06/11 | Nettoyage du code : paquet `src/powerlifting/`, recettes des 37 modèles, archive | soumission identique au bit près |
 
 ---
 
@@ -274,7 +275,7 @@ Configuration retenue : `outputs/params/mlp.json`. Résultat sur 5 plis × 5 see
 Amélioration de 0,5 à 0,8 kg **sur chacun des 5 plis** : le gain est réel. Le MLP dépasse LightGBM par défaut
 (78,08) et se rapproche du meilleur LightGBM tuné (77,49).
 
-## 14. Recherche d'architecture avec DRAGON (19/10) – `dragon/search.py`
+## 14. Recherche d'architecture avec DRAGON (19/10) – `external/dragon/search.py`
 
 *Pourquoi :* tester une méthode d'AutoDL (recherche automatique d'architecture) pour le MLP, plutôt que de fixer
 l'architecture à la main.
@@ -292,7 +293,7 @@ l'architecture à la main.
   **réentraînées depuis zéro** (l'héritage des poids biaise les scores de la recherche), puis la meilleure est
   évaluée sur les 5 plis avec 5 seeds.
 - **Contrainte technique** : DRAGON impose `numpy < 2`, incompatible avec le reste du projet. Il a donc son propre
-  environnement (`dragon/pyproject.toml`) et reçoit des données déjà prétraitées (`main.py export-nn`) ; ses
+  environnement (`external/dragon/pyproject.toml`) et reçoit des données déjà prétraitées (`main.py export-nn`) ; ses
   prédictions sont ensuite journalisées avec `main.py register`.
 - **Point de vigilance pour le rapport** : l'architecture étant choisie sur le pli 0, le score de ce pli est
   légèrement optimiste. Il faut regarder les plis 1 à 4 pour juger.
@@ -333,8 +334,8 @@ rien à l'ensemble (poids nul dans la moyenne pondérée, −0,05 dans le stacki
 - pistes si on voulait insister : budget par évaluation plus long, recherche sur plusieurs plis, ou partir de
   l'architecture de l'étape 13 comme population initiale (option `models` de Mutant-UCB).
 
-Fichiers : `dragon/runs/archs.jsonl` (toutes les évaluations), `dragon/runs/final.log`,
-`dragon/runs/dragon_C_architecture.txt`.
+Fichiers : `external/dragon/runs/archs.jsonl` (toutes les évaluations), `external/dragon/runs/final.log`,
+`external/dragon/runs/dragon_C_architecture.txt`.
 
 ## 15. Ensemble avec le nouveau MLP (19/10)
 
@@ -510,8 +511,8 @@ le meilleur GBM.
 
 ## 20. Cours 5 : diversité et hyperparamètres (31/10) – `tune.py`, `main.py train --set`
 
-Tout est sur les features v2, avec la cible C sauf mention contraire. File de calculs : `logs/queue_cours5.sh` et
-son journal `logs/queue_cours5.log` (≈ 2 h 30, dont 1 h 15 pour le tuning de CatBoost).
+Tout est sur les features v2, avec la cible C sauf mention contraire. File de calculs : `archive/queues/queue_cours5.sh` et
+son journal `archive/logs/queue_cours5.log` (≈ 2 h 30, dont 1 h 15 pour le tuning de CatBoost).
 
 **Hyperparamètres (slides 39-47)** : Optuna (TPE), 40 essais pour LightGBM, 30 pour XGBoost, 20 pour CatBoost,
 évalués sur les plis 0 à 2. **Les plis 3 et 4 n'ont jamais servi au tuning** : comparer avant / après sur ces deux
@@ -569,7 +570,7 @@ poids à XGBoost tuné (0,21), devant LightGBM B v2 (0,18).
   malédiction du vainqueur, tuning utile seulement là où les paramètres étaient loin de l'optimum), mais
   l'ensemble était déjà proche de son plafond. On reste sur la conclusion de l'étape 11 : la limite vient de
   l'information disponible.
-- Sauvegarde : les fichiers de l'ensemble du 21/10 sont dans `outputs/archive_2110/`.
+- Sauvegarde : les fichiers de l'ensemble du 21/10 sont dans `archive/outputs/archive_2110/`.
 
 **Score public de `ensemble_stack_dedup` (31/10) : 76,47** (CV : 76,43), 3ᵉ du classement (76,29 et 76,44 devant).
 L'écart CV / public passe de 0,15 à 0,04. Correction de `cv.log_experiment` : relancer une expérience efface
@@ -647,7 +648,7 @@ sur ces 5 plis. Les OOF restent donc honnêtes : la prédiction d'une ligne du p
 cette ligne, et le méta-modèle évalué sur le pli k est appris sur les 4 autres.
 
 On réentraîne les 10 modèles qui comptent le plus dans l'ensemble, avec leurs hyperparamètres actuels
-(`logs/queue_k10.sh`, environ 2 h 30) :
+(`archive/queues/queue_k10.sh`, environ 2 h 30) :
 
 | Modèle | 5 plis | 10 plis | Écart |
 |---|---|---|---|
@@ -677,7 +678,7 @@ Ensembles (stacking Ridge, validation imbriquée, avant post-traitement des doub
 
 - Le gain (−0,19) est le même sur les 5 plis : il est significatif.
 - Garder aussi les versions 5 plis des modèles remplacés n'apporte rien (76,398 contre 76,400). L'ensemble retenu
-  a donc 31 modèles (`logs/ensemble_k10_models.txt`).
+  a donc 31 modèles (`archive/logs/ensemble_k10_models.txt`).
 - Après le post-traitement des doublons : **76,242** (plis 75,83 / 76,41 / 75,80 / 76,48 / 76,68). Avant, on
   avait 76,428.
 - Ce que la CV mesure : seulement l'effet « 90 % des données au lieu de 80 % », car chaque ligne OOF est prédite
@@ -708,7 +709,7 @@ Ensembles (stacking Ridge, validation imbriquée, avant post-traitement des doub
   il en couvre la plus grande partie.
 - L'early stopping sur des sous-plis de 10 % n'y est pour rien : les forêts, qui n'en ont pas, gagnent autant en
   CV que les GBM.
-- L'ensemble du 31/10 (public 76,47) est archivé dans `outputs/archive_3110/`, avec sa ligne du journal des
+- L'ensemble du 31/10 (public 76,47) est archivé dans `archive/outputs/archive_3110/`, avec sa ligne du journal des
   expériences.
 
 ## 24. Anciens modèles v1 à 10 plis (01/11) – `main.py train --features v1 --params`
@@ -729,7 +730,7 @@ contribue 0. Il faut donc les réentraîner **à l'identique**, seul le nombre d
 - **Vérification** : à 5 plis, `ridge_A` et `rf_A` sont reproduits au millième près sur chacun des 5 plis, et
   `lgbm_B_tuned` (avec `lgbm_v1.json`) sur le pli 0 (77,160).
 
-File : `logs/queue_k10_v1.sh` (sans argument : modèles rapides ; avec `long` : LightGBM et MLP).
+File : `archive/queues/queue_k10_v1.sh` (sans argument : modèles rapides ; avec `long` : LightGBM et MLP).
 
 | Modèle | 5 plis | 10 plis | Écart |
 |---|---|---|---|
@@ -755,15 +756,15 @@ On retrouve les gains de la section 23 : environ −0,2, plus pour le MLP et Ext
   grandeur attendu : ces modèles pèsent peu dans l'ensemble.
 - Les forêts v1 (`rf_A_k10`, `et_A_k10`) sont désormais les deux modèles dont le retrait coûte le plus (0,024 et
   0,021), devant XGBoost : ce sont les plus différents des GBM.
-- Ensemble précédent (soumis le 01/11, 2ᵉ du classement) archivé dans `outputs/archive_0111/`. Liste des
-  modèles retenus : `logs/ensemble_k10_models.txt`.
+- Ensemble précédent (soumis le 01/11, 2ᵉ du classement) archivé dans `archive/outputs/archive_0111/`. Liste des
+  modèles retenus : `archive/logs/ensemble_k10_models.txt`.
 
-## 25. Mesures complémentaires sur le prétraitement (01/11) – `logs/analyse_0111/`
+## 25. Mesures complémentaires sur le prétraitement (01/11) – `archive/analyses_0111/`
 
 *Pourquoi :* second regard, indépendant, sur la question de la section 22 (« reste-t-il du signal ? »), avec d'autres
 outils de mesure. Les conclusions se recoupent ; cette section ne garde que ce qui est nouveau. Chiffres LightGBM à
 1 seed, cible C, paramètres tunés, **5 plis** (référence 77,20) ; analyses de résidus sur l'OOF de `ensemble_stack`
-du 31/10 (76,59). Scripts et journaux dans `logs/analyse_0111/`.
+du 31/10 (76,59). Scripts et journaux dans `archive/analyses_0111/`.
 
 ### 25.1 Quantifier la structure de groupe restante
 
@@ -861,8 +862,8 @@ construit `Meet` et `Meet_Div` et les déclare catégorielles).
 
 Gain de −0,013 sur l'ensemble pour −0,21 et −0,15 sur les modèles seuls : les autres modèles avaient déjà
 l'information, seule la diversité compte, comme à l'étape 24. L'ensemble à 31 modèles est archivé dans
-`outputs/archive_0111_31modeles/` ; liste des 33 modèles dans `logs/ensemble_k10_v2_models.txt`, journal
-`logs/ensemble_k10_v2.log`. Soumission : `ensemble_stack_dedup.csv` (score public à saisir avec `main.py score`).
+`archive/outputs/archive_0111_31modeles/` ; liste des 33 modèles dans `archive/logs/ensemble_k10_v2_models.txt`, journal
+`archive/logs/ensemble_k10_v2.log`. Soumission : `ensemble_stack_dedup.csv` (score public à saisir avec `main.py score`).
 
 ### 25.6 Faut-il 33 modèles ? Ablation de l'ensemble (01/11) – **à mentionner dans le rapport**
 
@@ -945,7 +946,7 @@ la réserve sur le passage « un modèle de pli » → « moyenne de 10 modèles
 combineur contraint transfère même un peu moins bien, dans le bruit). L'écart de +0,21 est le même pour tous les
 combineurs : c'est l'optimisme de la CV à 10 plis (étape 23), pas un effet du stacking. Décision confirmée : la
 soumission finale reste le stacking libre à 33 modèles. Bruit d'une comparaison publique : ±0,06 à 0,10
-(étape 17), les trois écarts mesurés ici le dépassent ou l'atteignent. Script : `logs/analyse_0111/stack6.py` ; `ensemble_stack6`,
+(étape 17), les trois écarts mesurés ici le dépassent ou l'atteignent. Script : `archive/analyses_0111/stack6.py` ; `ensemble_stack6`,
 `ensemble_stack6_dedup` et `ensemble_weighted_dedup` (recalculé sur les 33) sont dans `experiments.csv`.
 
 ### 25.7 Peut-on rattraper les 0,13 de la tête ? (02/11)
@@ -976,7 +977,7 @@ la courbe d'apprentissage (étape 25.3) dit que c'est la quantité d'information
 qu'à l'étape 20 (40 essais TPE, plis 0-2, 1 seed, cible C, avec target encoding `te=true`), plis 3-4 jamais vus
 pendant la recherche. Espace : largeur 128-768, 2 à 4 couches, rétrécissement ou non, dropout 0-0,5, lr 3e-4 à
 5e-3, weight decay 1e-6 à 1e-2, batch 512/1024/2048, PLR (sigma 0,01-1, k et d dans {8, 16, 32}). La configuration
-courante est évaluée en premier (essai 0) comme référence. 1 h 20 de calcul ; journal `logs/analyse_0111/tune_mlp.log`.
+courante est évaluée en premier (essai 0) comme référence. 1 h 20 de calcul ; journal `archive/analyses_0111/tune_mlp.log`.
 
 | | Plis 0-2 (tuning) | Plis 3-4 (jamais vus) |
 |---|---|---|
@@ -1006,13 +1007,13 @@ réservés, on aurait cru gagner 0,11.
 expliquer pourquoi les deux mesures ne disent pas la même chose (redondance contre pertinence). C'est l'illustration
 exacte de la slide 50 du cours 5 : ce qui compte est la **diversité** (un modèle par famille, Ridge et forêts
 inclus malgré leurs 4 à 5 kg de retard seuls), pas le nombre de modèles ni leur score individuel. Script :
-`logs/analyse_0111/ablation_ensemble.py`.
+`archive/analyses_0111/ablation_ensemble.py`.
 
 *Note technique :* un script qui entraîne LightGBM puis un réseau PyTorch dans le **même processus** s'est figé
 21 h sans consommer de CPU (deux bibliothèques OpenMP chargées en même temps, problème connu sur Mac). Garder un
 modèle par processus, comme le fait `main.py train`.
 
-## 26. Veille 2024-2026 et méthodes récentes (03/11) – `experiments/`
+## 26. Veille 2024-2026 et méthodes récentes (03/11) – `archive/experiments/`
 
 ### Veille bibliographique
 
@@ -1062,7 +1063,7 @@ Histogram Loss (arXiv 2402.13425).
 ### Évaluation hors projet (5 plis)
 
 **Question :** les méthodes tabulaires publiées depuis 2024 apportent-elles quelque chose à un ensemble déjà très
-travaillé ? Tout est évalué **hors du code du projet**, dans `experiments/` (projet uv séparé, `common.py` réutilise
+travaillé ? Tout est évalué **hors du code du projet**, dans `archive/experiments/` (projet uv séparé, `common.py` réutilise
 `cv.prepare`, les 5 plis de référence, la cible C et le TE résiduel appris dans le pli). Critère principal : le gain
 quand on ajoute le modèle aux 33 du stacking (base 76,3699, `common.evaluate`). Ces modèles sont à 5 plis contre 10
 pour les 33 : le gain est une **borne basse**.
@@ -1082,7 +1083,7 @@ artefact du découpage, c'est de la diversité.
 
 Pli par pli, les quatre ensemble font −0,123/−0,154/−0,107/−0,146/−0,091.
 
-- **TabICLv2** (`experiments/tabicl/`, Kaggle sans internet, wheels + checkpoint dans un dataset privé) : environ
+- **TabICLv2** (`archive/experiments/tabicl/`, Kaggle sans internet, wheels + checkpoint dans un dataset privé) : environ
   9 min par pli sur T4, 8,7 Go de mémoire au pic. La cible C fait mieux que A (77,19 contre 77,54 au pli 0), et A
   n'ajoute rien quand C est déjà là. Les colonnes à beaucoup de modalités sont retirées (le modèle les traite mal), le
   TE résiduel du pli est ajouté.
@@ -1092,7 +1093,7 @@ Pli par pli, les quatre ensemble font −0,123/−0,154/−0,107/−0,146/−0,0
   77,85 au pli 0). Ses résidus sont les moins corrélés aux modèles clés (0,967 à 0,978).
 - **HL-Gauss** (perte histogramme, K = 200) : moins bon que le MLP sur les 5 plis, aucune diversité. Moyenner MLP et
   HL-Gauss fait moins bien que moyenner deux seeds du MLP. Changer la perte ne change pas les erreurs.
-- **TabPrep** (`experiments/tabprep/`, générateurs d'AutoGluon réimplémentés) : seuls les **GroupBy relatifs sur
+- **TabPrep** (`archive/experiments/tabprep/`, générateurs d'AutoGluon réimplémentés) : seuls les **GroupBy relatifs sur
   les catégorielles larges** aident (−0,086 pour LightGBM seul sur 3 seeds, 14 couples pli × seed sur 15). Les
   colonnes utiles : position du poids de corps dans `WeightClassKg` (ratio, rang, écart), rang de l'âge par
   équipement et sexe × équipement. RSFC et CatPrep dégradent : leurs colonnes target-encodées font sur-apprendre,
@@ -1100,15 +1101,15 @@ Pli par pli, les quatre ensemble font −0,123/−0,154/−0,107/−0,146/−0,0
   5 lignes, comme les rangs de l'étape 18). OAFE sur les numériques v2 n'apporte rien seul : le feature engineering
   manuel contient déjà les bonnes transformations.
 
-Rapports détaillés : `experiments/{tabicl,tabm,realmlp,hlgauss,tabprep}/REPORT.md` (sauf TabICL, ci-dessus).
-Évaluation conjointe : `cd experiments && PYTHONPATH=. uv run python joint_eval.py tabprep_lgbm tabicl_C realmlp tabm`.
+Rapports détaillés : `archive/experiments/{tabicl,tabm,realmlp,hlgauss,tabprep}/REPORT.md` (sauf TabICL, ci-dessus).
+Évaluation conjointe : `cd archive/experiments && PYTHONPATH=. uv run python joint_eval.py tabprep_lgbm tabicl_C realmlp tabm`.
 
-**TabICLv2 à 10 plis** (`experiments/tabicl/kernel10/`, `assemble10.py`, environ 19 min par sous-pli sur T4 avec
+**TabICLv2 à 10 plis** (`archive/experiments/tabicl/kernel10/`, `assemble10.py`, environ 19 min par sous-pli sur T4 avec
 repli sur disque ; deux workers en parallèle saturaient la RAM de l'hôte) : 77,761 → **77,605** seul, Δ stacking
 −0,050 → **−0,058** (5/5 plis : −0,088/−0,085/−0,006/−0,099/−0,013). Avec TabPrep, RealMLP et TabM (ceux-ci encore
 à 5 plis) : **76,2336 (−0,136)**, 5/5 plis.
 
-### 26.1 Intégration à 10 plis et soumission (03/11) – `logs/integration_0311/`, `logs/ensemble_k10_v3*`
+### 26.1 Intégration à 10 plis et soumission (03/11) – `archive/logs/integration_0311/`, `archive/logs/ensemble_k10_v3*`
 
 Code ajouté au projet : `tabprep.py` (GroupBy relatifs + OAFE, appelé par `lgbm_fn` avec `--set tabprep=true`),
 `tabm_net.py` + `models.tabm_fn`, `models.realmlp_fn` (dépendances `tabm`, `pytabkit`, `rtdl-num-embeddings`).
@@ -1120,7 +1121,7 @@ l'expérience (76,723). TabICLv2 (Kaggle) est journalisé avec `main.py register
 | `lgbm_C_tabprep_k10` (3 seeds) | `train --model lgbm --target C --folds 10 --seeds 3 --set tabprep=true n_jobs=4` | **76,733** (`lgbm_C_k10`, 5 seeds : 76,858) | 44 min |
 | `tabm_C_k10` | `train --model tabm --target C --folds 10` | **76,985** (meilleur réseau ; MLP + TE : 77,18) | 2 h 34 (MPS) |
 | `realmlp_C_k10` | `train --model realmlp --target C --folds 10` | 77,735 | 2 h 08 (MPS partagé) |
-| `tabicl_C_k10` | Kaggle T4, `experiments/tabicl/kernel10/` | 77,604 | 3 h 07 (T4) |
+| `tabicl_C_k10` | Kaggle T4, `archive/experiments/tabicl/kernel10/` | 77,604 | 3 h 07 (T4) |
 
 | Ensemble | 33 modèles | **37 modèles** |
 |---|---|---|
@@ -1131,10 +1132,10 @@ l'expérience (76,723). TabICLv2 (Kaggle) est journalisé avec `main.py register
 
 Le gain public est même plus grand que le gain CV : ces modèles apportent une diversité réelle, pas un ajustement
 aux plis. Dans le stacking, les quatre nouveaux modèles reçoivent les plus gros coefficients (TabPrep 0,38, TabICL
-0,20, TabM 0,18). L'ensemble à 33 modèles est archivé dans `outputs/archive_0311_33modeles/` ; liste des 37 dans
-`logs/ensemble_k10_v3_models.txt`.
+0,20, TabM 0,18). L'ensemble à 33 modèles est archivé dans `archive/outputs/archive_0311_33modeles/` ; liste des 37 dans
+`archive/logs/ensemble_k10_v3_models.txt`.
 
-### 26.2 Méta-modèle non linéaire ou contextuel ? (03/11) – `experiments/meta/meta.py`, `results.jsonl`
+### 26.2 Méta-modèle non linéaire ou contextuel ? (03/11) – `archive/experiments/meta/meta.py`, `results.jsonl`
 
 *Pourquoi :* la Ridge donne à chaque modèle le même poids pour tous les athlètes. Un méta-modèle qui dépend du
 contexte (sexe × équipement, âge, poids de corps) pourrait exploiter le fait qu'un modèle est meilleur sur un segment.
@@ -1157,16 +1158,16 @@ gagner encore, il faut de nouveaux modèles qui se trompent autrement, pas un me
 
 ### 26.3 Le pipeline du top 1 devient le code principal (03/11)
 
-- `ensemble_models.txt` (racine) : les 37 modèles soumis, liste par défaut de `main.py ensemble` (`--all` pour
+- `ensemble_models.txt` (aujourd'hui `recipes.ENSEMBLE`) (racine) : les 37 modèles soumis, liste par défaut de `main.py ensemble` (`--all` pour
   tout le journal). `main.py ensemble` puis `main.py dedup ensemble_stack` redonnent la soumission publique 76,247
   **au bit près** (vérifié par empreinte md5).
-- `tabicl/` (racine, comme `dragon/`) : `export.py` (entrées des 10 sous-plis : redonne exactement les fichiers
+- `external/tabicl/` (racine, comme `external/dragon/`) : `export.py` (entrées des 10 sous-plis : redonne exactement les fichiers
   envoyés sur Kaggle), `kernel/` (script et métadonnées du kernel GPU), `assemble.py` (→ `outputs/oof|preds`).
 - TabM et RealMLP choisissent seuls leur matériel (`device=auto` : mps, sinon cuda, sinon cpu), pour le binôme.
 - Deux tests ajoutés : les variables TabPrep d'une ligne de validation ne dépendent que du train du pli, et chaque
   modèle de l'ensemble a ses prédictions. 22 tests passent.
 - README : commandes des nouveaux modèles, section « Reproduire la meilleure soumission », résultats à jour.
-- `experiments/` reste l'archive des évaluations (rapports `*/REPORT.md`), hors du pipeline.
+- `archive/experiments/` reste l'archive des évaluations (rapports `*/REPORT.md`), hors du pipeline.
 
 *Note technique Kaggle :* les kernels n'ont ni internet (paquets `tabicl` / `einops` et poids fournis en *wheels*
 dans un dataset privé, `pip install --no-index`) ni GPU tant que le compte n'est pas vérifié par téléphone ; après
@@ -1174,6 +1175,49 @@ vérification, il a fallu un nouveau kernel (l'ancien restait sur une image CPU)
 
 *Note technique :* quatre agents et un test TabICL en parallèle ont fait planter le Mac (16 Go). Au plus deux
 calculs lourds à la fois. `ps -o rss` ne voit pas la mémoire MPS, il faut `footprint <pid>`.
+
+
+## 27. Nettoyage du code avant le rendu (06/11)
+
+*Pourquoi :* le dépôt reflétait deux mois d'exploration : modules à plat, scripts ad hoc mêlés au pipeline, et
+surtout aucun endroit qui dise comment refaire chacun des 37 modèles de l'ensemble. Les commandes étaient réparties
+entre trois files `queue_*.sh` et ce journal, avec des options implicites (`--features v1`, `--no-tuned`,
+`--params lgbm_v1`). Le dépôt git n'avait encore aucun commit.
+
+**Ce qui a été fait** (un commit par étape, le premier, `4dd1f8f`, fige l'état qui a produit la soumission) :
+
+- **Recettes** : `src/powerlifting/recipes.py` donne, pour chacun des 37 modèles et dans l'ordre des colonnes du
+  stacking, les arguments de `main.py train`. Elle remplace `ensemble_models.txt`. Deux recettes ont été déduites
+  du journal et des dates d'`experiments.csv`, faute de commande écrite (`ridge_C_k10`, `lgbm_C_v2`).
+  `main.py reproduce` les relance (un processus par modèle) ; `main.py train --check` recalcule l'OOF sans rien
+  écrire et la compare à celle qui est versionnée.
+- **Paquet `src/powerlifting/`** : `cv.py` est coupé en trois (plis et CV, journal des expériences, modèles
+  entraînés ailleurs), `models.py` en un registre et quatre familles. Aucune ligne de calcul n'a changé.
+- **Archive** : l'exploration (évaluations de l'étape 26, analyses de l'étape 25, files de calcul, anciens
+  ensembles, 18 modèles hors ensemble) est rangée dans `archive/`, avec un index. DRAGON et TabICL passent dans
+  `external/`.
+
+Correspondance des chemins cités dans les étapes précédentes :
+
+| Avant | Maintenant |
+|---|---|
+| `config.py`, `data.py`, `features.py`, `tabprep.py`, `tune.py`, `ensemble.py`, `postprocess.py`, `submit.py`, `analysis.py` | `src/powerlifting/` (mêmes noms) |
+| `cv.py` | `src/powerlifting/cv.py` (plis, `run_cv`), `experiment_log.py` (`log_experiment`, `read_log`), `external.py` (`export_nn_data`, `register_external`) |
+| `models.py` | `src/powerlifting/models/` : `baselines.py` (const, hgb, ridge), `forests.py`, `boosting.py`, `neural.py` |
+| `tabnn.py`, `tabm_net.py` | `src/powerlifting/nets/mlp.py`, `nets/tabm.py` |
+| `ensemble_models.txt`, `logs/queue_*.sh` | `src/powerlifting/recipes.py` (originaux dans `archive/queues/`) |
+| `dragon/`, `tabicl/` | `external/dragon/`, `external/tabicl/` |
+| `experiments/`, `logs/`, `outputs/archive_*` | `archive/` |
+
+**Vérification :**
+
+| Contrôle | Résultat |
+|---|---|
+| `main.py ensemble` puis `main.py dedup ensemble_stack`, à partir des OOF versionnées | md5 de la soumission identique à celui de la soumission 76,247 (`409605b8…`) ; aucun fichier `.npy` modifié |
+| 7 modèles réentraînés en entier avec `--check`, avant et après le déplacement du code (`ridge_C_k10`, `ridge_A_k10`, `hgb_raw_k10`, `lgbm_A`, `rf_C_k10`, `lgbm_C_v2`, `mlp_A`) | OOF identiques (écart nul ; 7e-13 kg pour la forêt aléatoire, calcul parallèle) ; les deux recettes déduites sont donc les bonnes |
+| Sous-pli 0 de `xgb_C_k10`, `cat_C_meet_k10`, `mlp_C_plr_te_k10`, `lgbm_C_tabprep_k10`, `tabm_C_k10`, `realmlp_C_k10` | identiques pour les quatre premiers (écart ≤ 4e-9 kg pour LightGBM + TabPrep, meilleur modèle seul). TabM et RealMLP diffèrent (RMSE du sous-pli 76,53 contre 76,57 et 77,21 contre 77,31) : ce sont les deux modèles entraînés sur le GPU du Mac (MPS), probablement non déterministe ; non vérifié avec l'ancien code, contrôle arrêté faute d'enjeu (la soumission repose sur les prédictions versionnées) |
+| Export TabICL depuis `external/tabicl/` | mêmes tableaux que ceux envoyés sur Kaggle |
+| Tests | 23 tests passent (un ajouté : chaque recette est une commande valide) |
 
 ---
 
