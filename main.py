@@ -2,13 +2,14 @@
 
     train     entraîne un modèle en CV 5 ou 10 plis (OOF + test + fichier de soumission)
     tune      recherche d'hyperparamètres Optuna (lgbm / xgb / cat)
-    ensemble  moyenne pondérée + stacking des modèles de ensemble_models.txt (déjà entraînés)
+    ensemble  moyenne pondérée + stacking des 37 modèles de recipes.py (déjà entraînés)
     export-nn exporte les matrices des réseaux pour la recherche DRAGON (dragon/search.py)
     register  journalise une expérience entraînée ailleurs (DRAGON) et écrit sa soumission
     dedup     post-traitement des doublons exacts du train (-> expérience <nom>_dedup)
     analyze   importance des features, résidus par segment, dépendances partielles
     score     saisit le score public Kaggle d'une expérience dans le journal
     report    tableau récapitulatif méthode -> RMSE CV -> RMSE publique
+    reproduce relance les recettes des 37 modèles de l'ensemble (recipes.py)
 """
 
 import argparse
@@ -45,8 +46,55 @@ def cmd_train(a):
     if params:
         print(f"Hyperparamètres tunés chargés : {params}")
     res = run_cv(name, a.model, train, test, F_tr, F_te, folds, target=a.target, outliers=a.outliers,
-                 seeds=a.seeds, params=params, split=split)
-    print("Soumission :", write_submission(name, np.load(PRED_DIR / f"{name}.npy"), test, sample))
+                 seeds=a.seeds, params=params, split=split, save=not a.check, only_folds=a.check_folds)
+    if a.check:
+        _compare_with_saved(name, res["oof"], train)
+    else:
+        print("Soumission :", write_submission(name, np.load(PRED_DIR / f"{name}.npy"), test, sample))
+
+
+def _compare_with_saved(name, oof, train):
+    """Compare une OOF recalculée à celle de outputs/oof/<name>.npy, sur les lignes recalculées."""
+    import numpy as np
+
+    from config import OOF_DIR, TARGET
+    from cv import rmse
+
+    ref = np.load(OOF_DIR / f"{name}.npy")
+    rows = ~np.isnan(oof)
+    y = train[TARGET].to_numpy(float)[rows]
+    diff = float(np.abs(oof[rows] - ref[rows]).max())
+    print(f"  [{name}] contrôle sur {rows.sum()} lignes : écart max {diff:.3g} kg ; "
+          f"RMSE {rmse(y, oof[rows]):.4f} (recalculée) contre {rmse(y, ref[rows]):.4f} (sauvegardée)")
+    print(f"  [{name}] {'REPRODUIT' if diff < 1e-6 else 'DIFFÉRENT'}")
+
+
+def cmd_reproduce(a):
+    """Relance les recettes de recipes.py, un processus par modèle (PyTorch et LightGBM / CatBoost / XGBoost ne
+    cohabitent pas dans un même processus sur macOS : conflit OpenMP)."""
+    import shlex
+    import subprocess
+    import sys
+
+    from config import ROOT
+    from recipes import RECIPES
+
+    names = a.names or list(RECIPES)
+    unknown = sorted(set(names) - set(RECIPES))
+    if unknown:
+        raise SystemExit(f"recettes inconnues : {unknown}")
+    for n in names:
+        if RECIPES[n] is None:
+            print(f"# {n} : entraîné hors du pipeline, voir external/ et le README")
+            continue
+        cmd = [sys.executable, "main.py", "train", *shlex.split(RECIPES[n]), "--name", n]
+        if a.check:
+            cmd.append("--check")
+        if a.check_folds:
+            cmd += ["--check-folds", *map(str, a.check_folds)]
+        print("$", shlex.join(cmd[1:]), flush=True)
+        if not a.dry_run:
+            subprocess.run(cmd, check=True, cwd=ROOT)
 
 
 def cmd_tune(a):
@@ -59,15 +107,15 @@ def cmd_ensemble(a):
     from cv import prepare, read_log
     from ensemble import run_ensemble
 
-    from config import ENSEMBLE_FILE
+    from recipes import ENSEMBLE
 
     if a.models:
         names = a.models
-    elif a.all or not ENSEMBLE_FILE.exists():
+    elif a.all:
         names = [n for n in read_log()["name"]
                  if n != "const" and not n.startswith("ensemble") and not n.endswith("_dedup")]
     else:
-        names = [l.strip() for l in ENSEMBLE_FILE.read_text().splitlines() if l.strip()]
+        names = ENSEMBLE
     print(f"Ensemble de {len(names)} modèles")
     train, test, sample, F_tr, F_te, folds = prepare()
     run_ensemble(names, train, test, sample, F_tr, F_te, folds, contrib=a.contrib)
@@ -127,7 +175,7 @@ def cmd_report(a):
     print(log[cols].sort_values("cv_rmse").to_string(index=False, float_format=lambda x: f"{x:.3f}"))
 
 
-def main():
+def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
 
@@ -146,7 +194,18 @@ def main():
     t.add_argument("--params", help="fichier outputs/params/<PARAMS>.json à la place de <modèle>.json (ex. : lgbm_v1)")
     t.add_argument("--features", default="v2", choices=["v1", "v2"],
                    help="v1 : features du 28/09, pour réentraîner les anciens modèles (journal, section 24)")
+    t.add_argument("--check", action="store_true",
+                   help="ne rien écrire : comparer l'OOF obtenue à outputs/oof/<nom>.npy")
+    t.add_argument("--check-folds", type=int, nargs="+", metavar="K",
+                   help="avec --check : seulement ces plis d'entraînement (sous-plis 0-9 si --folds 10)")
     t.set_defaults(fn=cmd_train)
+
+    rp = sub.add_parser("reproduce", help="relancer les recettes des 37 modèles de l'ensemble (recipes.py)")
+    rp.add_argument("names", nargs="*", help="recettes à relancer (défaut : toutes)")
+    rp.add_argument("--dry-run", action="store_true", help="afficher les commandes sans les lancer")
+    rp.add_argument("--check", action="store_true", help="comparer aux OOF sauvegardées sans rien écrire")
+    rp.add_argument("--check-folds", type=int, nargs="+", metavar="K", help="avec --check : plis à recalculer")
+    rp.set_defaults(fn=cmd_reproduce)
 
     u = sub.add_parser("tune", help="tuning Optuna")
     u.add_argument("--model", required=True, choices=["lgbm", "xgb", "cat", "rf", "et", "mlp"])
@@ -157,8 +216,8 @@ def main():
     u.set_defaults(fn=cmd_tune)
 
     e = sub.add_parser("ensemble", help="moyenne pondérée + stacking")
-    e.add_argument("--models", nargs="+", help="noms d'expériences (défaut : la liste de ensemble_models.txt)")
-    e.add_argument("--all", action="store_true", help="tous les modèles du journal au lieu de ensemble_models.txt")
+    e.add_argument("--models", nargs="+", help="noms d'expériences (défaut : les 37 de recipes.ENSEMBLE)")
+    e.add_argument("--all", action="store_true", help="tous les modèles du journal au lieu de recipes.ENSEMBLE")
     e.add_argument("--contrib", action="store_true", help="contribution marginale de chaque modèle au stacking")
     e.set_defaults(fn=cmd_ensemble)
 
@@ -189,8 +248,11 @@ def main():
 
     r = sub.add_parser("report", help="tableau récapitulatif")
     r.set_defaults(fn=cmd_report)
+    return ap
 
-    a = ap.parse_args()
+
+def main():
+    a = build_parser().parse_args()
     pd.set_option("display.width", 200)
     a.fn(a)
 

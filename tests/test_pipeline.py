@@ -226,9 +226,25 @@ def test_tabprep_statistics_come_from_the_training_fold_only(data):
 
 
 def test_submitted_ensemble_members_have_predictions():
-    from config import ENSEMBLE_FILE, PRED_DIR
+    from config import PRED_DIR
+    from recipes import ENSEMBLE
 
-    names = [l.strip() for l in ENSEMBLE_FILE.read_text().splitlines() if l.strip()]
-    assert len(names) == len(set(names)) == 37
-    for n in names:
+    assert len(ENSEMBLE) == len(set(ENSEMBLE)) == 37
+    for n in ENSEMBLE:
         assert (OOF_DIR / f"{n}.npy").exists() and (PRED_DIR / f"{n}.npy").exists(), n
+
+
+def test_recipes_point_to_known_models():
+    """Chaque recette est une commande `main.py train` valide sur un modèle du registre."""
+    import shlex
+
+    from main import build_parser
+    from models import MODELS
+    from recipes import RECIPES
+
+    parser = build_parser()
+    for name, args in RECIPES.items():
+        if args is None:
+            continue
+        a = parser.parse_args(["train", *shlex.split(args), "--name", name])
+        assert a.model in MODELS, name

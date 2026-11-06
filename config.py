@@ -11,8 +11,6 @@ FIG_DIR = OUT_DIR / "figures"
 NN_DATA_DIR = OUT_DIR / "nn_data"  # matrices exportées pour la recherche DRAGON (non versionnées)
 FOLDS_FILE = DATA_DIR / "folds.csv"
 EXPERIMENTS_FILE = OUT_DIR / "experiments.csv"
-# modèles de l'ensemble soumis (37, 1er du public le 03/11, journal étape 26.1) : défaut de `main.py ensemble`
-ENSEMBLE_FILE = ROOT / "ensemble_models.txt"
 
 COMPETITION = "performances-en-powerlifting"
 TARGET = "TotalKg"

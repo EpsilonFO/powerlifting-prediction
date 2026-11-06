@@ -104,6 +104,7 @@ def run_cv(
         np.save(OOF_DIR / f"{name}.npy", oof)
         np.save(PRED_DIR / f"{name}.npy", pred_te)
         log_experiment(result)
+    result["oof"], result["pred"] = oof, pred_te  # hors journal : servent à `main.py train --check`
     return result
 
 
