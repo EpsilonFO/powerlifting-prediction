@@ -104,18 +104,12 @@ def cmd_tune(a):
 
 
 def cmd_ensemble(a):
-    from cv import prepare, read_log
+    from cv import prepare
     from ensemble import run_ensemble
 
     from recipes import ENSEMBLE
 
-    if a.models:
-        names = a.models
-    elif a.all:
-        names = [n for n in read_log()["name"]
-                 if n != "const" and not n.startswith("ensemble") and not n.endswith("_dedup")]
-    else:
-        names = ENSEMBLE
+    names = a.models or ENSEMBLE
     print(f"Ensemble de {len(names)} modèles")
     train, test, sample, F_tr, F_te, folds = prepare()
     run_ensemble(names, train, test, sample, F_tr, F_te, folds, contrib=a.contrib)
@@ -217,7 +211,6 @@ def build_parser() -> argparse.ArgumentParser:
 
     e = sub.add_parser("ensemble", help="moyenne pondérée + stacking")
     e.add_argument("--models", nargs="+", help="noms d'expériences (défaut : les 37 de recipes.ENSEMBLE)")
-    e.add_argument("--all", action="store_true", help="tous les modèles du journal au lieu de recipes.ENSEMBLE")
     e.add_argument("--contrib", action="store_true", help="contribution marginale de chaque modèle au stacking")
     e.set_defaults(fn=cmd_ensemble)
 

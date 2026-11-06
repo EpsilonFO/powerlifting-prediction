@@ -45,8 +45,8 @@ rapport/*.synctex.gz
 **/tabprep/cache/
 *.ckpt
 *.whl
-experiments/**/*.npy
-experiments/**/*.npz
+archive/experiments/**/*.npy
+archive/experiments/**/*.npz
 
 # Documents de travail non versionnés pour l'instant
 rapport/
