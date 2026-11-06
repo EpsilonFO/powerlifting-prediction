@@ -1,0 +1,12 @@
+    ref (27s)
+  pli 0 : RMSE 77.608  (0.4 min)
+    ref (35s)
+  pli 1 : RMSE 78.403  (1.0 min)
+    ref (39s)
+  pli 2 : RMSE 77.657  (1.7 min)
+    ref (36s)
+  pli 3 : RMSE 78.230  (2.3 min)
+    ref (28s)
+  pli 4 : RMSE 78.438  (2.7 min)
+ref : 5 plis en 2.8 min
+{"rmse": 78.068, "plis": [77.608, 78.403, 77.657, 78.23, 78.438], "corr_resid": {"lgbm_C_k10": 0.974, "mlp_C_plr_te_k10": 0.985, "cat_C_meet_k10": 0.967, "xgb_C_k10": 0.969}, "stack_base": 76.3699, "stack_new": 76.3701, "delta": 0.0002, "delta_plis": [0.0001, 0.0008, 0.0002, -0.0002, -0.0001]}

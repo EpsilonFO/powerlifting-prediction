@@ -1,0 +1,53 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets and generated files
+.env
+submission.csv
+
+# Données Kaggle (re-téléchargées par kagglehub) et soumissions générées.
+# On versionne en revanche data/folds.csv, outputs/experiments.csv, oof/, preds/ et params/
+# pour que le binôme partage les mêmes plis, le même journal et puisse refaire l'ensemble.
+data/competitions/
+outputs/submissions/
+.pytest_cache/
+
+# Recherche DRAGON : matrices exportées (régénérées par `main.py export-nn`) et dossiers de recherche
+outputs/nn_data/
+dragon/runs/
+
+# TabICL : entrées exportées (régénérées par tabicl/export.py, poids de 109 Mo) et sorties du kernel
+tabicl/data/
+tabicl/out/
+
+# Rapport LaTeX : fichiers de compilation
+rapport/*.aux
+rapport/*.log
+rapport/*.out
+rapport/*.fls
+rapport/*.fdb_latexmk
+rapport/*.synctex.gz
+
+# macOS
+.DS_Store
+
+# Données lourdes et régénérables de l'exploration (checkpoints, wheels, caches, prédictions intermédiaires) :
+# les résultats chiffrés sont dans les REPORT.md et results.jsonl
+**/tabicl/data/
+**/tabprep/cache/
+*.ckpt
+*.whl
+experiments/**/*.npy
+experiments/**/*.npz
+
+# Documents de travail non versionnés pour l'instant
+rapport/
+plans/

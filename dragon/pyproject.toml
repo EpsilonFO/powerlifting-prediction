@@ -1,0 +1,10 @@
+[project]
+name = "regression-dragon"
+version = "0.1.0"
+description = "Recherche d'architecture du MLP avec DRAGON (environnement séparé : DRAGON impose numpy < 2)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "dragon-autodl==1.1",
+    "numpy<2.0.0",
+    "torch>=2.4",
+]

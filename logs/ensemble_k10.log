@@ -1,0 +1,41 @@
+RMSE OOF individuelle : {'rf_C_k10': 78.96, 'et_C_k10': 79.067, 'hgb_raw_k10': 78.862, 'lgbm_C_k10': 76.859, 'lgbm_B_k10': 77.162, 'lgbm_C_xt_k10': 77.086, 'xgb_C_k10': 77.087, 'cat_C_k10': 77.481, 'mlp_C_plr_k10': 77.397, 'ridge_C_k10': 81.377, 'ridge_A_k10': 81.54, 'rf_A_k10': 80.94, 'et_A_k10': 82.077, 'lgbm_A': 78.079, 'lgbm_B': 78.267, 'lgbm_C': 78.021, 'lgbm_A_drop': 78.133, 'xgb_A': 78.94, 'mlp_A': 79.636, 'cat_A': 78.148, 'lgbm_A_tuned': 77.579, 'lgbm_B_tuned_k10': 77.474, 'lgbm_C_tuned': 77.487, 'mlp_A_s5': 78.504, 'mlp_C_plr_s5_k10': 77.535, 'dragon_C': 78.271, 'lgbm_C_v2': 77.049, 'cat_C_v2': 77.656, 'ridge_A_v2': 81.794, 'lgbm_A_v2_lin': 77.551, 'xgb_C_v2_default': 77.688}
+Moyenne simple : 77.002
+Moyenne pondérée : RMSE 76.517 (validation imbriquée) ; poids = {'et_C_k10': 0.031, 'lgbm_C_k10': 0.158, 'lgbm_B_k10': 0.157, 'xgb_C_k10': 0.228, 'cat_C_k10': 0.111, 'mlp_C_plr_k10': 0.108, 'cat_A': 0.011, 'mlp_C_plr_s5_k10': 0.084, 'lgbm_C_v2': 0.051, 'cat_C_v2': 0.06}
+  ambiguïté : RMSE moyenne des membres 77.285 -> ensemble 76.505
+Stacking Ridge : RMSE 76.382 (validation imbriquée) ; coefficients = {'rf_C_k10': -0.005, 'et_C_k10': 0.068, 'hgb_raw_k10': 0.036, 'lgbm_C_k10': 0.231, 'lgbm_B_k10': 0.13, 'lgbm_C_xt_k10': -0.19, 'xgb_C_k10': 0.249, 'cat_C_k10': 0.141, 'mlp_C_plr_k10': 0.117, 'ridge_C_k10': -0.056, 'ridge_A_k10': -0.091, 'rf_A_k10': -0.172, 'et_A_k10': 0.116, 'lgbm_A': 0.012, 'lgbm_B': -0.055, 'lgbm_C': -0.079, 'lgbm_A_drop': -0.103, 'xgb_A': 0.039, 'mlp_A': -0.015, 'cat_A': 0.064, 'lgbm_A_tuned': 0.068, 'lgbm_B_tuned_k10': 0.153, 'lgbm_C_tuned': -0.119, 'mlp_A_s5': 0.068, 'mlp_C_plr_s5_k10': 0.205, 'dragon_C': -0.093, 'lgbm_C_v2': 0.186, 'cat_C_v2': 0.064, 'ridge_A_v2': 0.048, 'lgbm_A_v2_lin': -0.027, 'xgb_C_v2_default': 0.014}
+Fichiers :
+  <projet>/outputs/submissions/ensemble_weighted.csv
+  <projet>/outputs/submissions/ensemble_stack.csv
+Contribution marginale (hausse de la RMSE du stacking quand on retire le modèle) :
+           model  rmse_seul  retrait
+        rf_A_k10     80.940    0.024
+        et_A_k10     82.077    0.021
+       xgb_C_k10     77.087    0.017
+mlp_C_plr_s5_k10     77.535    0.014
+       cat_C_k10     77.481    0.011
+   lgbm_C_xt_k10     77.086    0.010
+      lgbm_C_k10     76.859    0.008
+       lgbm_C_v2     77.049    0.008
+        dragon_C     78.271    0.006
+lgbm_B_tuned_k10     77.474    0.006
+      lgbm_B_k10     77.162    0.006
+   mlp_C_plr_k10     77.397    0.005
+        et_C_k10     79.067    0.003
+     ridge_A_k10     81.540    0.003
+     lgbm_A_drop     78.133    0.002
+        cat_C_v2     77.656    0.002
+        mlp_A_s5     78.504    0.002
+     hgb_raw_k10     78.862    0.001
+    lgbm_C_tuned     77.487    0.001
+          lgbm_B     78.267    0.001
+           xgb_A     78.940    0.001
+           cat_A     78.148    0.001
+      ridge_A_v2     81.794    0.000
+          lgbm_C     78.021   -0.000
+     ridge_C_k10     81.377   -0.000
+        rf_C_k10     78.960   -0.000
+          lgbm_A     78.079   -0.000
+   lgbm_A_v2_lin     77.551   -0.000
+    lgbm_A_tuned     77.579   -0.001
+xgb_C_v2_default     77.688   -0.001
+           mlp_A     79.636   -0.001

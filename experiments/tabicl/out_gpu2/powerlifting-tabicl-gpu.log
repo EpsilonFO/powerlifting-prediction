@@ -1,0 +1,17 @@
+[{"stream_name":"stdout","time":12.633011343,"data":"Tesla T4 2\n"}
+,{"stream_name":"stdout","time":238.199897828,"data":"fold 1 target C: RMSE 77.807  fit 9s  +val 225s\n"}
+,{"stream_name":"stdout","time":488.734045964,"data":"   +test 476s  peak mem 8.7 GB\n"}
+,{"stream_name":"stdout","time":705.152716335,"data":"fold 2 target C: RMSE 77.527  fit 8s  +val 216s\n"}
+,{"stream_name":"stdout","time":953.386012914,"data":"   +test 465s  peak mem 8.7 GB\n"}
+,{"stream_name":"stdout","time":1168.556438016,"data":"fold 3 target C: RMSE 77.952  fit 8s  +val 215s\n"}
+,{"stream_name":"stdout","time":1416.422340009,"data":"   +test 463s  peak mem 8.7 GB\n"}
+,{"stream_name":"stdout","time":1630.832092442,"data":"fold 4 target C: RMSE 78.321  fit 7s  +val 214s\n"}
+,{"stream_name":"stdout","time":1880.041882292,"data":"   +test 463s  peak mem 8.7 GB\n"}
+,{"stream_name":"stdout","time":1880.10522613,"data":"[{'fold': 1, 'target': 'C', 'rmse': 77.80721633704468, 'sec': 476}, {'fold': 2, 'target': 'C', 'rmse': 77.52674929416165, 'sec': 465}, {'fold': 3, 'target': 'C', 'rmse': 77.95217760450001, 'sec': 463}, {'fold': 4, 'target': 'C', 'rmse': 78.32143334576061, 'sec': 463}]\n"}
+,{"stream_name":"stderr","time":1888.653365254,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1888.653395304,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1888.873926853,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1888.873981268,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1889.624664226,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1890.487635059,"data":"[NbConvertApp] Writing 288737 bytes to __results__.html\n"}
+]

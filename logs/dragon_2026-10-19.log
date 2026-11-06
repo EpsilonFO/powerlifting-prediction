@@ -1,0 +1,448 @@
+WARNING:root:Install mpi4py if you want to use the distributed version.
+INFO:root:The whole population has been created (size = 4), 4 have been randomy initialized.
+INFO:root:Best found! 81.39486208189906 < inf
+INFO:root:All models have been at least evaluated once, t = 4 < 8.
+INFO:root:After initialisation, it remains 4 iterations.
+INFO:root:With p = 0.125 = 1 / 8, training 0 instead
+INFO:root:Best found! 81.06956732261919 < 81.39486208189906
+INFO:root:With p = 0.25 = 2 / 8, training 0 instead
+INFO:root:With p = 0.375 = 3 / 8, training 0 instead
+INFO:root:Best found! 80.88343029258166 < 81.06956732261919
+INFO:root:With p = 0.5 = 4 / 8, training 0 instead
+INFO:root:Best found! 80.80645631735013 < 80.88343029258166
+INFO:root:Search algorithm is done. Min Loss = 80.80645631735013
+WARNING:root:Install mpi4py if you want to use the distributed version.
+INFO:root:<projet>/dragon/runs/mutant_ucb already exists. Deleting it.
+INFO:root:The whole population has been created (size = 3), 3 have been randomy initialized.
+INFO:root:Best found! 80.46119022564523 < inf
+INFO:root:All models have been at least evaluated once, t = 3 < 12.
+INFO:root:After initialisation, it remains 9 iterations.
+INFO:root:With p = 1.0 = 1 / 1, mutating 0 to 3
+INFO:root:Best found! 79.55966794026592 < 80.46119022564523
+INFO:root:With p = 1.0 = 1 / 1, mutating 3 to 4
+INFO:root:Best found! 79.33348791505718 < 79.55966794026592
+INFO:root:With p = 1.0 = 1 / 1, mutating 4 to 5
+INFO:root:Best found! 79.12825161551206 < 79.33348791505718
+INFO:root:With p = 1.0 = 1 / 1, mutating 5 to 6
+INFO:root:With p = 1.0 = 1 / 1, mutating 5 to 7
+INFO:root:With p = 1.0 = 1 / 1, mutating 7 to 8
+INFO:root:Best found! 78.81482589089448 < 79.12825161551206
+INFO:root:With p = 1.0 = 1 / 1, mutating 8 to 9
+INFO:root:With p = 1.0 = 1 / 1, mutating 9 to 10
+INFO:root:With p = 1.0 = 1 / 1, mutating 10 to 11
+INFO:root:Search algorithm is done. Min Loss = 78.81482589089448
+WARNING:root:Install mpi4py if you want to use the distributed version.
+INFO:root:<projet>/dragon/runs/mutant_ucb already exists. Deleting it.
+INFO:root:The whole population has been created (size = 2), 2 have been randomy initialized.
+INFO:root:Best found! 106.68738342354932 < inf
+INFO:root:Best found! 81.52398642826596 < 106.68738342354932
+INFO:root:All models have been at least evaluated once, t = 2 < 6.
+INFO:root:After initialisation, it remains 4 iterations.
+INFO:root:With p = 1.0 = 1 / 1, mutating 1 to 2
+INFO:root:Best found! 80.72484474625037 < 81.52398642826596
+INFO:root:With p = 1.0 = 1 / 1, mutating 2 to 3
+INFO:root:Best found! 80.6161559147695 < 80.72484474625037
+INFO:root:With p = 1.0 = 1 / 1, mutating 3 to 4
+INFO:root:Best found! 80.24161689515961 < 80.6161559147695
+INFO:root:With p = 1.0 = 1 / 1, mutating 4 to 5
+INFO:root:Best found! 80.11872884088973 < 80.24161689515961
+INFO:root:Search algorithm is done. Min Loss = 80.11872884088973
+WARNING:root:Install mpi4py if you want to use the distributed version.
+INFO:root:<projet>/dragon/runs/mutant_ucb already exists. Deleting it.
+INFO:root:The whole population has been created (size = 20), 20 have been randomy initialized.
+INFO:root:Best found! 108.7018592129795 < inf
+INFO:root:Best found! 83.01667077488283 < 108.7018592129795
+INFO:root:Best found! 81.36251405373123 < 83.01667077488283
+INFO:root:Best found! 80.72973776764213 < 81.36251405373123
+INFO:root:Best found! 79.87034030915578 < 80.72973776764213
+INFO:root:All models have been at least evaluated once, t = 20 < 400.
+INFO:root:After initialisation, it remains 380 iterations.
+INFO:root:With p = 0.125 = 1 / 8, training 10 instead
+INFO:root:Best found! 79.32411046791593 < 79.87034030915578
+INFO:root:With p = 0.25 = 2 / 8, training 10 instead
+INFO:root:Best found! 79.12460128479863 < 79.32411046791593
+INFO:root:With p = 0.375 = 3 / 8, mutating 10 to 20
+INFO:root:With p = 0.375 = 3 / 8, mutating 10 to 21
+INFO:root:With p = 0.375 = 3 / 8, mutating 10 to 22
+INFO:root:Best found! 78.78890488091193 < 79.12460128479863
+INFO:root:With p = 0.125 = 1 / 8, training 22 instead
+INFO:root:Best found! 78.70267011673432 < 78.78890488091193
+INFO:root:With p = 0.25 = 2 / 8, training 22 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 22 to 23
+INFO:root:With p = 0.375 = 3 / 8, mutating 22 to 24
+INFO:root:With p = 0.125 = 1 / 8, training 23 instead
+INFO:root:With p = 0.375 = 3 / 8, training 22 instead
+INFO:root:Best found! 78.66945624596647 < 78.70267011673432
+INFO:root:With p = 0.5 = 4 / 8, training 22 instead
+INFO:root:With p = 0.25 = 2 / 8, training 23 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 22 to 25
+INFO:root:With p = 0.125 = 1 / 8, training 25 instead
+INFO:root:With p = 0.625 = 5 / 8, training 22 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 23 to 26
+INFO:root:With p = 0.125 = 1 / 8, training 26 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 25 to 27
+INFO:root:With p = 0.125 = 1 / 8, mutating 27 to 28
+INFO:root:With p = 0.125 = 1 / 8, training 28 instead
+INFO:root:With p = 0.25 = 2 / 8, training 28 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 28 to 29
+INFO:root:With p = 0.125 = 1 / 8, training 29 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 28 to 30
+INFO:root:With p = 0.125 = 1 / 8, training 30 instead
+INFO:root:With p = 0.25 = 2 / 8, training 30 instead
+INFO:root:With p = 0.375 = 3 / 8, training 30 instead
+INFO:root:With p = 0.375 = 3 / 8, training 28 instead
+INFO:root:With p = 0.25 = 2 / 8, training 29 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 28 to 31
+INFO:root:With p = 0.125 = 1 / 8, mutating 31 to 32
+INFO:root:With p = 0.125 = 1 / 8, training 32 instead
+INFO:root:With p = 0.125 = 1 / 8, training 31 instead
+INFO:root:With p = 0.25 = 2 / 8, training 32 instead
+INFO:root:With p = 0.5 = 4 / 8, training 28 instead
+INFO:root:With p = 0.125 = 1 / 8, training 27 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 29 to 33
+INFO:root:With p = 0.125 = 1 / 8, training 33 instead
+INFO:root:With p = 0.25 = 2 / 8, training 33 instead
+INFO:root:Best found! 78.51131544685776 < 78.66945624596647
+INFO:root:With p = 0.375 = 3 / 8, training 33 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 33 to 34
+INFO:root:With p = 0.125 = 1 / 8, training 34 instead
+INFO:root:With p = 0.25 = 2 / 8, training 34 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 34 to 35
+INFO:root:With p = 0.375 = 3 / 8, training 34 instead
+INFO:root:With p = 0.5 = 4 / 8, training 33 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 33 to 36
+INFO:root:With p = 0.125 = 1 / 8, training 36 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 36 to 37
+INFO:root:With p = 0.125 = 1 / 8, training 37 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 37 to 38
+INFO:root:With p = 0.25 = 2 / 8, mutating 36 to 39
+INFO:root:With p = 0.125 = 1 / 8, training 39 instead
+INFO:root:With p = 0.25 = 2 / 8, training 37 instead
+INFO:root:With p = 0.25 = 2 / 8, training 39 instead
+INFO:root:With p = 0.25 = 2 / 8, training 36 instead
+INFO:root:With p = 0.375 = 3 / 8, training 36 instead
+INFO:root:With p = 0.375 = 3 / 8, training 37 instead
+INFO:root:With p = 0.625 = 5 / 8, training 33 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 34 to 40
+INFO:root:With p = 0.125 = 1 / 8, training 40 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 36 to 41
+INFO:root:With p = 0.75 = 6 / 8, mutating 33 to 42
+INFO:root:With p = 0.125 = 1 / 8, training 42 instead
+INFO:root:With p = 0.25 = 2 / 8, training 42 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 34 to 43
+INFO:root:With p = 0.125 = 1 / 8, training 43 instead
+INFO:root:With p = 0.25 = 2 / 8, training 43 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 43 to 44
+INFO:root:With p = 0.125 = 1 / 8, mutating 44 to 45
+INFO:root:With p = 0.125 = 1 / 8, mutating 45 to 46
+INFO:root:With p = 0.125 = 1 / 8, training 46 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 37 to 47
+INFO:root:With p = 0.125 = 1 / 8, training 47 instead
+INFO:root:With p = 0.25 = 2 / 8, training 47 instead
+INFO:root:With p = 0.75 = 6 / 8, mutating 33 to 48
+INFO:root:With p = 0.125 = 1 / 8, training 48 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 48 to 49
+INFO:root:With p = 0.125 = 1 / 8, training 45 instead
+INFO:root:With p = 0.375 = 3 / 8, training 42 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 43 to 50
+INFO:root:With p = 0.125 = 1 / 8, training 50 instead
+INFO:root:With p = 0.375 = 3 / 8, training 39 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 36 to 51
+INFO:root:With p = 0.25 = 2 / 8, training 40 instead
+INFO:root:With p = 0.375 = 3 / 8, training 47 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 48 to 52
+INFO:root:With p = 0.125 = 1 / 8, training 52 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 52 to 53
+INFO:root:With p = 0.125 = 1 / 8, mutating 53 to 54
+INFO:root:With p = 0.125 = 1 / 8, training 54 instead
+INFO:root:With p = 0.25 = 2 / 8, training 54 instead
+INFO:root:With p = 0.375 = 3 / 8, training 54 instead
+INFO:root:With p = 0.5 = 4 / 8, training 54 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 54 to 55
+INFO:root:With p = 0.125 = 1 / 8, training 55 instead
+INFO:root:With p = 0.25 = 2 / 8, training 55 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 54 to 56
+INFO:root:With p = 0.125 = 1 / 8, training 56 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 56 to 57
+INFO:root:With p = 0.125 = 1 / 8, training 57 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 57 to 58
+INFO:root:With p = 0.25 = 2 / 8, training 57 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 57 to 59
+INFO:root:With p = 0.125 = 1 / 8, mutating 59 to 60
+INFO:root:With p = 0.125 = 1 / 8, mutating 60 to 61
+INFO:root:With p = 0.125 = 1 / 8, training 59 instead
+INFO:root:With p = 0.25 = 2 / 8, training 59 instead
+INFO:root:With p = 0.125 = 1 / 8, training 60 instead
+INFO:root:With p = 0.375 = 3 / 8, training 59 instead
+INFO:root:With p = 0.25 = 2 / 8, training 60 instead
+INFO:root:With p = 0.25 = 2 / 8, training 56 instead
+INFO:root:With p = 0.5 = 4 / 8, training 59 instead
+INFO:root:With p = 0.375 = 3 / 8, training 56 instead
+INFO:root:With p = 0.375 = 3 / 8, training 55 instead
+INFO:root:With p = 0.375 = 3 / 8, training 57 instead
+INFO:root:With p = 0.375 = 3 / 8, training 60 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 59 to 62
+INFO:root:With p = 0.125 = 1 / 8, training 62 instead
+INFO:root:With p = 0.25 = 2 / 8, training 62 instead
+INFO:root:With p = 0.375 = 3 / 8, training 62 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 62 to 63
+INFO:root:With p = 0.125 = 1 / 8, training 63 instead
+INFO:root:With p = 0.25 = 2 / 8, training 63 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 63 to 64
+INFO:root:With p = 0.125 = 1 / 8, training 64 instead
+INFO:root:With p = 0.25 = 2 / 8, training 64 instead
+INFO:root:With p = 0.375 = 3 / 8, training 64 instead
+INFO:root:With p = 0.625 = 5 / 8, training 54 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 56 to 65
+INFO:root:With p = 0.125 = 1 / 8, training 65 instead
+INFO:root:With p = 0.25 = 2 / 8, training 65 instead
+INFO:root:With p = 0.5 = 4 / 8, training 60 instead
+INFO:root:With p = 0.5 = 4 / 8, training 62 instead
+INFO:root:With p = 0.625 = 5 / 8, training 59 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 57 to 66
+INFO:root:With p = 0.125 = 1 / 8, training 66 instead
+INFO:root:With p = 0.25 = 2 / 8, training 66 instead
+INFO:root:With p = 0.375 = 3 / 8, training 66 instead
+INFO:root:With p = 0.5 = 4 / 8, training 66 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 66 to 67
+INFO:root:With p = 0.125 = 1 / 8, training 67 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 67 to 68
+INFO:root:With p = 0.125 = 1 / 8, training 68 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 68 to 69
+INFO:root:With p = 0.25 = 2 / 8, training 67 instead
+INFO:root:With p = 0.375 = 3 / 8, training 67 instead
+INFO:root:With p = 0.25 = 2 / 8, training 68 instead
+INFO:root:With p = 0.5 = 4 / 8, training 67 instead
+INFO:root:With p = 0.75 = 6 / 8, mutating 54 to 70
+INFO:root:With p = 0.125 = 1 / 8, training 70 instead
+INFO:root:With p = 0.5 = 4 / 8, training 56 instead
+INFO:root:With p = 0.625 = 5 / 8, training 56 instead
+INFO:root:With p = 0.375 = 3 / 8, training 65 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 66 to 71
+INFO:root:With p = 0.625 = 5 / 8, mutating 67 to 72
+INFO:root:With p = 0.75 = 6 / 8, mutating 59 to 73
+INFO:root:With p = 0.125 = 1 / 8, training 73 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 73 to 74
+INFO:root:With p = 0.25 = 2 / 8, training 73 instead
+INFO:root:With p = 0.75 = 6 / 8, training 54 instead
+INFO:root:With p = 0.5 = 4 / 8, training 65 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 65 to 75
+INFO:root:With p = 0.375 = 3 / 8, training 68 instead
+INFO:root:With p = 0.375 = 3 / 8, training 73 instead
+INFO:root:With p = 0.5 = 4 / 8, training 73 instead
+INFO:root:With p = 0.5 = 4 / 8, training 57 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 63 to 76
+INFO:root:With p = 0.125 = 1 / 8, training 76 instead
+INFO:root:With p = 0.25 = 2 / 8, training 76 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 76 to 77
+INFO:root:With p = 0.125 = 1 / 8, training 77 instead
+INFO:root:Best found! 78.47937722080195 < 78.51131544685776
+INFO:root:With p = 0.25 = 2 / 8, training 77 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 77 to 78
+INFO:root:Best found! 78.46763559970141 < 78.47937722080195
+INFO:root:With p = 0.125 = 1 / 8, training 78 instead
+INFO:root:With p = 0.25 = 2 / 8, training 78 instead
+INFO:root:With p = 0.375 = 3 / 8, training 78 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 78 to 79
+INFO:root:With p = 0.125 = 1 / 8, training 79 instead
+INFO:root:With p = 0.25 = 2 / 8, training 79 instead
+INFO:root:With p = 0.5 = 4 / 8, training 78 instead
+INFO:root:With p = 0.375 = 3 / 8, training 77 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 78 to 80
+INFO:root:With p = 0.125 = 1 / 8, training 80 instead
+INFO:root:With p = 0.25 = 2 / 8, training 80 instead
+INFO:root:With p = 0.5 = 4 / 8, training 77 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 79 to 81
+INFO:root:With p = 0.125 = 1 / 8, training 81 instead
+INFO:root:With p = 0.25 = 2 / 8, training 81 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 78 to 82
+INFO:root:With p = 0.625 = 5 / 8, training 77 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 78 to 83
+INFO:root:With p = 0.125 = 1 / 8, training 83 instead
+INFO:root:With p = 0.25 = 2 / 8, training 83 instead
+INFO:root:With p = 0.375 = 3 / 8, training 83 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 78 to 84
+INFO:root:With p = 0.125 = 1 / 8, training 84 instead
+INFO:root:With p = 0.75 = 6 / 8, training 77 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 78 to 85
+INFO:root:With p = 0.125 = 1 / 8, training 85 instead
+INFO:root:With p = 0.25 = 2 / 8, training 85 instead
+INFO:root:With p = 0.375 = 3 / 8, training 85 instead
+INFO:root:With p = 0.5 = 4 / 8, training 85 instead
+INFO:root:With p = 0.375 = 3 / 8, training 79 instead
+INFO:root:With p = 0.375 = 3 / 8, training 80 instead
+INFO:root:With p = 0.625 = 5 / 8, training 78 instead
+INFO:root:With p = 0.875 = 7 / 8, mutating 77 to 86
+INFO:root:With p = 0.125 = 1 / 8, training 86 instead
+INFO:root:With p = 0.25 = 2 / 8, training 86 instead
+INFO:root:With p = 0.375 = 3 / 8, training 86 instead
+INFO:root:With p = 0.5 = 4 / 8, training 86 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 86 to 87
+INFO:root:With p = 0.625 = 5 / 8, training 86 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 83 to 88
+INFO:root:With p = 0.125 = 1 / 8, mutating 88 to 89
+INFO:root:With p = 0.125 = 1 / 8, training 89 instead
+INFO:root:With p = 0.125 = 1 / 8, training 88 instead
+INFO:root:With p = 0.875 = 7 / 8, mutating 77 to 90
+INFO:root:With p = 0.125 = 1 / 8, training 90 instead
+INFO:root:With p = 0.25 = 2 / 8, training 90 instead
+INFO:root:With p = 0.375 = 3 / 8, training 90 instead
+INFO:root:With p = 0.75 = 6 / 8, mutating 78 to 91
+INFO:root:With p = 0.125 = 1 / 8, mutating 91 to 92
+INFO:root:With p = 0.125 = 1 / 8, training 92 instead
+INFO:root:With p = 0.125 = 1 / 8, training 91 instead
+INFO:root:With p = 0.25 = 2 / 8, training 91 instead
+INFO:root:With p = 0.375 = 3 / 8, training 91 instead
+INFO:root:With p = 0.75 = 6 / 8, training 86 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 85 to 93
+INFO:root:With p = 0.125 = 1 / 8, training 93 instead
+INFO:root:With p = 0.25 = 2 / 8, training 93 instead
+INFO:root:With p = 0.75 = 6 / 8, mutating 78 to 94
+INFO:root:With p = 0.25 = 2 / 8, training 89 instead
+INFO:root:With p = 0.875 = 7 / 8, mutating 77 to 95
+INFO:root:With p = 0.125 = 1 / 8, training 95 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 95 to 96
+INFO:root:With p = 0.125 = 1 / 8, training 96 instead
+INFO:root:With p = 0.25 = 2 / 8, training 95 instead
+INFO:root:With p = 0.25 = 2 / 8, training 96 instead
+INFO:root:With p = 0.375 = 3 / 8, training 95 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 92 to 97
+INFO:root:With p = 0.5 = 4 / 8, mutating 95 to 98
+INFO:root:With p = 0.125 = 1 / 8, training 98 instead
+INFO:root:With p = 0.25 = 2 / 8, training 98 instead
+INFO:root:With p = 0.75 = 6 / 8, mutating 78 to 99
+INFO:root:With p = 0.125 = 1 / 8, mutating 99 to 100
+INFO:root:With p = 0.125 = 1 / 8, training 100 instead
+INFO:root:With p = 0.125 = 1 / 8, training 99 instead
+INFO:root:With p = 0.25 = 2 / 8, training 100 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 99 to 101
+INFO:root:With p = 0.375 = 3 / 8, training 81 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 91 to 102
+INFO:root:With p = 0.875 = 7 / 8, mutating 77 to 103
+INFO:root:With p = 0.75 = 6 / 8, mutating 78 to 104
+INFO:root:With p = 0.125 = 1 / 8, mutating 104 to 105
+INFO:root:With p = 0.125 = 1 / 8, training 105 instead
+INFO:root:With p = 0.125 = 1 / 8, training 104 instead
+INFO:root:With p = 0.25 = 2 / 8, training 105 instead
+INFO:root:With p = 0.25 = 2 / 8, training 104 instead
+INFO:root:With p = 0.375 = 3 / 8, training 105 instead
+INFO:root:With p = 0.375 = 3 / 8, training 104 instead
+INFO:root:With p = 0.5 = 4 / 8, training 90 instead
+INFO:root:With p = 0.75 = 6 / 8, mutating 78 to 106
+INFO:root:With p = 0.125 = 1 / 8, training 106 instead
+INFO:root:With p = 0.25 = 2 / 8, training 106 instead
+INFO:root:With p = 0.375 = 3 / 8, training 106 instead
+INFO:root:With p = 0.25 = 2 / 8, training 99 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 79 to 107
+INFO:root:With p = 0.125 = 1 / 8, training 107 instead
+INFO:root:With p = 0.25 = 2 / 8, training 107 instead
+INFO:root:With p = 0.875 = 7 / 8, mutating 77 to 108
+INFO:root:With p = 0.125 = 1 / 8, training 108 instead
+INFO:root:With p = 0.25 = 2 / 8, training 108 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 108 to 109
+INFO:root:With p = 0.125 = 1 / 8, training 109 instead
+INFO:root:With p = 0.25 = 2 / 8, training 109 instead
+INFO:root:With p = 0.375 = 3 / 8, training 109 instead
+INFO:root:With p = 0.5 = 4 / 8, training 109 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 108 to 110
+INFO:root:With p = 0.125 = 1 / 8, training 110 instead
+INFO:root:With p = 0.25 = 2 / 8, training 110 instead
+INFO:root:With p = 0.625 = 5 / 8, training 109 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 108 to 111
+INFO:root:With p = 0.125 = 1 / 8, training 111 instead
+INFO:root:With p = 0.75 = 6 / 8, training 109 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 108 to 112
+INFO:root:With p = 0.125 = 1 / 8, training 112 instead
+INFO:root:With p = 0.25 = 2 / 8, training 112 instead
+INFO:root:With p = 0.375 = 3 / 8, training 112 instead
+INFO:root:With p = 0.5 = 4 / 8, training 112 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 112 to 113
+INFO:root:With p = 0.125 = 1 / 8, training 113 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 113 to 114
+INFO:root:With p = 0.625 = 5 / 8, mutating 112 to 115
+INFO:root:With p = 0.125 = 1 / 8, training 115 instead
+INFO:root:With p = 0.25 = 2 / 8, training 115 instead
+INFO:root:With p = 0.375 = 3 / 8, training 115 instead
+INFO:root:With p = 0.625 = 5 / 8, training 112 instead
+INFO:root:With p = 0.25 = 2 / 8, training 113 instead
+INFO:root:With p = 0.875 = 7 / 8, mutating 109 to 116
+INFO:root:With p = 0.375 = 3 / 8, training 110 instead
+INFO:root:With p = 0.375 = 3 / 8, training 98 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 85 to 117
+INFO:root:With p = 0.125 = 1 / 8, training 117 instead
+INFO:root:With p = 0.75 = 6 / 8, training 78 instead
+INFO:root:With p = 0.5 = 4 / 8, training 83 instead
+INFO:root:With p = 0.75 = 6 / 8, mutating 112 to 118
+INFO:root:With p = 0.125 = 1 / 8, training 118 instead
+INFO:root:With p = 0.25 = 2 / 8, training 118 instead
+INFO:root:With p = 0.5 = 4 / 8, training 110 instead
+INFO:root:With p = 0.875 = 7 / 8, mutating 86 to 119
+INFO:root:With p = 0.125 = 1 / 8, mutating 119 to 120
+INFO:root:With p = 0.125 = 1 / 8, training 119 instead
+INFO:root:With p = 0.25 = 2 / 8, training 119 instead
+INFO:root:With p = 0.875 = 7 / 8, mutating 77 to 121
+INFO:root:With p = 0.375 = 3 / 8, training 93 instead
+INFO:root:With p = 0.5 = 4 / 8, training 80 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 95 to 122
+INFO:root:With p = 0.375 = 3 / 8, training 108 instead
+INFO:root:With p = 0.5 = 4 / 8, training 108 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 76 to 123
+INFO:root:With p = 0.125 = 1 / 8, training 123 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 123 to 124
+INFO:root:With p = 0.125 = 1 / 8, training 124 instead
+INFO:root:With p = 0.25 = 2 / 8, training 124 instead
+INFO:root:With p = 0.25 = 2 / 8, training 123 instead
+INFO:root:With p = 0.5 = 4 / 8, training 106 instead
+INFO:root:With p = 0.375 = 3 / 8, training 118 instead
+INFO:root:With p = 0.875 = 7 / 8, mutating 77 to 125
+INFO:root:With p = 0.125 = 1 / 8, training 125 instead
+INFO:root:With p = 0.25 = 2 / 8, training 125 instead
+INFO:root:With p = 0.375 = 3 / 8, training 125 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 125 to 126
+INFO:root:With p = 0.125 = 1 / 8, training 126 instead
+INFO:root:With p = 0.25 = 2 / 8, mutating 126 to 127
+INFO:root:With p = 0.125 = 1 / 8, training 127 instead
+INFO:root:With p = 0.25 = 2 / 8, training 127 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 125 to 128
+INFO:root:With p = 0.125 = 1 / 8, training 128 instead
+INFO:root:With p = 0.25 = 2 / 8, training 128 instead
+INFO:root:With p = 0.5 = 4 / 8, mutating 125 to 129
+INFO:root:With p = 0.875 = 7 / 8, mutating 109 to 130
+INFO:root:With p = 0.125 = 1 / 8, training 130 instead
+INFO:root:With p = 0.25 = 2 / 8, training 130 instead
+INFO:root:With p = 0.375 = 3 / 8, training 130 instead
+INFO:root:With p = 0.5 = 4 / 8, training 130 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 130 to 131
+INFO:root:With p = 0.125 = 1 / 8, training 131 instead
+INFO:root:With p = 0.25 = 2 / 8, training 131 instead
+INFO:root:With p = 0.5 = 4 / 8, training 91 instead
+INFO:root:With p = 0.375 = 3 / 8, training 124 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 108 to 132
+INFO:root:With p = 0.125 = 1 / 8, training 132 instead
+INFO:root:With p = 0.25 = 2 / 8, training 132 instead
+INFO:root:With p = 0.375 = 3 / 8, training 132 instead
+INFO:root:With p = 0.875 = 7 / 8, training 78 instead
+INFO:root:With p = 0.5 = 4 / 8, training 125 instead
+INFO:root:With p = 0.5 = 4 / 8, training 105 instead
+INFO:root:With p = 0.5 = 4 / 8, training 104 instead
+INFO:root:With p = 0.75 = 6 / 8, mutating 112 to 133
+INFO:root:With p = 0.125 = 1 / 8, mutating 133 to 134
+INFO:root:With p = 0.125 = 1 / 8, training 134 instead
+INFO:root:With p = 0.125 = 1 / 8, training 133 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 123 to 135
+INFO:root:With p = 0.125 = 1 / 8, training 135 instead
+INFO:root:With p = 0.25 = 2 / 8, training 135 instead
+INFO:root:With p = 0.875 = 7 / 8, mutating 77 to 136
+INFO:root:With p = 0.875 = 7 / 8, mutating 86 to 137
+INFO:root:With p = 0.125 = 1 / 8, training 137 instead
+INFO:root:With p = 0.25 = 2 / 8, training 137 instead
+INFO:root:With p = 0.625 = 5 / 8, mutating 85 to 138
+INFO:root:With p = 0.375 = 3 / 8, mutating 107 to 139
+INFO:root:With p = 0.125 = 1 / 8, training 139 instead
+INFO:root:With p = 0.5 = 4 / 8, training 79 instead
+INFO:root:With p = 0.375 = 3 / 8, mutating 119 to 140
+INFO:root:With p = 0.125 = 1 / 8, mutating 140 to 141
+INFO:root:With p = 0.125 = 1 / 8, training 141 instead
+INFO:root:With p = 0.125 = 1 / 8, training 140 instead
+INFO:root:With p = 0.875 = 7 / 8, mutating 77 to 142
+INFO:root:Search algorithm is done. Min Loss = 78.46763559970141

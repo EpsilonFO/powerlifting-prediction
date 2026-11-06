@@ -1,0 +1,13 @@
+[{"stream_name":"stdout","time":13.998929687,"data":"Tesla T4 2\n"}
+,{"stream_name":"stdout","time":268.731067125,"data":"fold 0 target C: RMSE 77.191  fit 11s  +val 253s\n"}
+,{"stream_name":"stdout","time":552.253849928,"data":"   +test 537s  peak mem 8.7 GB\n"}
+,{"stream_name":"stdout","time":796.185552026,"data":"fold 0 target A: RMSE 77.536  fit 8s  +val 244s\n"}
+,{"stream_name":"stdout","time":1085.40666047,"data":"   +test 533s  peak mem 8.7 GB\n"}
+,{"stream_name":"stdout","time":1085.472457255,"data":"[{'fold': 0, 'target': 'C', 'rmse': 77.19058478046689, 'sec': 537}, {'fold': 0, 'target': 'A', 'rmse': 77.53631740987903, 'sec': 533}]\n"}
+,{"stream_name":"stderr","time":1094.504690973,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1094.504720039,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1094.731765704,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1094.731797065,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1095.480266354,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1096.361755659,"data":"[NbConvertApp] Writing 288639 bytes to __results__.html\n"}
+]

@@ -1,0 +1,17 @@
+=== rsfc (plis tous)
+<projet>/experiments/tabprep/tp.py:56: RuntimeWarning: invalid value encountered in divide
+  e = np.where(seen, (s + alpha * prior) / (cnt + alpha), prior)
+  pli 0 : RMSE 76.843  (0.2 min)
+<projet>/experiments/tabprep/tp.py:56: RuntimeWarning: invalid value encountered in divide
+  e = np.where(seen, (s + alpha * prior) / (cnt + alpha), prior)
+  pli 1 : RMSE 77.524  (0.4 min)
+<projet>/experiments/tabprep/tp.py:56: RuntimeWarning: invalid value encountered in divide
+  e = np.where(seen, (s + alpha * prior) / (cnt + alpha), prior)
+  pli 2 : RMSE 76.879  (0.6 min)
+<projet>/experiments/tabprep/tp.py:56: RuntimeWarning: invalid value encountered in divide
+  e = np.where(seen, (s + alpha * prior) / (cnt + alpha), prior)
+  pli 3 : RMSE 77.719  (0.8 min)
+<projet>/experiments/tabprep/tp.py:56: RuntimeWarning: invalid value encountered in divide
+  e = np.where(seen, (s + alpha * prior) / (cnt + alpha), prior)
+  pli 4 : RMSE 77.645  (1.0 min)
+RESULT {"variant": "rsfc", "folds": [0, 1, 2, 3, 4], "plis": [76.843, 77.524, 76.879, 77.719, 77.645], "minutes": 1.0, "rmse": 77.323, "stats": [{"n_feats": 116, "n_new": 50, "t_feat": 1.0, "t_fit": 9.1, "maxrss_gb": 0.8, "best_iter": 967, "gain_share_new": 0.5477, "top_new": {"RSFC_16": 1117561811.0, "RSFC_17": 1001482950.0, "RSFC_35": 490289871.0, "RSFC_7": 443286005.0, "RSFC_2": 413597250.0, "RSFC_25": 398831784.0, "RSFC_29": 213235908.0, "RSFC_24": 182909034.0}}, {"n_feats": 116, "n_new": 50, "t_feat": 1.0, "t_fit": 8.8, "maxrss_gb": 0.81, "best_iter": 950, "gain_share_new": 0.5475, "top_new": {"RSFC_17": 1153896620.0, "RSFC_16": 957140210.0, "RSFC_7": 506559495.0, "RSFC_35": 494761229.0, "RSFC_2": 423569238.0, "RSFC_25": 327556259.0, "RSFC_29": 224425902.0, "RSFC_24": 150429001.0}}, {"n_feats": 116, "n_new": 50, "t_feat": 1.0, "t_fit": 8.3, "maxrss_gb": 0.81, "best_iter": 890, "gain_share_new": 0.5357, "top_new": {"RSFC_16": 1144672552.0, "RSFC_17": 1011282665.0, "RSFC_35": 442024736.0, "RSFC_2": 405617016.0, "RSFC_7": 378321352.0, "RSFC_25": 349437026.0, "RSFC_29": 192752460.0, "RSFC_24": 162051912.0}}, {"n_feats": 116, "n_new": 50, "t_feat": 1.0, "t_fit": 10.4, "maxrss_gb": 0.81, "best_iter": 1186, "gain_share_new": 0.5369, "top_new": {"RSFC_16": 1146779593.0, "RSFC_17": 1017472102.0, "RSFC_7": 467887810.0, "RSFC_35": 441624628.0, "RSFC_2": 380504726.0, "RSFC_25": 366369432.0, "RSFC_29": 195349482.0, "RSFC_13": 146907108.0}}, {"n_feats": 116, "n_new": 50, "t_feat": 1.0, "t_fit": 7.8, "maxrss_gb": 0.83, "best_iter": 806, "gain_share_new": 0.5289, "top_new": {"RSFC_17": 1254896409.0, "RSFC_16": 873887582.0, "RSFC_7": 436385142.0, "RSFC_35": 421055498.0, "RSFC_25": 368876930.0, "RSFC_2": 333509693.0, "RSFC_29": 216604297.0, "RSFC_24": 129812465.0}}]}

@@ -1,0 +1,22 @@
+[{"stream_name":"stderr","time":34.647998727,"data":"WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -3] Temporary failure in name resolution)\")': /simple/tabicl/\n"}
+,{"stream_name":"stderr","time":67.163817663,"data":"WARNING: Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -3] Temporary failure in name resolution)\")': /simple/tabicl/\n"}
+,{"stream_name":"stderr","time":100.179986115,"data":"WARNING: Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -3] Temporary failure in name resolution)\")': /simple/tabicl/\n"}
+,{"stream_name":"stderr","time":134.19580943,"data":"WARNING: Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -3] Temporary failure in name resolution)\")': /simple/tabicl/\n"}
+,{"stream_name":"stderr","time":170.210730824,"data":"WARNING: Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -3] Temporary failure in name resolution)\")': /simple/tabicl/\n"}
+,{"stream_name":"stderr","time":202.233046051,"data":"ERROR: Could not find a version that satisfies the requirement tabicl==2.2.0 (from versions: none)\n"}
+,{"stream_name":"stderr","time":202.233477748,"data":"ERROR: No matching distribution found for tabicl==2.2.0\n"}
+,{"stream_name":"stderr","time":202.354192392,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":202.355027149,"data":"  File \"/kaggle/src/script.py\", line 4, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":202.355071787,"data":"    subprocess.run([sys.executable, \"-m\", \"pip\", \"install\", \"-q\", \"tabicl==2.2.0\"], check=True)\n"}
+,{"stream_name":"stderr","time":202.355079531,"data":"    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":202.355085168,"data":"  File \"/usr/lib/python3.13/subprocess.py\", line 578, in run\n"}
+,{"stream_name":"stderr","time":202.355090464,"data":"    raise CalledProcessError(retcode, process.args,\n"}
+,{"stream_name":"stderr","time":202.355095495,"data":"                             output=stdout, stderr=stderr)\n"}
+,{"stream_name":"stderr","time":202.355100736,"data":"subprocess.CalledProcessError: Command '['/usr/bin/python3', '-m', 'pip', 'install', '-q', 'tabicl==2.2.0']' returned non-zero exit status 1.\n"}
+,{"stream_name":"stderr","time":205.703707324,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":205.703757322,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":206.341264852,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":206.341324485,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":208.948925919,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":210.64298311,"data":"[NbConvertApp] Writing 287217 bytes to __results__.html\n"}
+]

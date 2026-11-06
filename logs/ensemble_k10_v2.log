@@ -1,0 +1,12 @@
+RMSE OOF individuelle : {'rf_C_k10': 78.96, 'et_C_k10': 79.067, 'hgb_raw_k10': 78.862, 'lgbm_C_k10': 76.859, 'lgbm_B_k10': 77.162, 'lgbm_C_xt_k10': 77.086, 'xgb_C_k10': 77.087, 'cat_C_k10': 77.481, 'mlp_C_plr_k10': 77.397, 'ridge_C_k10': 81.377, 'ridge_A_k10': 81.54, 'rf_A_k10': 80.94, 'et_A_k10': 82.077, 'lgbm_A': 78.079, 'lgbm_B': 78.267, 'lgbm_C': 78.021, 'lgbm_A_drop': 78.133, 'xgb_A': 78.94, 'mlp_A': 79.636, 'cat_A': 78.148, 'lgbm_A_tuned': 77.579, 'lgbm_B_tuned_k10': 77.474, 'lgbm_C_tuned': 77.487, 'mlp_A_s5': 78.504, 'mlp_C_plr_s5_k10': 77.535, 'dragon_C': 78.271, 'lgbm_C_v2': 77.049, 'cat_C_v2': 77.656, 'ridge_A_v2': 81.794, 'lgbm_A_v2_lin': 77.551, 'xgb_C_v2_default': 77.688, 'mlp_C_plr_te_k10': 77.183, 'cat_C_meet_k10': 77.334}
+Moyenne simple : 76.949
+Moyenne pondérée : RMSE 76.507 (validation imbriquée) ; poids = {'et_C_k10': 0.02, 'lgbm_C_k10': 0.116, 'lgbm_B_k10': 0.146, 'xgb_C_k10': 0.221, 'cat_C_k10': 0.04, 'mlp_C_plr_k10': 0.057, 'cat_A': 0.015, 'lgbm_B_tuned_k10': 0.01, 'mlp_C_plr_s5_k10': 0.069, 'lgbm_C_v2': 0.042, 'cat_C_v2': 0.043, 'mlp_C_plr_te_k10': 0.097, 'cat_C_meet_k10': 0.125}
+  ambiguïté : RMSE moyenne des membres 77.258 -> ensemble 76.490
+Stacking Ridge : RMSE 76.370 (validation imbriquée) ; coefficients = {'rf_C_k10': -0.015, 'et_C_k10': 0.064, 'hgb_raw_k10': 0.036, 'lgbm_C_k10': 0.21, 'lgbm_B_k10': 0.125, 'lgbm_C_xt_k10': -0.221, 'xgb_C_k10': 0.243, 'cat_C_k10': 0.068, 'mlp_C_plr_k10': 0.073, 'ridge_C_k10': -0.053, 'ridge_A_k10': -0.098, 'rf_A_k10': -0.168, 'et_A_k10': 0.121, 'lgbm_A': 0.012, 'lgbm_B': -0.052, 'lgbm_C': -0.071, 'lgbm_A_drop': -0.102, 'xgb_A': 0.042, 'mlp_A': -0.014, 'cat_A': 0.059, 'lgbm_A_tuned': 0.079, 'lgbm_B_tuned_k10': 0.155, 'lgbm_C_tuned': -0.093, 'mlp_A_s5': 0.067, 'mlp_C_plr_s5_k10': 0.177, 'dragon_C': -0.097, 'lgbm_C_v2': 0.172, 'cat_C_v2': 0.043, 'ridge_A_v2': 0.052, 'lgbm_A_v2_lin': -0.047, 'xgb_C_v2_default': 0.009, 'mlp_C_plr_te_k10': 0.1, 'cat_C_meet_k10': 0.131}
+Fichiers :
+  <projet>/outputs/submissions/ensemble_weighted.csv
+  <projet>/outputs/submissions/ensemble_stack.csv
+  [ensemble_stack_dedup] score public 76.44256 effacé (il portait sur la version précédente)
+  [ensemble_stack_dedup] lignes remplacées : 867 en CV, 465 / 45000 en test
+  [ensemble_stack_dedup] CV RMSE = 76.213 (avant : 76.369)  plis [75.815, 76.372, 75.784, 76.448, 76.645]
+Soumission : <projet>/outputs/submissions/ensemble_stack_dedup.csv

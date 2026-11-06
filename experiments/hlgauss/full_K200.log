@@ -1,0 +1,12 @@
+    seed 0: K=200 σ=0.039 best 77.774 epochs 30 (38s)
+  pli 0 : RMSE 77.774  (0.6 min)
+    seed 0: K=200 σ=0.039 best 78.478 epochs 27 (34s)
+  pli 1 : RMSE 78.478  (1.2 min)
+    seed 0: K=200 σ=0.038 best 77.728 epochs 33 (40s)
+  pli 2 : RMSE 77.728  (1.9 min)
+    seed 0: K=200 σ=0.039 best 78.565 epochs 29 (36s)
+  pli 3 : RMSE 78.565  (2.5 min)
+    seed 0: K=200 σ=0.039 best 78.557 epochs 28 (25s)
+  pli 4 : RMSE 78.557  (3.0 min)
+K200 : 5 plis en 3.0 min
+{"rmse": 78.221, "plis": [77.774, 78.478, 77.728, 78.565, 78.557], "corr_resid": {"lgbm_C_k10": 0.972, "mlp_C_plr_te_k10": 0.981, "cat_C_meet_k10": 0.966, "xgb_C_k10": 0.968}, "stack_base": 76.3699, "stack_new": 76.3707, "delta": 0.0008, "delta_plis": [-0.0004, 0.0028, -0.0013, 0.0044, -0.0015]}

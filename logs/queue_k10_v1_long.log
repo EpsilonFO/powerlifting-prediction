@@ -1,0 +1,35 @@
+=== 10:08 train --model lgbm --target B --seeds 5 --params lgbm_v1 --name lgbm_B_tuned_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+Hyperparamètres tunés chargés : {'num_leaves': 60, 'min_child_samples': 37, 'colsample_bytree': 0.44579048527865084, 'subsample': 0.9867730596056701, 'reg_lambda': 0.024210901433923508, 'reg_alpha': 0.007172833705751732, 'cat_smooth': 58.7360049580003, 'cat_l2': 25.984182029493848, 'min_data_per_group': 94}
+  [lgbm_B_tuned_k10] pli 0 : RMSE 76.937  (1.7 min)
+  [lgbm_B_tuned_k10] pli 1 : RMSE 77.082  (3.2 min)
+  [lgbm_B_tuned_k10] pli 2 : RMSE 77.165  (4.5 min)
+  [lgbm_B_tuned_k10] pli 3 : RMSE 78.322  (6.3 min)
+  [lgbm_B_tuned_k10] pli 4 : RMSE 76.603  (8.2 min)
+  [lgbm_B_tuned_k10] pli 5 : RMSE 77.367  (9.8 min)
+  [lgbm_B_tuned_k10] pli 6 : RMSE 78.400  (11.3 min)
+  [lgbm_B_tuned_k10] pli 7 : RMSE 77.014  (12.9 min)
+  [lgbm_B_tuned_k10] pli 8 : RMSE 78.390  (14.4 min)
+  [lgbm_B_tuned_k10] pli 9 : RMSE 77.438  (15.9 min)
+  [lgbm_B_tuned_k10] CV RMSE = 77.473 ± 0.395
+Soumission : <projet>/outputs/submissions/lgbm_B_tuned_k10.csv
+=== 10:24 train --model mlp --target C --seeds 5 --name mlp_C_plr_s5_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+Hyperparamètres tunés chargés : {'plr': {'sigma': 0.1}, 'lr': 0.001, 'dropout': 0.3}
+  [mlp_C_plr_s5_k10] pli 0 : RMSE 77.173  (1.8 min)
+  [mlp_C_plr_s5_k10] pli 1 : RMSE 77.038  (3.7 min)
+  [mlp_C_plr_s5_k10] pli 2 : RMSE 77.193  (5.5 min)
+  [mlp_C_plr_s5_k10] pli 3 : RMSE 78.359  (7.3 min)
+  [mlp_C_plr_s5_k10] pli 4 : RMSE 76.707  (9.1 min)
+  [mlp_C_plr_s5_k10] pli 5 : RMSE 77.605  (10.9 min)
+  [mlp_C_plr_s5_k10] pli 6 : RMSE 78.194  (12.9 min)
+  [mlp_C_plr_s5_k10] pli 7 : RMSE 77.035  (14.5 min)
+  [mlp_C_plr_s5_k10] pli 8 : RMSE 78.484  (16.3 min)
+  [mlp_C_plr_s5_k10] pli 9 : RMSE 77.537  (18.1 min)
+  [mlp_C_plr_s5_k10] CV RMSE = 77.534 ± 0.352
+Soumission : <projet>/outputs/submissions/mlp_C_plr_s5_k10.csv
+=== 10:42 fin

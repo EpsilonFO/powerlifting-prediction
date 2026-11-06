@@ -1,0 +1,7 @@
+== mlp_ref_5f {'plr': {'sigma': 0.1}, 'lr': 0.001, 'dropout': 0.3, 'te': True} plis=None
+  pli 0 : RMSE 77.608  (0.6 min)
+  pli 1 : RMSE 78.403  (1.2 min)
+  pli 2 : RMSE 77.657  (1.9 min)
+  pli 3 : RMSE 78.230  (2.4 min)
+  pli 4 : RMSE 78.438  (2.8 min)
+== mlp_ref_5f : {'rmse': 78.068, 'plis': [77.608, 78.403, 77.657, 78.23, 78.438]}  2.9 min

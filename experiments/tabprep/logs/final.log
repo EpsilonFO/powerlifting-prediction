@@ -1,0 +1,1 @@
+FINAL tabprep_lgbm {"rmse": 76.948, "plis": [76.611, 77.003, 76.549, 77.247, 77.326], "corr_resid": {"lgbm_C_k10": 0.989, "mlp_C_plr_te_k10": 0.978, "cat_C_meet_k10": 0.976, "xgb_C_k10": 0.979}, "stack_base": 76.3699, "stack_new": 76.299, "delta": -0.0709, "delta_plis": [-0.0288, -0.0885, -0.071, -0.0861, -0.0796]}

@@ -1,0 +1,6 @@
+RESULT lc fold0 frac_of_fold_train=0.50 n_train=42101 rmse=78.071
+RESULT lc fold0 frac_of_fold_train=0.75 n_train=63147 rmse=77.369
+RESULT lc fold0 frac_of_fold_train=1.00 n_train=84000 rmse=76.656
+RESULT lc fold1 frac_of_fold_train=0.50 n_train=41917 rmse=78.598
+RESULT lc fold1 frac_of_fold_train=0.75 n_train=62912 rmse=77.930
+RESULT lc fold1 frac_of_fold_train=1.00 n_train=84000 rmse=77.305

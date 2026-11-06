@@ -1,0 +1,20 @@
+[{"stream_name":"stderr","time":15.411657604,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":15.412582173,"data":"  File \"/kaggle/src/script.py\", line 17, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":15.412609908,"data":"    print(torch.cuda.get_device_name(0), torch.cuda.device_count(), flush=True)\n"}
+,{"stream_name":"stderr","time":15.412615532,"data":"          ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^\n"}
+,{"stream_name":"stderr","time":15.412620511,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/cuda/__init__.py\", line 653, in get_device_name\n"}
+,{"stream_name":"stderr","time":15.412625792,"data":"    return get_device_properties(device).name\n"}
+,{"stream_name":"stderr","time":15.412630292,"data":"           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n"}
+,{"stream_name":"stderr","time":15.412634616,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/cuda/__init__.py\", line 686, in get_device_properties\n"}
+,{"stream_name":"stderr","time":15.41263932,"data":"    _lazy_init()  # will define _get_device_properties\n"}
+,{"stream_name":"stderr","time":15.412643936,"data":"    ~~~~~~~~~~^^\n"}
+,{"stream_name":"stderr","time":15.412647933,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/cuda/__init__.py\", line 471, in _lazy_init\n"}
+,{"stream_name":"stderr","time":15.412652643,"data":"    raise AssertionError(\"Torch not compiled with CUDA enabled\")\n"}
+,{"stream_name":"stderr","time":15.412676985,"data":"AssertionError: Torch not compiled with CUDA enabled\n"}
+,{"stream_name":"stderr","time":18.880103969,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":18.880140313,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":19.180253449,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":19.180286125,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":20.099053204,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":21.302165588,"data":"[NbConvertApp] Writing 288639 bytes to __results__.html\n"}
+]

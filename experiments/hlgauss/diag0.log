@@ -1,0 +1,7 @@
+stack local pli 0 (33 modèles) : 76.0348
+{'nom': 'K100', 'rmse_pli0': 77.915, 'corr_mlp_te_k10': 0.9807, 'corr_lgbm_C_k10': 0.9699, 'corr_ref_pli0': 0.9829, 'moy_ref_50_50': 77.429, 'stack_delta_pli0': 0.0037}
+{'nom': 'K100_mse', 'rmse_pli0': 77.713, 'corr_mlp_te_k10': 0.9837, 'corr_lgbm_C_k10': 0.9721, 'corr_ref_pli0': 0.9877, 'moy_ref_50_50': 77.42, 'stack_delta_pli0': 0.0022}
+{'nom': 'K100_s03', 'rmse_pli0': 77.986, 'corr_mlp_te_k10': 0.9786, 'corr_lgbm_C_k10': 0.9683, 'corr_ref_pli0': 0.9826, 'moy_ref_50_50': 77.458, 'stack_delta_pli0': 0.0004}
+{'nom': 'K200', 'rmse_pli0': 77.774, 'corr_mlp_te_k10': 0.9819, 'corr_lgbm_C_k10': 0.9714, 'corr_ref_pli0': 0.9836, 'moy_ref_50_50': 77.369, 'stack_delta_pli0': 0.0002}
+{'nom': 'K50', 'rmse_pli0': 77.838, 'corr_mlp_te_k10': 0.9813, 'corr_lgbm_C_k10': 0.9709, 'corr_ref_pli0': 0.9836, 'moy_ref_50_50': 77.401, 'stack_delta_pli0': 0.0012}
+{'nom': 'ref', 'rmse_pli0': 77.608, 'corr_mlp_te_k10': 0.9855, 'corr_lgbm_C_k10': 0.9728, 'corr_ref_pli0': 1.0, 'moy_ref_50_50': 77.608, 'stack_delta_pli0': 0.0051}

@@ -1,0 +1,153 @@
+=== 22:00 train --model rf --target C --name rf_C_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+Hyperparamètres tunés chargés : {'max_features': 0.14097422860575085, 'min_samples_leaf': 4}
+  [rf_C_k10] pli 0 : RMSE 78.797  (0.2 min)
+  [rf_C_k10] pli 1 : RMSE 78.522  (0.3 min)
+  [rf_C_k10] pli 2 : RMSE 78.599  (0.5 min)
+  [rf_C_k10] pli 3 : RMSE 79.505  (0.6 min)
+  [rf_C_k10] pli 4 : RMSE 78.510  (0.8 min)
+  [rf_C_k10] pli 5 : RMSE 78.616  (1.0 min)
+  [rf_C_k10] pli 6 : RMSE 80.174  (1.1 min)
+  [rf_C_k10] pli 7 : RMSE 78.500  (1.3 min)
+  [rf_C_k10] pli 8 : RMSE 79.495  (1.4 min)
+  [rf_C_k10] pli 9 : RMSE 78.859  (1.6 min)
+  [rf_C_k10] CV RMSE = 78.959 ± 0.300
+Soumission : <projet>/outputs/submissions/rf_C_k10.csv
+=== 22:01 train --model et --target C --name et_C_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+Hyperparamètres tunés chargés : {'max_features': 0.932401920114295, 'min_samples_leaf': 5}
+  [et_C_k10] pli 0 : RMSE 78.825  (0.4 min)
+  [et_C_k10] pli 1 : RMSE 78.608  (0.8 min)
+  [et_C_k10] pli 2 : RMSE 78.581  (1.1 min)
+  [et_C_k10] pli 3 : RMSE 79.683  (1.5 min)
+  [et_C_k10] pli 4 : RMSE 78.682  (1.9 min)
+  [et_C_k10] pli 5 : RMSE 78.792  (2.3 min)
+  [et_C_k10] pli 6 : RMSE 80.366  (2.7 min)
+  [et_C_k10] pli 7 : RMSE 78.525  (3.1 min)
+  [et_C_k10] pli 8 : RMSE 79.698  (3.5 min)
+  [et_C_k10] pli 9 : RMSE 78.888  (3.9 min)
+  [et_C_k10] CV RMSE = 79.066 ± 0.295
+Soumission : <projet>/outputs/submissions/et_C_k10.csv
+=== 22:05 train --model hgb --target A --name hgb_raw_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  [hgb_raw_k10] pli 0 : RMSE 78.405  (0.0 min)
+  [hgb_raw_k10] pli 1 : RMSE 78.407  (0.1 min)
+  [hgb_raw_k10] pli 2 : RMSE 78.689  (0.1 min)
+  [hgb_raw_k10] pli 3 : RMSE 79.540  (0.1 min)
+  [hgb_raw_k10] pli 4 : RMSE 78.069  (0.1 min)
+  [hgb_raw_k10] pli 5 : RMSE 78.632  (0.2 min)
+  [hgb_raw_k10] pli 6 : RMSE 79.642  (0.2 min)
+  [hgb_raw_k10] pli 7 : RMSE 78.379  (0.2 min)
+  [hgb_raw_k10] pli 8 : RMSE 79.796  (0.2 min)
+  [hgb_raw_k10] pli 9 : RMSE 79.039  (0.3 min)
+  [hgb_raw_k10] CV RMSE = 78.861 ± 0.416
+Soumission : <projet>/outputs/submissions/hgb_raw_k10.csv
+=== 22:05 train --model lgbm --target C --seeds 5 --name lgbm_C_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+Hyperparamètres tunés chargés : {'num_leaves': 64, 'min_child_samples': 32, 'colsample_bytree': 0.45744163452970354, 'subsample': 0.9506173753803475, 'reg_lambda': 9.951384867674935, 'reg_alpha': 0.40334992398569447, 'cat_smooth': 91.02470158484209, 'cat_l2': 18.819738232082294, 'min_data_per_group': 86}
+  [lgbm_C_k10] pli 0 : RMSE 76.425  (1.7 min)
+  [lgbm_C_k10] pli 1 : RMSE 76.298  (3.6 min)
+  [lgbm_C_k10] pli 2 : RMSE 76.426  (4.9 min)
+  [lgbm_C_k10] pli 3 : RMSE 77.606  (6.3 min)
+  [lgbm_C_k10] pli 4 : RMSE 76.101  (8.0 min)
+  [lgbm_C_k10] pli 5 : RMSE 76.753  (9.6 min)
+  [lgbm_C_k10] pli 6 : RMSE 77.880  (11.5 min)
+  [lgbm_C_k10] pli 7 : RMSE 76.358  (12.9 min)
+  [lgbm_C_k10] pli 8 : RMSE 77.722  (14.3 min)
+  [lgbm_C_k10] pli 9 : RMSE 76.996  (16.0 min)
+  [lgbm_C_k10] CV RMSE = 76.858 ± 0.395
+Soumission : <projet>/outputs/submissions/lgbm_C_k10.csv
+=== 22:21 train --model lgbm --target B --seeds 5 --name lgbm_B_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+Hyperparamètres tunés chargés : {'num_leaves': 64, 'min_child_samples': 32, 'colsample_bytree': 0.45744163452970354, 'subsample': 0.9506173753803475, 'reg_lambda': 9.951384867674935, 'reg_alpha': 0.40334992398569447, 'cat_smooth': 91.02470158484209, 'cat_l2': 18.819738232082294, 'min_data_per_group': 86}
+  [lgbm_B_k10] pli 0 : RMSE 76.623  (2.1 min)
+  [lgbm_B_k10] pli 1 : RMSE 76.753  (4.0 min)
+  [lgbm_B_k10] pli 2 : RMSE 76.646  (5.8 min)
+  [lgbm_B_k10] pli 3 : RMSE 78.005  (7.7 min)
+  [lgbm_B_k10] pli 4 : RMSE 76.406  (9.6 min)
+  [lgbm_B_k10] pli 5 : RMSE 77.234  (11.3 min)
+  [lgbm_B_k10] pli 6 : RMSE 78.053  (13.2 min)
+  [lgbm_B_k10] pli 7 : RMSE 76.790  (14.8 min)
+  [lgbm_B_k10] pli 8 : RMSE 77.947  (16.5 min)
+  [lgbm_B_k10] pli 9 : RMSE 77.141  (18.4 min)
+  [lgbm_B_k10] CV RMSE = 77.161 ± 0.342
+Soumission : <projet>/outputs/submissions/lgbm_B_k10.csv
+=== 22:40 train --model lgbm --target C --seeds 3 --name lgbm_C_xt_k10 --set extra_trees=true
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+Hyperparamètres tunés chargés : {'num_leaves': 64, 'min_child_samples': 32, 'colsample_bytree': 0.45744163452970354, 'subsample': 0.9506173753803475, 'reg_lambda': 9.951384867674935, 'reg_alpha': 0.40334992398569447, 'cat_smooth': 91.02470158484209, 'cat_l2': 18.819738232082294, 'min_data_per_group': 86, 'extra_trees': True}
+  [lgbm_C_xt_k10] pli 0 : RMSE 76.550  (1.1 min)
+  [lgbm_C_xt_k10] pli 1 : RMSE 76.618  (2.1 min)
+  [lgbm_C_xt_k10] pli 2 : RMSE 76.662  (3.2 min)
+  [lgbm_C_xt_k10] pli 3 : RMSE 77.889  (4.2 min)
+  [lgbm_C_xt_k10] pli 4 : RMSE 76.426  (5.3 min)
+  [lgbm_C_xt_k10] pli 5 : RMSE 77.111  (6.3 min)
+  [lgbm_C_xt_k10] pli 6 : RMSE 78.029  (7.5 min)
+  [lgbm_C_xt_k10] pli 7 : RMSE 76.548  (8.4 min)
+  [lgbm_C_xt_k10] pli 8 : RMSE 77.850  (9.4 min)
+  [lgbm_C_xt_k10] pli 9 : RMSE 77.152  (10.5 min)
+  [lgbm_C_xt_k10] CV RMSE = 77.085 ± 0.348
+Soumission : <projet>/outputs/submissions/lgbm_C_xt_k10.csv
+=== 22:50 train --model xgb --target C --seeds 5 --name xgb_C_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+Hyperparamètres tunés chargés : {'max_depth': 9, 'min_child_weight': 1.0756011989101983, 'colsample_bytree': 0.4419944558767587, 'subsample': 0.9339207179042498, 'reg_lambda': 26.33878075723366, 'gamma': 0.02732108930259987}
+  [xgb_C_k10] pli 0 : RMSE 76.543  (1.0 min)
+  [xgb_C_k10] pli 1 : RMSE 76.520  (1.9 min)
+  [xgb_C_k10] pli 2 : RMSE 76.691  (3.1 min)
+  [xgb_C_k10] pli 3 : RMSE 77.637  (4.1 min)
+  [xgb_C_k10] pli 4 : RMSE 76.409  (5.1 min)
+  [xgb_C_k10] pli 5 : RMSE 77.157  (6.0 min)
+  [xgb_C_k10] pli 6 : RMSE 78.119  (7.2 min)
+  [xgb_C_k10] pli 7 : RMSE 76.532  (8.1 min)
+  [xgb_C_k10] pli 8 : RMSE 78.111  (9.0 min)
+  [xgb_C_k10] pli 9 : RMSE 77.125  (10.2 min)
+  [xgb_C_k10] CV RMSE = 77.086 ± 0.387
+Soumission : <projet>/outputs/submissions/xgb_C_k10.csv
+=== 23:01 train --model cat --target C --name cat_C_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+Hyperparamètres tunés chargés : {'depth': 7, 'l2_leaf_reg': 22.38538494610183, 'random_strength': 2.5850095757770153, 'bagging_temperature': 2.5394893702726833}
+  [cat_C_k10] pli 0 : RMSE 77.140  (1.6 min)
+  [cat_C_k10] pli 1 : RMSE 77.027  (4.3 min)
+  [cat_C_k10] pli 2 : RMSE 77.003  (6.0 min)
+  [cat_C_k10] pli 3 : RMSE 78.312  (8.2 min)
+  [cat_C_k10] pli 4 : RMSE 76.841  (10.4 min)
+  [cat_C_k10] pli 5 : RMSE 77.442  (12.0 min)
+  [cat_C_k10] pli 6 : RMSE 78.264  (15.1 min)
+  [cat_C_k10] pli 7 : RMSE 77.218  (17.1 min)
+  [cat_C_k10] pli 8 : RMSE 78.379  (19.3 min)
+  [cat_C_k10] pli 9 : RMSE 77.165  (22.6 min)
+  [cat_C_k10] CV RMSE = 77.481 ± 0.303
+Soumission : <projet>/outputs/submissions/cat_C_k10.csv
+=== 23:23 train --model mlp --target C --seeds 5 --name mlp_C_plr_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+Hyperparamètres tunés chargés : {'plr': {'sigma': 0.1}, 'lr': 0.001, 'dropout': 0.3}
+  [mlp_C_plr_k10] pli 0 : RMSE 76.985  (19.2 min)
+  [mlp_C_plr_k10] pli 1 : RMSE 77.034  (36.9 min)
+  [mlp_C_plr_k10] pli 2 : RMSE 76.949  (40.0 min)
+  [mlp_C_plr_k10] pli 3 : RMSE 78.101  (43.6 min)
+  [mlp_C_plr_k10] pli 4 : RMSE 76.571  (47.3 min)
+  [mlp_C_plr_k10] pli 5 : RMSE 77.513  (50.4 min)
+  [mlp_C_plr_k10] pli 6 : RMSE 78.187  (54.4 min)
+  [mlp_C_plr_k10] pli 7 : RMSE 76.748  (58.0 min)
+  [mlp_C_plr_k10] pli 8 : RMSE 78.437  (61.1 min)
+  [mlp_C_plr_k10] pli 9 : RMSE 77.419  (64.3 min)
+  [mlp_C_plr_k10] CV RMSE = 77.396 ± 0.341
+Soumission : <projet>/outputs/submissions/mlp_C_plr_k10.csv
+=== 00:28 fin

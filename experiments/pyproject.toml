@@ -1,0 +1,20 @@
+[project]
+name = "experiments"
+version = "0.1.0"
+description = "Environnement séparé pour évaluer des méthodes récentes (TabM, RealMLP, TabICL, TabPrep) sans toucher au projet"
+requires-python = ">=3.12"
+dependencies = [
+    "catboost>=1.2.10",
+    "kagglehub>=1.0.2",
+    "lightgbm>=4.7.0",
+    "matplotlib>=3.11.2",
+    "optuna>=5.0.0",
+    "pandas>=3.0.6",
+    "scikit-learn>=1.9.1",
+    "scipy>=1.18.1",
+    "torch>=2.14.0",
+    "xgboost>=3.4.1",
+    "tabm",
+    "pytabkit",
+    "tabicl",
+]

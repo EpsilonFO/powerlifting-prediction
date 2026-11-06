@@ -1,0 +1,19 @@
+<projet>/.venv/lib/python3.12/site-packages/sklearn/model_selection/_split.py:812: UserWarning: The least populated class in y has only 1 members, which is less than n_splits=2.
+  warnings.warn(
+<projet>/.venv/lib/python3.12/site-packages/sklearn/model_selection/_split.py:812: UserWarning: The least populated class in y has only 1 members, which is less than n_splits=2.
+  warnings.warn(
+<projet>/.venv/lib/python3.12/site-packages/sklearn/model_selection/_split.py:812: UserWarning: The least populated class in y has only 1 members, which is less than n_splits=2.
+  warnings.warn(
+Hyperparamètres tunés chargés : {'num_leaves': 64, 'min_child_samples': 32, 'colsample_bytree': 0.45744163452970354, 'subsample': 0.9506173753803475, 'reg_lambda': 9.951384867674935, 'reg_alpha': 0.40334992398569447, 'cat_smooth': 91.02470158484209, 'cat_l2': 18.819738232082294, 'min_data_per_group': 86, 'tabprep': True, 'n_jobs': 4}
+  [lgbm_C_tabprep_k10] pli 0 : RMSE 76.508  (1.8 min)
+  [lgbm_C_tabprep_k10] pli 1 : RMSE 76.295  (5.9 min)
+  [lgbm_C_tabprep_k10] pli 2 : RMSE 76.210  (9.7 min)
+  [lgbm_C_tabprep_k10] pli 3 : RMSE 77.441  (14.9 min)
+  [lgbm_C_tabprep_k10] pli 4 : RMSE 75.984  (19.4 min)
+  [lgbm_C_tabprep_k10] pli 5 : RMSE 76.593  (23.9 min)
+  [lgbm_C_tabprep_k10] pli 6 : RMSE 77.788  (28.8 min)
+  [lgbm_C_tabprep_k10] pli 7 : RMSE 76.167  (34.1 min)
+  [lgbm_C_tabprep_k10] pli 8 : RMSE 77.496  (38.8 min)
+  [lgbm_C_tabprep_k10] pli 9 : RMSE 76.837  (44.1 min)
+  [lgbm_C_tabprep_k10] CV RMSE = 76.733 ± 0.337
+Soumission : <projet>/outputs/submissions/lgbm_C_tabprep_k10.csv

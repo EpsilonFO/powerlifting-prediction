@@ -1,0 +1,174 @@
+=== 18:02 train --model lgbm --target C --seeds 5 --name lgbm_C_v2_tuned
+Hyperparamètres tunés chargés : {'num_leaves': 64, 'min_child_samples': 32, 'colsample_bytree': 0.45744163452970354, 'subsample': 0.9506173753803475, 'reg_lambda': 9.951384867674935, 'reg_alpha': 0.40334992398569447, 'cat_smooth': 91.02470158484209, 'cat_l2': 18.819738232082294, 'min_data_per_group': 86}
+  [lgbm_C_v2_tuned] pli 0 : RMSE 76.572  (1.5 min)
+  [lgbm_C_v2_tuned] pli 1 : RMSE 77.091  (3.1 min)
+  [lgbm_C_v2_tuned] pli 2 : RMSE 76.650  (4.9 min)
+  [lgbm_C_v2_tuned] pli 3 : RMSE 77.415  (6.3 min)
+  [lgbm_C_v2_tuned] pli 4 : RMSE 77.489  (7.8 min)
+  [lgbm_C_v2_tuned] CV RMSE = 77.043 ± 0.378
+Soumission : <projet>/outputs/submissions/lgbm_C_v2_tuned.csv
+=== 18:09 train --model lgbm --target C --seeds 3 --name lgbm_C_v2_xt --set extra_trees=true
+Hyperparamètres tunés chargés : {'num_leaves': 64, 'min_child_samples': 32, 'colsample_bytree': 0.45744163452970354, 'subsample': 0.9506173753803475, 'reg_lambda': 9.951384867674935, 'reg_alpha': 0.40334992398569447, 'cat_smooth': 91.02470158484209, 'cat_l2': 18.819738232082294, 'min_data_per_group': 86, 'extra_trees': True}
+  [lgbm_C_v2_xt] pli 0 : RMSE 76.716  (1.2 min)
+  [lgbm_C_v2_xt] pli 1 : RMSE 77.431  (2.3 min)
+  [lgbm_C_v2_xt] pli 2 : RMSE 76.931  (3.3 min)
+  [lgbm_C_v2_xt] pli 3 : RMSE 77.592  (4.3 min)
+  [lgbm_C_v2_xt] pli 4 : RMSE 77.754  (5.4 min)
+  [lgbm_C_v2_xt] CV RMSE = 77.285 ± 0.396
+Soumission : <projet>/outputs/submissions/lgbm_C_v2_xt.csv
+=== 18:15 train --model lgbm --target A --seeds 3 --name lgbm_A_v2_lin --set linear_tree=true
+Hyperparamètres tunés chargés : {'num_leaves': 64, 'min_child_samples': 32, 'colsample_bytree': 0.45744163452970354, 'subsample': 0.9506173753803475, 'reg_lambda': 9.951384867674935, 'reg_alpha': 0.40334992398569447, 'cat_smooth': 91.02470158484209, 'cat_l2': 18.819738232082294, 'min_data_per_group': 86, 'linear_tree': True}
+  [lgbm_A_v2_lin] pli 0 : RMSE 77.158  (0.4 min)
+  [lgbm_A_v2_lin] pli 1 : RMSE 77.489  (0.9 min)
+  [lgbm_A_v2_lin] pli 2 : RMSE 77.247  (1.3 min)
+  [lgbm_A_v2_lin] pli 3 : RMSE 77.847  (1.9 min)
+  [lgbm_A_v2_lin] pli 4 : RMSE 78.011  (2.3 min)
+  [lgbm_A_v2_lin] CV RMSE = 77.550 ± 0.331
+Soumission : <projet>/outputs/submissions/lgbm_A_v2_lin.csv
+=== 18:17 tune --model rf --target C --trials 20
+  essai   0 : RMSE 79.844
+  essai   1 : RMSE 79.448
+  essai   2 : RMSE 79.275
+  essai   3 : RMSE 79.786
+  essai   4 : RMSE 79.427
+  essai   5 : RMSE 80.403
+  essai   6 : RMSE 79.847
+  essai   7 : RMSE 79.348
+  essai   8 : RMSE 79.168
+  essai   9 : RMSE 79.378
+  essai  10 : RMSE 79.344
+  essai  11 : RMSE 79.146
+  essai  12 : RMSE 79.082
+  essai  13 : RMSE 79.031
+  essai  14 : RMSE 79.126
+  essai  15 : RMSE 79.060
+  essai  16 : RMSE 79.968
+  essai  17 : RMSE 79.162
+  essai  18 : RMSE 79.118
+  essai  19 : RMSE 79.429
+Meilleur essai : RMSE 79.031
+  {'max_features': 0.14097422860575085, 'min_samples_leaf': 4}
+=== 18:32 train --model rf --target C --name rf_C_v2
+Hyperparamètres tunés chargés : {'max_features': 0.14097422860575085, 'min_samples_leaf': 4}
+  [rf_C_v2] pli 0 : RMSE 78.887  (0.2 min)
+  [rf_C_v2] pli 1 : RMSE 79.324  (0.4 min)
+  [rf_C_v2] pli 2 : RMSE 78.680  (0.6 min)
+  [rf_C_v2] pli 3 : RMSE 79.634  (0.8 min)
+  [rf_C_v2] pli 4 : RMSE 79.416  (1.0 min)
+  [rf_C_v2] CV RMSE = 79.188 ± 0.352
+Soumission : <projet>/outputs/submissions/rf_C_v2.csv
+=== 18:33 tune --model et --target C --trials 20
+  essai   0 : RMSE 80.458
+  essai   1 : RMSE 79.134
+  essai   2 : RMSE 80.121
+  essai   3 : RMSE 81.397
+  essai   4 : RMSE 79.339
+  essai   5 : RMSE 82.652
+  essai   6 : RMSE 79.921
+  essai   7 : RMSE 80.110
+  essai   8 : RMSE 79.254
+  essai   9 : RMSE 79.537
+  essai  10 : RMSE 80.309
+  essai  11 : RMSE 79.074
+  essai  12 : RMSE 79.088
+  essai  13 : RMSE 79.304
+  essai  14 : RMSE 79.150
+  essai  15 : RMSE 79.616
+  essai  16 : RMSE 79.246
+  essai  17 : RMSE 79.177
+  essai  18 : RMSE 79.536
+  essai  19 : RMSE 79.181
+Meilleur essai : RMSE 79.074
+  {'max_features': 0.932401920114295, 'min_samples_leaf': 5}
+=== 18:42 train --model et --target C --name et_C_v2
+Hyperparamètres tunés chargés : {'max_features': 0.932401920114295, 'min_samples_leaf': 5}
+  [et_C_v2] pli 0 : RMSE 78.899  (0.4 min)
+  [et_C_v2] pli 1 : RMSE 79.375  (0.9 min)
+  [et_C_v2] pli 2 : RMSE 78.796  (1.3 min)
+  [et_C_v2] pli 3 : RMSE 79.780  (1.7 min)
+  [et_C_v2] pli 4 : RMSE 79.576  (2.2 min)
+  [et_C_v2] CV RMSE = 79.285 ± 0.381
+Soumission : <projet>/outputs/submissions/et_C_v2.csv
+=== 18:44 train --model xgb --target C --seeds 5 --no-tuned --name xgb_C_v2_default
+  [xgb_C_v2_default] pli 0 : RMSE 77.056  (0.8 min)
+  [xgb_C_v2_default] pli 1 : RMSE 77.757  (1.6 min)
+  [xgb_C_v2_default] pli 2 : RMSE 77.378  (2.4 min)
+  [xgb_C_v2_default] pli 3 : RMSE 78.107  (3.2 min)
+  [xgb_C_v2_default] pli 4 : RMSE 78.137  (4.0 min)
+  [xgb_C_v2_default] CV RMSE = 77.687 ± 0.419
+Soumission : <projet>/outputs/submissions/xgb_C_v2_default.csv
+=== 18:49 tune --model xgb --target C --trials 30
+  essai   0 : RMSE 78.219
+  essai   1 : RMSE 78.227
+  essai   2 : RMSE 78.327
+  essai   3 : RMSE 78.322
+  essai   4 : RMSE 77.767
+  essai   5 : RMSE 77.418
+  essai   6 : RMSE 78.194
+  essai   7 : RMSE 78.196
+  essai   8 : RMSE 78.090
+  essai   9 : RMSE 77.968
+  essai  10 : RMSE 78.047
+  essai  11 : RMSE 77.596
+  essai  12 : RMSE 77.474
+  essai  13 : RMSE 77.651
+  essai  14 : RMSE 77.484
+  essai  15 : RMSE 77.405
+  essai  16 : RMSE 77.703
+  essai  17 : RMSE 77.665
+  essai  18 : RMSE 77.959
+  essai  19 : RMSE 77.669
+  essai  20 : RMSE 77.590
+  essai  21 : RMSE 77.453
+  essai  22 : RMSE 78.046
+  essai  23 : RMSE 77.591
+  essai  24 : RMSE 77.468
+  essai  25 : RMSE 77.778
+  essai  26 : RMSE 77.883
+  essai  27 : RMSE 77.593
+  essai  28 : RMSE 77.545
+  essai  29 : RMSE 77.504
+Meilleur essai : RMSE 77.405
+  {'max_depth': 9, 'min_child_weight': 1.0756011989101983, 'colsample_bytree': 0.4419944558767587, 'subsample': 0.9339207179042498, 'reg_lambda': 26.33878075723366, 'gamma': 0.02732108930259987}
+=== 18:58 train --model xgb --target C --seeds 5 --name xgb_C_v2
+Hyperparamètres tunés chargés : {'max_depth': 9, 'min_child_weight': 1.0756011989101983, 'colsample_bytree': 0.4419944558767587, 'subsample': 0.9339207179042498, 'reg_lambda': 26.33878075723366, 'gamma': 0.02732108930259987}
+  [xgb_C_v2] pli 0 : RMSE 76.699  (1.0 min)
+  [xgb_C_v2] pli 1 : RMSE 77.427  (2.0 min)
+  [xgb_C_v2] pli 2 : RMSE 76.964  (2.9 min)
+  [xgb_C_v2] pli 3 : RMSE 77.666  (3.9 min)
+  [xgb_C_v2] pli 4 : RMSE 77.717  (5.0 min)
+  [xgb_C_v2] CV RMSE = 77.294 ± 0.399
+Soumission : <projet>/outputs/submissions/xgb_C_v2.csv
+=== 19:03 tune --model cat --target C --trials 20
+  essai   0 : RMSE 77.501
+  essai   1 : RMSE 77.640
+  essai   2 : RMSE 77.572
+  essai   3 : RMSE 77.648
+  essai   4 : RMSE 77.620
+  essai   5 : RMSE 77.650
+  essai   6 : RMSE 77.478
+  essai   7 : RMSE 77.620
+  essai   8 : RMSE 77.777
+  essai   9 : RMSE 77.544
+  essai  10 : RMSE 77.621
+  essai  11 : RMSE 77.507
+  essai  12 : RMSE 77.559
+  essai  13 : RMSE 77.536
+  essai  14 : RMSE 77.519
+  essai  15 : RMSE 77.513
+  essai  16 : RMSE 77.631
+  essai  17 : RMSE 77.468
+  essai  18 : RMSE 77.616
+  essai  19 : RMSE 77.524
+Meilleur essai : RMSE 77.468
+  {'depth': 7, 'l2_leaf_reg': 22.38538494610183, 'random_strength': 2.5850095757770153, 'bagging_temperature': 2.5394893702726833}
+=== 20:18 train --model cat --target C --name cat_C_v2_tuned
+Hyperparamètres tunés chargés : {'depth': 7, 'l2_leaf_reg': 22.38538494610183, 'random_strength': 2.5850095757770153, 'bagging_temperature': 2.5394893702726833}
+  [cat_C_v2_tuned] pli 0 : RMSE 77.179  (2.2 min)
+  [cat_C_v2_tuned] pli 1 : RMSE 77.724  (4.6 min)
+  [cat_C_v2_tuned] pli 2 : RMSE 77.265  (6.7 min)
+  [cat_C_v2_tuned] pli 3 : RMSE 77.862  (8.8 min)
+  [cat_C_v2_tuned] pli 4 : RMSE 78.072  (11.0 min)
+  [cat_C_v2_tuned] CV RMSE = 77.620 ± 0.345
+Soumission : <projet>/outputs/submissions/cat_C_v2_tuned.csv
+=== 20:29 fin

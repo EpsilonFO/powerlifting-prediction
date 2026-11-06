@@ -1,0 +1,52 @@
+== ref@1
+    ref (57s)
+  pli 0 : RMSE 77.511  (1.0 min)
+   ref@1 : 1.0 min
+== ref@2
+    ref (30s)
+  pli 0 : RMSE 77.570  (0.5 min)
+   ref@2 : 0.5 min
+== K200@1
+    seed 0: K=200 σ=0.039 best 77.574 epochs 33 (65s)
+  pli 0 : RMSE 77.574  (1.1 min)
+   K200@1 : 1.1 min
+== K200@2
+    seed 0: K=200 σ=0.039 best 77.714 epochs 30 (38s)
+  pli 0 : RMSE 77.714  (0.6 min)
+   K200@2 : 0.6 min
+== K100_mse@1
+    seed 0: K=100 σ=0.078 best 77.622 epochs 29 (35s)
+  pli 0 : RMSE 77.622  (0.6 min)
+   K100_mse@1 : 0.6 min
+== K100_mse@2
+    seed 0: K=100 σ=0.078 best 77.782 epochs 31 (41s)
+  pli 0 : RMSE 77.782  (0.7 min)
+   K100_mse@2 : 0.7 min
+== K50@1
+    seed 0: K=50 σ=0.156 best 77.634 epochs 30 (36s)
+  pli 0 : RMSE 77.634  (0.6 min)
+   K50@1 : 0.6 min
+== K50@2
+    seed 0: K=50 σ=0.156 best 77.856 epochs 34 (40s)
+  pli 0 : RMSE 77.856  (0.7 min)
+   K50@2 : 0.7 min
+== K200_mse
+    seed 0: K=200 σ=0.039 best 77.696 epochs 29 (37s)
+  pli 0 : RMSE 77.696  (0.6 min)
+   K200_mse : 0.6 min
+== K200_mse@1
+    seed 0: K=200 σ=0.039 best 77.635 epochs 29 (37s)
+  pli 0 : RMSE 77.635  (0.6 min)
+   K200_mse@1 : 0.6 min
+== K200_mse@2
+    seed 0: K=200 σ=0.039 best 77.843 epochs 26 (33s)
+  pli 0 : RMSE 77.843  (0.6 min)
+   K200_mse@2 : 0.6 min
+== K100@1
+    seed 0: K=100 σ=0.078 best 77.650 epochs 31 (37s)
+  pli 0 : RMSE 77.650  (0.6 min)
+   K100@1 : 0.6 min
+== K100@2
+    seed 0: K=100 σ=0.078 best 77.702 epochs 32 (38s)
+  pli 0 : RMSE 77.702  (0.7 min)
+   K100@2 : 0.7 min

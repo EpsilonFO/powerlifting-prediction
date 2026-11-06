@@ -1,0 +1,12 @@
+  fold0 sub1 best_iter=717 rmse_sub=77.908
+  fold0 sub2 best_iter=964 rmse_sub=77.508
+  fold0 sub3 best_iter=1058 rmse_sub=78.061
+  fold0 sub4 best_iter=940 rmse_sub=78.204
+RESULT fold0: moyenne 4 sous-plis (63k lignes) = 76.815 | 1 modèle sur 84k, 919 arbres (x1.0) = 76.778
+RESULT fold0: moyenne 4 sous-plis (63k lignes) = 76.815 | 1 modèle sur 84k, 1149 arbres (x1.25) = 76.721
+  fold1 sub0 best_iter=946 rmse_sub=77.351
+  fold1 sub2 best_iter=1069 rmse_sub=77.451
+  fold1 sub3 best_iter=1234 rmse_sub=78.008
+  fold1 sub4 best_iter=1272 rmse_sub=77.985
+RESULT fold1: moyenne 4 sous-plis (63k lignes) = 77.309 | 1 modèle sur 84k, 1130 arbres (x1.0) = 77.330
+RESULT fold1: moyenne 4 sous-plis (63k lignes) = 77.309 | 1 modèle sur 84k, 1412 arbres (x1.25) = 77.335

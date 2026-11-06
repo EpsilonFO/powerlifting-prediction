@@ -1,0 +1,49 @@
+=== 10:00 train --model ridge --target A --name ridge_A_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  [ridge_A_k10] pli 0 : RMSE 81.257  (0.1 min)
+  [ridge_A_k10] pli 1 : RMSE 80.779  (0.2 min)
+  [ridge_A_k10] pli 2 : RMSE 81.089  (0.2 min)
+  [ridge_A_k10] pli 3 : RMSE 81.908  (0.3 min)
+  [ridge_A_k10] pli 4 : RMSE 81.146  (0.4 min)
+  [ridge_A_k10] pli 5 : RMSE 81.228  (0.5 min)
+  [ridge_A_k10] pli 6 : RMSE 82.661  (0.6 min)
+  [ridge_A_k10] pli 7 : RMSE 81.168  (0.6 min)
+  [ridge_A_k10] pli 8 : RMSE 82.196  (0.7 min)
+  [ridge_A_k10] pli 9 : RMSE 81.948  (0.8 min)
+  [ridge_A_k10] CV RMSE = 81.539 ± 0.406
+Soumission : <projet>/outputs/submissions/ridge_A_k10.csv
+=== 10:01 train --model rf --target A --no-tuned --name rf_A_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  [rf_A_k10] pli 0 : RMSE 80.687  (0.2 min)
+  [rf_A_k10] pli 1 : RMSE 80.616  (0.4 min)
+  [rf_A_k10] pli 2 : RMSE 80.543  (0.7 min)
+  [rf_A_k10] pli 3 : RMSE 81.573  (0.9 min)
+  [rf_A_k10] pli 4 : RMSE 80.513  (1.1 min)
+  [rf_A_k10] pli 5 : RMSE 80.717  (1.4 min)
+  [rf_A_k10] pli 6 : RMSE 81.865  (1.6 min)
+  [rf_A_k10] pli 7 : RMSE 80.920  (1.8 min)
+  [rf_A_k10] pli 8 : RMSE 81.311  (2.1 min)
+  [rf_A_k10] pli 9 : RMSE 80.646  (2.4 min)
+  [rf_A_k10] CV RMSE = 80.940 ± 0.287
+Soumission : <projet>/outputs/submissions/rf_A_k10.csv
+=== 10:03 train --model et --target A --no-tuned --name et_A_k10
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  [et_A_k10] pli 0 : RMSE 81.919  (0.2 min)
+  [et_A_k10] pli 1 : RMSE 81.871  (0.5 min)
+  [et_A_k10] pli 2 : RMSE 81.689  (0.7 min)
+  [et_A_k10] pli 3 : RMSE 82.565  (0.9 min)
+  [et_A_k10] pli 4 : RMSE 81.830  (1.2 min)
+  [et_A_k10] pli 5 : RMSE 81.730  (1.4 min)
+  [et_A_k10] pli 6 : RMSE 83.209  (1.7 min)
+  [et_A_k10] pli 7 : RMSE 81.869  (1.9 min)
+  [et_A_k10] pli 8 : RMSE 82.386  (2.1 min)
+  [et_A_k10] pli 9 : RMSE 81.685  (2.4 min)
+  [et_A_k10] CV RMSE = 82.076 ± 0.261
+Soumission : <projet>/outputs/submissions/et_A_k10.csv
+=== 10:06 fin

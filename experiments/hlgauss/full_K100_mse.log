@@ -1,0 +1,14 @@
+    seed 0: K=100 σ=0.078 best 77.713 epochs 26 (26s)
+  pli 0 : RMSE 77.713  (0.4 min)
+    seed 0: K=100 σ=0.078 best 78.336 epochs 25 (19s)
+  pli 1 : RMSE 78.336  (0.8 min)
+    seed 0: K=100 σ=0.076 best 77.824 epochs 25 (20s)
+  pli 2 : RMSE 77.824  (1.1 min)
+    seed 0: K=100 σ=0.078 best 78.468 epochs 27 (21s)
+  pli 3 : RMSE 78.468  (1.5 min)
+    seed 0: K=100 σ=0.078 best 78.673 epochs 31 (24s)
+  pli 4 : RMSE 78.673  (1.9 min)
+1.9 min
+{"rmse": 78.203, "plis": [77.713, 78.336, 77.824, 78.468, 78.673], "corr_resid": {"lgbm_C_k10": 0.973, "mlp_C_plr_te_k10": 0.982, "cat_C_meet_k10": 0.967, "xgb_C_k10": 0.968}, "stack_base": 76.3699, "stack_new": 76.3705, "delta": 0.0006, "delta_plis": [0.0001, 0.0012, 0.0011, 0.0005, 0.0003]}
+evaluate(K200 + ref 5 plis en extra): {"rmse": 78.221, "plis": [77.774, 78.478, 77.728, 78.565, 78.557], "corr_resid": {"lgbm_C_k10": 0.972, "mlp_C_plr_te_k10": 0.981, "cat_C_meet_k10": 0.966, "xgb_C_k10": 0.968}, "stack_base": 76.3699, "stack_new": 76.3709, "delta": 0.001, "delta_plis": [-0.0004, 0.0029, -0.0011, 0.0051, -0.0015]}
+evaluate(ref + ref): skip

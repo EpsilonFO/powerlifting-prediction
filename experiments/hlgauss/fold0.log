@@ -1,0 +1,24 @@
+== ref
+    ref (27s)
+  pli 0 : RMSE 77.608  (0.5 min)
+   ref : 0.5 min
+== K100
+    seed 0: K=100 σ=0.078 best 77.915 epochs 29 (24s)
+  pli 0 : RMSE 77.915  (0.4 min)
+   K100 : 0.4 min
+== K50
+    seed 0: K=50 σ=0.156 best 77.838 epochs 33 (28s)
+  pli 0 : RMSE 77.838  (0.5 min)
+   K50 : 0.5 min
+== K200
+    seed 0: K=200 σ=0.039 best 77.774 epochs 30 (27s)
+  pli 0 : RMSE 77.774  (0.5 min)
+   K200 : 0.5 min
+== K100_s03
+    seed 0: K=100 σ=0.300 best 77.986 epochs 31 (24s)
+  pli 0 : RMSE 77.986  (0.4 min)
+   K100_s03 : 0.4 min
+== K100_mse
+    seed 0: K=100 σ=0.078 best 77.713 epochs 26 (29s)
+  pli 0 : RMSE 77.713  (0.5 min)
+   K100_mse : 0.5 min
