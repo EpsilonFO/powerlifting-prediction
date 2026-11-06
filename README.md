@@ -1,149 +1,71 @@
 # Régression : performances en powerlifting
 
-Prédire `TotalKg` (squat + développé couché + soulevé de terre) à partir de 16 variables sur l'athlète et la
-compétition. Métrique : **RMSE**. Compétition Kaggle
-[`performances-en-powerlifting`](https://www.kaggle.com/competitions/performances-en-powerlifting) (data challenge du
-M2 Maths & IA).
+Prédire le total soulevé (`TotalKg`) d'un athlète de powerlifting à partir de 16 variables. Compétition Kaggle
+[`performances-en-powerlifting`](https://www.kaggle.com/competitions/performances-en-powerlifting), métrique RMSE.
 
-**Soumission finale : stacking Ridge de 37 modèles + remplacement des doublons exacts du train. CV 76,075, public
-76,247 (1er du classement public le 03/11).**
+**Meilleure soumission : RMSE 76,247 sur Kaggle (1ʳᵉ place du classement public).** Elle combine 37 modèles
+(LightGBM, XGBoost, CatBoost, forêts, Ridge, réseaux de neurones…), puis corrige les lignes du test qui existent à
+l'identique dans le train.
 
-Toutes les étapes, les choix et les chiffres sont dans [`JOURNAL.md`](JOURNAL.md).
+Le détail des étapes et des choix est dans [`JOURNAL.md`](JOURNAL.md).
 
 ## Installation
 
-Prérequis : [uv](https://docs.astral.sh/uv/) et un compte Kaggle. Sur macOS, LightGBM et XGBoost ont besoin de
-`brew install libomp`.
+Il faut [uv](https://docs.astral.sh/uv/) et un compte Kaggle (sur Mac, aussi `brew install libomp`).
 
-1. **Rejoindre la compétition** sur Kaggle (*Join Competition*), sinon le téléchargement échoue (erreur 403).
-2. **Créer un token API** sur https://www.kaggle.com/settings/api (*Generate New Token*).
-3. `uv sync` installe les dépendances et le paquet `powerlifting` (mode éditable).
+1. Sur Kaggle, rejoindre la compétition (*Join Competition*) et créer un token sur
+   https://www.kaggle.com/settings/api.
+2. Installer le projet :
 
-Les données sont téléchargées par **kagglehub** dans `data/` au premier lancement. Le token est alors demandé une
-fois, puis sauvegardé dans `~/.kaggle/` (jamais dans le dépôt). Sans invite : `export KAGGLE_API_TOKEN="KGAT_..."`.
+   ```bash
+   uv sync
+   ```
 
-## Reproduire la soumission
+Les données sont téléchargées automatiquement au premier lancement ; le token Kaggle est demandé à ce moment-là.
 
-**À partir des prédictions versionnées (1 min).** Les prédictions OOF et test des 37 modèles sont dans
-`outputs/oof/` et `outputs/preds/` :
+## Refaire la meilleure soumission
 
-```bash
-uv run main.py ensemble                 # stacking Ridge des 37 modèles : CV 76,214
-uv run main.py dedup ensemble_stack     # doublons exacts : CV 76,075 -> outputs/submissions/ensemble_stack_dedup.csv
-```
-
-Le fichier obtenu est identique au bit près à la soumission notée 76,247 (md5 `409605b8deb7a2b83e5cd28a48653026`).
-
-**En réentraînant les modèles (une douzaine d'heures sur un Mac de 16 Go).** Chaque modèle de l'ensemble a sa recette
-dans [`src/powerlifting/recipes.py`](src/powerlifting/recipes.py). On réentraîne les 35 modèles du pipeline, puis on
-refait l'ensemble et le post-traitement :
+Les prédictions des 37 modèles sont déjà dans le dépôt. Deux commandes suffisent (1 minute) :
 
 ```bash
-uv run main.py reproduce --dry-run      # affiche les 35 commandes sans les lancer
-uv run main.py reproduce                # 1. entraîne les 35 modèles, un processus par modèle
-uv run main.py ensemble                 # 2. stacking Ridge des 37 modèles
-uv run main.py dedup ensemble_stack     # 3. doublons exacts -> outputs/submissions/ensemble_stack_dedup.csv
+uv run main.py ensemble                # combine les 37 modèles
+uv run main.py dedup ensemble_stack    # corrige les doublons du train : c'est la soumission finale
 ```
 
-`reproduce` réécrit `outputs/oof/` et `outputs/preds/`, et remplace les lignes correspondantes de
-`outputs/experiments.csv` (les scores publics notés y sont effacés ; `git checkout outputs/` revient à l'état
-versionné). Autres usages :
+La soumission est écrite dans `outputs/submissions/ensemble_stack_dedup.csv`.
+
+### Tout réentraîner
+
+Pour réentraîner les modèles au lieu d'utiliser leurs prédictions (une douzaine d'heures), lancer d'abord :
 
 ```bash
-uv run main.py reproduce lgbm_C_tabprep_k10            # un seul modèle (ici le meilleur modèle seul, 45 min)
-uv run main.py reproduce lgbm_C_tabprep_k10 --check    # recalcule sans rien écrire et compare à l'OOF versionnée
+uv run main.py reproduce
 ```
 
-Deux modèles sont entraînés hors du pipeline : `dragon_C` (recherche d'architecture DRAGON, environnement séparé,
-voir [`external/dragon/`](external/dragon/README.md)) et `tabicl_C_k10` (TabICLv2 sur GPU Kaggle, voir
-[`external/tabicl/`](external/tabicl/README.md)). Sans les relancer, l'étape 2 utilise leurs prédictions versionnées.
+puis les deux commandes ci-dessus. Les commandes de chaque modèle sont listées dans
+[`src/powerlifting/recipes.py`](src/powerlifting/recipes.py). Deux modèles se lancent à part, avec leur propre
+procédure : DRAGON ([`external/dragon/`](external/dragon/README.md)) et TabICL, qui demande un GPU
+([`external/tabicl/`](external/tabicl/README.md)). S'ils ne sont pas relancés, leurs prédictions déjà présentes
+sont utilisées.
 
-Contrôle du 06/11 avec `--check` (journal, étape 27) : les recettes vérifiées redonnent exactement les OOF
-versionnées, dont celle du meilleur modèle seul (LightGBM + TabPrep). Exception : TabM et RealMLP, les deux modèles
-entraînés sur le GPU du Mac (MPS), donnent des prédictions légèrement différentes (RMSE à 0,1 près sur le sous-pli
-contrôlé) ; la cause probable, un calcul non déterministe sur ce GPU, n'a pas été vérifiée.
+## Organisation du code
 
-## Utilisation
+| Dossier | Contenu |
+|---|---|
+| `main.py` | point d'entrée (`uv run main.py --help` pour toutes les commandes) |
+| `src/powerlifting/` | le code : données, features, validation croisée, modèles, ensemble, soumission |
+| `external/` | les deux modèles entraînés hors du pipeline (DRAGON, TabICL) |
+| `outputs/` | prédictions des 37 modèles, hyperparamètres, journal des scores (`experiments.csv`) |
+| `tests/` | tests automatiques (`uv run pytest`) |
+| `archive/` | expériences et analyses exploratoires, hors du pipeline |
 
-```bash
-uv run main.py train --model lgbm --target C --seeds 5   # CV d'un modèle : OOF, prédiction test, soumission
-uv run main.py train --model lgbm --folds 10             # 10 sous-plis emboîtés dans les 5 plis de référence
-uv run main.py train --model mlp --set te=true           # hyperparamètre ajouté à outputs/params/<modèle>.json
-uv run main.py tune --model xgb --target C --trials 30   # Optuna sur les plis 0-2 -> outputs/params/xgb.json
-uv run main.py ensemble [--models a b c] [--contrib]     # moyenne pondérée + stacking ; contribution marginale
-uv run main.py dedup <expérience>                        # post-traitement des doublons exacts
-uv run main.py analyze --oof lgbm_A                      # importances, résidus par segment, dépendances partielles
-uv run main.py report                                    # tableau des expériences (CV, écart-type, score public)
-uv run main.py score <expérience> 76.247                 # noter le score public d'une expérience
-uv run pytest                                            # tests du pipeline
-```
+## Résultats
 
-Modèles (`--model`) : `const`, `hgb`, `ridge`, `rf`, `et`, `lgbm`, `xgb`, `cat`, `mlp`, `tabm`, `realmlp`. Cibles
-(`--target`) : `A` (`TotalKg`), `B` (log), `C` (points DOTS).
+| Étape | RMSE en validation croisée |
+|---|---|
+| Prédire la moyenne | 171,4 |
+| Meilleur modèle seul (LightGBM) | 76,73 |
+| Combinaison des 37 modèles | 76,21 |
+| **+ correction des doublons (soumission finale)** | **76,075** (Kaggle : 76,247) |
 
-Lancer **un modèle par commande** : sur macOS, PyTorch et LightGBM/CatBoost/XGBoost ne cohabitent pas dans un même
-processus (conflit OpenMP qui bloque le processus). Au plus deux entraînements lourds en même temps sur 16 Go.
-
-## Organisation
-
-```
-main.py                     interface en ligne de commande
-src/powerlifting/
-  config.py  data.py        chemins, constantes ; téléchargement kagglehub
-  features.py               nettoyage, features de domaine (Wilks / DOTS / IPF GL, âge, compétition…),
-                            cibles A / B / C, target encoding du résidu appris dans le pli
-  tabprep.py                variables relatives TabPrep (GroupBy, OAFE)
-  cv.py                     plis fixes, sous-plis emboîtés, boucle de CV avec OOF
-  experiment_log.py         journal outputs/experiments.csv
-  models/                   registre MODELS ; baselines (const, hgb, ridge), forests, boosting, neural
-  nets/                     réseaux PyTorch : MLP + PLR (partagé avec DRAGON), TabM
-  tune.py                   Optuna
-  ensemble.py               moyenne pondérée, stacking Ridge, contribution marginale (validation imbriquée)
-  postprocess.py            doublons exacts du train
-  submit.py                 écriture et contrôle des soumissions
-  analysis.py               importances, résidus, dépendances partielles
-  external.py               export pour DRAGON, journalisation des modèles entraînés ailleurs
-  recipes.py                recettes des 37 modèles de l'ensemble
-external/dragon/, tabicl/   modèles entraînés hors du pipeline (environnement séparé, GPU Kaggle)
-tests/                      plis, absence de fuite, soumissions, recettes
-data/folds.csv              plis de référence (versionnés)
-outputs/                    experiments.csv, params/, oof/ et preds/ des 37 modèles, figures/
-archive/                    exploration hors pipeline (évaluations, analyses, anciens ensembles), voir son README
-```
-
-## Protocole de validation
-
-- **5 plis** stratifiés sur (décile de `TotalKg` × sexe), fixés une fois dans `data/folds.csv`. Les modèles à
-  10 plis coupent chaque pli en deux sous-plis ; les scores restent calculés sur les 5 plis de référence.
-- Tout ce qui dépend de la cible (target encoding du résidu `y − moyenne(Sex × Equipment)`) est appris **dans le
-  pli**, avec une K-fold interne pour les lignes d'entraînement.
-- Chaque expérience garde ses prédictions **OOF** et test (moyenne des modèles de pli) ; le journal
-  `outputs/experiments.csv` garde la CV, son écart-type, les scores par pli et le score public.
-- L'ensemble est évalué en **validation imbriquée** : méta-modèle appris sur 4 plis d'OOF, évalué sur le 5ᵉ.
-- La soumission est choisie sur la CV, pas sur le classement public.
-
-Points à connaître :
-
-- early stopping sur le pli de validation : l'OOF est très légèrement optimiste ;
-- la CV d'un modèle à 10 plis est optimiste d'environ 0,15 par rapport à 5 plis (journal, étape 23) : ne comparer
-  que des modèles au même nombre de plis ;
-- cible C (points DOTS) : perte pondérée par `(dénominateur/500)²`, équivalente à l'erreur quadratique en kg ;
-- cible B (log) : correction du biais de retransformation `exp(p + σ²/2)` ;
-- doublons exacts : en CV, les correspondances sont cherchées dans le train du pli seulement.
-
-## Résultats (RMSE en kg, CV sur les 5 plis de référence)
-
-| Étape | Méthode | CV | Public |
-|---|---|---|---|
-| repère | constante / HistGradientBoosting brut | 171,4 / 79,0 | |
-| 7 | Ridge + splines, forêts, XGBoost, CatBoost, LightGBM, MLP | 82,3 à 78,1 | |
-| 9 | LightGBM tuné, cible DOTS, 5 seeds | 77,49 | |
-| 13 | MLP avec plongement PLR | 77,80 | |
-| 16 | stacking + doublons exacts | 76,89 | 77,04 |
-| 18 | features « compétition » (target encoding de la compétition, tailles) | 76,47 | |
-| 23-25 | 10 plis, 33 modèles | 76,21 | 76,43 |
-| 26 | + LightGBM TabPrep, TabM, RealMLP, TabICLv2 : 37 modèles | **76,075** | **76,247** |
-
-Meilleurs modèles seuls (10 plis) : LightGBM + TabPrep 76,73, LightGBM 76,86, TabM 76,99, MLP + target encoding
-77,18. Le bruit propre à chaque athlète (son niveau individuel, absent des données) limite tous les modèles : les
-résidus de l'ensemble n'ont plus de structure exploitable (journal, étapes 22 et 25).
+La validation croisée est faite sur 5 plis fixes (`data/folds.csv`).
