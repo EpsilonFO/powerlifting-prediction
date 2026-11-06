@@ -35,22 +35,33 @@ uv run main.py dedup ensemble_stack     # doublons exacts : CV 76,075 -> outputs
 Le fichier obtenu est identique au bit près à la soumission notée 76,247 (md5 `409605b8deb7a2b83e5cd28a48653026`).
 
 **En réentraînant les modèles (une douzaine d'heures sur un Mac de 16 Go).** Chaque modèle de l'ensemble a sa recette
-dans [`src/powerlifting/recipes.py`](src/powerlifting/recipes.py) :
+dans [`src/powerlifting/recipes.py`](src/powerlifting/recipes.py). On réentraîne les 35 modèles du pipeline, puis on
+refait l'ensemble et le post-traitement :
 
 ```bash
-uv run main.py reproduce --dry-run      # affiche les 35 commandes
-uv run main.py reproduce                # les lance, un processus par modèle
-uv run main.py reproduce lgbm_C_k10     # un seul modèle
-uv run main.py reproduce --check        # recalcule sans rien écrire et compare aux OOF versionnées
+uv run main.py reproduce --dry-run      # affiche les 35 commandes sans les lancer
+uv run main.py reproduce                # 1. entraîne les 35 modèles, un processus par modèle
+uv run main.py ensemble                 # 2. stacking Ridge des 37 modèles
+uv run main.py dedup ensemble_stack     # 3. doublons exacts -> outputs/submissions/ensemble_stack_dedup.csv
+```
+
+`reproduce` réécrit `outputs/oof/` et `outputs/preds/`, et remplace les lignes correspondantes de
+`outputs/experiments.csv` (les scores publics notés y sont effacés ; `git checkout outputs/` revient à l'état
+versionné). Autres usages :
+
+```bash
+uv run main.py reproduce lgbm_C_tabprep_k10            # un seul modèle (ici le meilleur modèle seul, 45 min)
+uv run main.py reproduce lgbm_C_tabprep_k10 --check    # recalcule sans rien écrire et compare à l'OOF versionnée
 ```
 
 Deux modèles sont entraînés hors du pipeline : `dragon_C` (recherche d'architecture DRAGON, environnement séparé,
 voir [`external/dragon/`](external/dragon/README.md)) et `tabicl_C_k10` (TabICLv2 sur GPU Kaggle, voir
-[`external/tabicl/`](external/tabicl/README.md)).
+[`external/tabicl/`](external/tabicl/README.md)). Sans les relancer, l'étape 2 utilise leurs prédictions versionnées.
 
 Contrôle du 06/11 avec `--check` (journal, étape 27) : les recettes vérifiées redonnent exactement les OOF
-versionnées, dont celle du meilleur modèle seul (LightGBM + TabPrep). Exception : TabM et RealMLP, entraînés sur le
-GPU du Mac (MPS), donnent des prédictions légèrement différentes d'une exécution à l'autre.
+versionnées, dont celle du meilleur modèle seul (LightGBM + TabPrep). Exception : TabM et RealMLP, les deux modèles
+entraînés sur le GPU du Mac (MPS), donnent des prédictions légèrement différentes (RMSE à 0,1 près sur le sous-pli
+contrôlé) ; la cause probable, un calcul non déterministe sur ce GPU, n'a pas été vérifiée.
 
 ## Utilisation
 
