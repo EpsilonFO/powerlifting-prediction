@@ -249,3 +249,26 @@ def test_recipes_point_to_known_models():
             continue
         a = parser.parse_args(["train", *shlex.split(args), "--name", name])
         assert a.model in MODELS, name
+
+
+def test_sibling_pairs_never_use_the_target_of_the_corrected_row(data):
+    """Correction « candidats même athlète » : les références d'une ligne sont des lignes du train d'un autre pli,
+    et aucune variable d'une paire (a, b) ne dépend de la cible des lignes du pli de a."""
+    from powerlifting import siblings as sb
+
+    train, test = data[0].iloc[:12000].reset_index(drop=True), data[1].iloc[:3000].reset_index(drop=True)
+    folds = np.arange(len(train)) % N_FOLDS
+    rng = np.random.default_rng(0)
+    oof, pred = train[TARGET].to_numpy(float) + rng.normal(0, 70, len(train)), np.full(len(test), 500.0)
+    al = sb.stack_frame(train, test, folds, oof, pred)
+    pairs = sb.candidate_pairs(al)
+    P = sb.pair_table(al, pairs)
+    assert len(P) > 1000
+    assert (P["fold_b"] >= 0).all(), "une référence doit être une ligne du train"
+    assert (P["fold_b"] != P["fold_a"]).all(), "une référence ne doit pas être dans le pli de la ligne corrigée"
+    al2 = al.copy()
+    al2.loc[al2["fold"] == 0, "res"] += 1000.0  # on change la cible de toutes les lignes du pli 0
+    P2 = sb.pair_table(al2, pairs)
+    a0 = (P["fold_a"] == 0).to_numpy()
+    feats = [c for c in P.columns if c != "res_a"]
+    pd.testing.assert_frame_equal(P.loc[a0, feats], P2.loc[a0, feats])

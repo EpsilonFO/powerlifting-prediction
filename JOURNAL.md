@@ -34,6 +34,8 @@ contraire) et viennent de `outputs/experiments.csv`.
 | 03/11 | 4 nouveaux modèles intégrés à 10 plis (LightGBM + TabPrep, TabM, RealMLP, TabICLv2) ; ensemble à 37 modèles | **76,075 (public : 76,247, 1er)** |
 | 03/11 | Méta-modèle non linéaire ou contextuel | pas mieux que la Ridge |
 | 06/11 | Nettoyage du code : paquet `src/powerlifting/`, recettes des 37 modèles, archive | soumission identique au bit près |
+| 11/11 | Piste « candidats même athlète » rouverte : l'étape 25.2 était faussée par la dilution | **75,771 (public : 75,860, 2ᵉ)** |
+| 12/11 | Modèle au niveau de la paire, candidats élargis, variables données à LightGBM | **75,737 (public : 75,742)** ; en CV, les trois voies plafonnent à 75,73-75,79 |
 
 ---
 
@@ -1218,6 +1220,141 @@ Correspondance des chemins cités dans les étapes précédentes :
 | Sous-pli 0 de `xgb_C_k10`, `cat_C_meet_k10`, `mlp_C_plr_te_k10`, `lgbm_C_tabprep_k10`, `tabm_C_k10`, `realmlp_C_k10` | identiques pour les quatre premiers (écart ≤ 4e-9 kg pour LightGBM + TabPrep, meilleur modèle seul). TabM et RealMLP diffèrent (RMSE du sous-pli 76,53 contre 76,57 et 77,21 contre 77,31) : ce sont les deux modèles entraînés sur le GPU du Mac (MPS), probablement non déterministe ; non vérifié avec l'ancien code, contrôle arrêté faute d'enjeu (la soumission repose sur les prédictions versionnées) |
 | Export TabICL depuis `external/tabicl/` | mêmes tableaux que ceux envoyés sur Kaggle |
 | Tests | 23 tests passent (un ajouté : chaque recette est une commande valide) |
+
+## 28. Le même athlète est en partie retrouvable (11/11) – `archive/analyses_1111/`
+
+*Pourquoi :* classement public au 11/11 : 75,650 / 76,030 / 76,228 / **76,247 (nous, 4ᵉ)**. Un saut de 0,6 ne peut
+pas venir d'un modèle de plus (étapes 25.7 et 26) : il faut une information nouvelle. Seule candidate : relier les
+lignes d'un même athlète, piste écartée aux étapes 12, 17 et 25.2.
+
+**L'étape 25.2 concluait trop vite.** Elle mesurait la corrélation des résidus sur *toutes* les paires compatibles
+(53 à 69 % des lignes appariées, des millions de paires) : quelques vraies paires noyées dans les fausses donnent
+forcément ≈ 0. En classant les lignes par **nombre de candidats** (même sexe, pays, état ou fédération, année de
+naissance compatible, poids proche), doublons exacts exclus, la corrélation des résidus du stacking avec celui du
+candidat le plus proche vaut :
+
+| Candidats dans train + test | 1 | 2 | 3 | 4-5 | 6-10 | 11-30 | > 30 |
+|---|---|---|---|---|---|---|---|
+| clé sexe × pays × état × fédération (état connu) | 0,18 | 0,10 | 0,13 | 0,02 | 0,02 | 0,05 | 0,06 |
+| clé sexe × pays × fédération × état de la compétition (état inconnu) | 0,11 | 0,08 | 0,06 | 0,03 | 0,03 | 0,01 | −0,03 |
+
+Elle décroît avec le nombre de candidats : c'est la signature d'un mélange de vraies et de fausses paires. Le tirage
+n'est donc pas assez clairsemé pour qu'aucun athlète n'apparaisse deux fois (l'argument « 5 % des inscriptions »
+était une hypothèse, pas une mesure).
+
+**Année de naissance :** âge en x,5 → `MeetYear − Age − 0,5` exactement ; âge exact → `MeetYear − Age` ou
+`MeetYear − Age − 1`. Deux lignes sont compatibles si ces ensembles se coupent (l'étape 12 groupait sur
+`MeetYear − Age` brut, ce qui séparait les deux types d'âge). Écart de poids toléré : 4 kg + 1,5 kg par an (4 ans max).
+
+**Prototype** (`sib_features.py`, `sib_eval.py`) : 4 clés ; pour chaque ligne, nombre de candidats (train + test),
+et, sur les candidats du train **hors de son pli**, résidu OOF moyen / pondéré par la proximité de poids / du plus
+proche, écart-type, écarts de poids et d'année, même équipement. Un LightGBM (300 arbres fixes, sans early stopping)
+prédit le résidu du stacking à partir de ces 44 colonnes, en CV sur les 5 plis.
+
+| | RMSE CV | Plis |
+|---|---|---|
+| Stacking 37 modèles | 76,214 | 75,81 / 76,34 / 75,85 / 76,37 / 76,70 |
+| + doublons (soumission actuelle) | 76,075 | 75,71 / 76,18 / 75,69 / 76,25 / 76,54 |
+| + correction « candidats » | 75,906 | 75,53 / 76,01 / 75,56 / 76,03 / 76,41 |
+| **+ correction « candidats » + doublons** | **75,771** | 75,42 / 75,86 / 75,40 / 75,91 / 76,26 |
+
+Gain de −0,30, sur chacun des 5 plis (−0,28 à −0,33), additif avec les doublons. Le test global de l'étape 22
+(LightGBM sur le résidu, arrêté à 1-2 arbres) ne voyait rien parce qu'aucune de ses variables ne portait la cible
+des autres lignes. 77 % des lignes du train (80 % du test) ont au moins un candidat ; la correction a un écart-type
+de 6,5 kg. Pas encore dans le pipeline.
+
+**Soumission (11/11)** – `sib_submit.py` → `outputs/submissions/ensemble_stack_sib_dedup.csv` : le LightGBM de
+correction est appris sur tout le train (5 seeds), les candidats d'une ligne test sont cherchés dans tout le train.
+Correction sur le test : écart-type 6,5 kg, moyenne +0,17 kg, comme en CV. **Score public : 75,860** (contre
+76,247 ; 2ᵉ, derrière 75,650). Le gain public (−0,387) dépasse le gain CV (−0,304) : comme pour les doublons
+(étape 16), le test dispose de 100 % du train comme référence, la CV de 80 % seulement.
+
+**Suite :** étape 29.
+
+## 29. Trois façons d'exploiter les candidats : même plafond (12/11) – `src/powerlifting/siblings.py`
+
+*Pourquoi :* le prototype de l'étape 28 n'utilise que des agrégats grossiers sur 4 clés. Trois améliorations
+possibles : comparer les lignes paire par paire, élargir la recherche de candidats, donner l'information aux
+modèles de base plutôt qu'en correction finale. Référence : 75,771 (stacking + prototype + doublons).
+
+**Candidats élargis** (`candidate_pairs`) : 6 clés de blocage au lieu de 4 (sexe × pays × état ; sexe × fédération
+× lieu de la compétition ; sexe × pays × fédération ; et, pour les cellules de moins de 80 lignes, sexe × pays,
+sexe × fédération, sexe × lieu), croisées avec l'année de naissance ; une modalité « Unknown » ne compte pas comme
+point commun ; écart de poids toléré 5 kg + 2 kg par an. 4,9 millions de paires orientées, dont 3,0 millions avec
+une référence dans le train ; 94 % des lignes du train et 96 % du test ont au moins un candidat (77 % et 80 % avant).
+
+**Modèle de paire** (`fit_pair_model`) : pour chaque paire (a, b), LightGBM prédit le coefficient w tel que
+résidu(a) ≈ w × z(b), où z(b) est le résidu relatif de b ramené à l'échelle de a. Minimiser (résidu(a) − w·z)²
+revient à régresser résidu(a) / z avec les poids z². 35 variables : écarts de poids et d'année, colonnes
+identiques / différentes / inconnues, nombres de candidats de a et de b. Le modèle qui prédit le pli k n'a vu aucune
+paire dont a ou b est dans le pli k.
+
+- *Premier réglage (600 arbres de 63 feuilles) : il sur-apprend.* Sur les paires hors pli, l'erreur augmente
+  (5 649 → 5 654). Il y a très peu de signal par paire. Réglé sur le pli 0 : 250 arbres de 15 feuilles, 1 000
+  lignes par feuille, λ = 100 (gain de 3,5 sur 5 650 par paire, maximum vers 200-250 arbres).
+- *Calibration* : le coefficient prédit est trop prudent en haut (w prédit 0,2-0,3 → pente réelle 0,47 ; > 0,3 →
+  0,66). Parmi les 1 353 paires à w > 0,25, 46 % ont des résidus à moins de 25 kg l'un de l'autre (18 % attendus
+  au hasard) : environ la moitié sont de vraies paires. Recalibrer w (régression isotone) ne change rien au
+  résultat final : le modèle par ligne le fait déjà.
+- Seules 0,6 % des paires dépassent w = 0,1. Aucune famille de paires quasi certaines : même poids exact la même
+  année avec une seule colonne différente → pente 0,23 seulement ; lignes à 3 candidats au plus → pente 0,10.
+  **Même avec un seul candidat, c'est neuf fois sur dix quelqu'un d'autre.**
+
+**Modèle par ligne** (`row_features`, `fit_row_model`) : somme des w·z, somme et maximum des w, meilleur candidat,
+nombres de candidats, plus âge, poids, année, sexe ; LightGBM de 300 arbres, 5 seeds.
+
+| Variante (stacking 37 modèles + … + doublons) | RMSE CV | Plis |
+|---|---|---|
+| prototype de l'étape 28 | 75,771 | 75,42 / 75,86 / 75,40 / 75,91 / 76,26 |
+| modèle de paire sur-appris + modèle par ligne | 75,756 | 75,37 / 75,85 / 75,42 / 75,95 / 76,20 |
+| somme des w·z seule, sans modèle par ligne | 75,920 | |
+| **modèle de paire régularisé + modèle par ligne (retenu)** | **75,737** | 75,33 / 75,87 / 75,39 / 75,95 / 76,14 |
+| + accord entre candidats (mode des résidus des 10 meilleurs) | 75,737 | |
+| + agrégats simples du prototype | 75,732 | |
+| + w calibré | 75,731 | |
+
+**Donner les variables à un modèle de base** (`pairs_lgbm_features.py`, `pairs_stack_eval.py`) : LightGBM +
+TabPrep, cible C, 5 plis, 1 seed, avec les variables par ligne en entrée.
+
+| | RMSE CV | Plis |
+|---|---|---|
+| LightGBM sans / avec les variables candidats | 77,104 / **76,745** | −0,44 / −0,34 / −0,32 / −0,24 / −0,46 |
+| Stacking 37 + ce LightGBM, + doublons | 75,789 | 75,40 / 75,87 / 75,47 / 75,97 / 76,23 |
+| idem + correction candidats recalculée | 75,821 | |
+
+- Le modèle seul gagne 0,36 (5 plis sur 5), autant que la correction finale sur le stacking. Ajouté au stacking
+  (coefficient 0,49), il donne 75,79 : pas mieux que la correction finale (75,74). Appliquer la correction
+  par-dessus dégrade : l'information est déjà utilisée, la compter deux fois sur-apprend.
+- *Piège évité :* une première version donnait aussi les variables divisées par la prédiction du stacking. LightGBM
+  pouvait alors reconstituer cette prédiction (gain apparent de −0,58 au pli 0). Colonnes retirées.
+
+**Conclusion :** les trois voies arrivent au même endroit (75,73 à 75,79). Ce n'est pas la façon d'utiliser
+l'information qui limite, c'est l'identification : avec ces 16 variables, on ne sait pas dire laquelle des paires
+candidates est la bonne. Le gain de la piste (−0,34) vient de quelques pour cent de lignes, repérées seulement en
+probabilité. L'écart avec le prototype (−0,034, 3 plis sur 5) est dans le bruit.
+
+**Dans le pipeline :** `uv run main.py pairs ensemble_stack` puis `uv run main.py dedup ensemble_stack_pairs`
+(4 min) → `outputs/submissions/ensemble_stack_pairs_dedup.csv`, CV 75,737. Test ajouté : les références
+d'une ligne sont dans un autre pli, et aucune variable de paire ne change quand on modifie les cibles du pli de la
+ligne corrigée (24 tests passent). La soumission du 03/11 est inchangée (md5 `409605b8…`) ; md5 de la nouvelle : `2cbaece5…`. Scripts d'exploration :
+`archive/analyses_1111/pairs_*.py` (ils lisent des caches intermédiaires non versionnés).
+
+**Score public (12/11) : 75,742**, contre 75,860 pour le prototype et 76,247 avant la piste.
+
+| Version | CV | Public | Écart public − CV |
+|---|---|---|---|
+| Stacking + doublons (03/11) | 76,075 | 76,247 | +0,17 |
+| + prototype (étape 28) | 75,771 | 75,860 | +0,09 |
+| + modèle de paire, candidats élargis (étape 29) | 75,737 | 75,742 | +0,005 |
+
+Le gain public de cette étape (−0,118) est 3,5 fois le gain CV (−0,034), et dépasse le bruit d'une comparaison
+entre deux de nos soumissions (±0,04, étape 25.7). La prévision « au mieux 0,03 » était donc trop basse.
+Explication la plus probable, non vérifiée : en CV une ligne ne cherche ses références que dans 80 % du train, et le
+modèle de paire n'apprend que sur 39 % des paires (ni a ni b dans le pli) ; sur le test, les références sont tout le
+train. La CV sous-estime donc ce que rapporte une meilleure recherche de candidats, comme pour les doublons
+(étape 16). Conséquence : sur cette piste, la CV ne suffit plus à trancher entre variantes proches.
+
+*Note technique :* sans `caffeinate`, un LightGBM de 17 min en a pris 30 (étape 18).
 
 ---
 

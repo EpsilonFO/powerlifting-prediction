@@ -5,6 +5,7 @@
     ensemble  moyenne pondérée + stacking des 37 modèles de recipes.py (déjà entraînés)
     export-nn exporte les matrices des réseaux pour la recherche DRAGON (external/dragon/search.py)
     register  journalise une expérience entraînée ailleurs (DRAGON, TabICL) et écrit sa soumission
+    pairs     correction « candidats même athlète » (-> expérience <nom>_pairs), entre ensemble et dedup
     dedup     post-traitement des doublons exacts du train (-> expérience <nom>_dedup)
     analyze   importance des features, résidus par segment, dépendances partielles
     score     saisit le score public Kaggle d'une expérience dans le journal
@@ -136,6 +137,20 @@ def cmd_register(a):
     print("Soumission :", write_submission(a.name, np.load(PRED_DIR / f"{a.name}.npy"), test, sample))
 
 
+def cmd_pairs(a):
+    import numpy as np
+
+    from powerlifting.config import PRED_DIR
+    from powerlifting.cv import prepare
+    from powerlifting.siblings import sibling_experiment
+    from powerlifting.submit import write_submission
+
+    train, test, sample, _, _, folds = prepare()
+    for name in a.names:
+        sibling_experiment(name, train, test, folds)
+        print("Soumission :", write_submission(f"{name}_pairs", np.load(PRED_DIR / f"{name}_pairs.npy"), test, sample))
+
+
 def cmd_dedup(a):
     import numpy as np
 
@@ -226,6 +241,10 @@ def build_parser() -> argparse.ArgumentParser:
     g.add_argument("--seeds", type=int, default=1)
     g.add_argument("--minutes", type=float, default=float("nan"))
     g.set_defaults(fn=cmd_register)
+
+    pr = sub.add_parser("pairs", help="correction « candidats même athlète » (journal, étape 29)")
+    pr.add_argument("names", nargs="+", help="expériences à corriger (ex. : ensemble_stack)")
+    pr.set_defaults(fn=cmd_pairs)
 
     d = sub.add_parser("dedup", help="post-traitement des doublons exacts")
     d.add_argument("names", nargs="+", help="expériences à post-traiter (ex. : ensemble_stack lgbm_C_tuned)")
